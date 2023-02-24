@@ -8,12 +8,18 @@
     import Games from "svelte-material-icons/Controller.svelte";
     import Logs from "svelte-material-icons/TextBoxMultiple.svelte";
     import Logout from "svelte-material-icons/LogoutVariant.svelte";
-    import { player } from "$lib/api/api";
+    import { clearToken, player } from "$lib/api/api";
     import { PlayerRole } from "$lib/api/players";
 
     import { page } from "$app/stores";
+    import { goto } from "$app/navigation";
 
     let expanded: boolean = true;
+
+    async function logout() {
+        clearToken();
+        await goto("/login");
+    }
 </script>
 
 <aside class="sidebar" class:sidebar--expanded={expanded}>
@@ -109,7 +115,7 @@
             <Settings class="sidebar-button__icon" />
             <span class="sidebar-button__text">Settings</span>
         </a>
-        <button class="sidebar-button">
+        <button class="sidebar-button" on:click={logout}>
             <Logout class="sidebar-button__icon" />
             <span class="sidebar-button__text">Logout</span>
         </button>
@@ -125,7 +131,11 @@
 
         width: 100%;
 
-        max-width: calc(24px + 2rem);
+        background-color: #060606;
+        padding: 1rem;
+        border-radius: 10px;
+
+        max-width: calc(24px + 4rem);
         transition: max-width 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
     }
 
@@ -167,7 +177,7 @@
         flex-flow: column;
 
         background-color: #101010;
-        border-radius: 10px;
+        border-radius: 5px;
         overflow: hidden;
     }
 

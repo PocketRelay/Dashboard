@@ -25,6 +25,7 @@
         padding: 2rem;
 
         display: flex;
+        gap: 2rem;
     }
 
     .main {

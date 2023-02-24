@@ -78,10 +78,6 @@
 </main>
 
 <style lang="scss">
-    .ident {
-        color: #777777;
-    }
-
     .background {
         width: 100%;
         height: 100vh;
@@ -102,30 +98,6 @@
         border-radius: 10px;
 
         background-color: #0f0f0f;
-    }
-
-    .error {
-        color: #d17474;
-    }
-
-    .input {
-        display: block;
-    }
-
-    .input__label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: #999999;
-    }
-
-    .input__value {
-        display: block;
-        width: 100%;
-        background-color: #343946;
-        color: #dfdfdf;
-        padding: 1rem;
-        border: none;
-        border-radius: 5px;
     }
 
     .text {

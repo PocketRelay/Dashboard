@@ -9,3 +9,36 @@ body {
     background-color: #000000;
     color: #ffffff;
 }
+
+.ident {
+    color: #777777;
+}
+
+
+.error {
+    color: #d17474;
+}
+
+.input {
+    display: block;
+}
+
+.input__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #999999;
+}
+
+.input__value {
+    display: block;
+    width: 100%;
+    background-color: #343946;
+    color: #dfdfdf;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.annot {
+    color: #72B2B6;
+}

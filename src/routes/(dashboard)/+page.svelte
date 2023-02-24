@@ -24,6 +24,8 @@
     let totalPlayers = 0;
 
     let serverVersion = "";
+    let serverBranch = "";
+    let serverHash = "";
 
     async function updateData(id: number) {
         loading = true;
@@ -44,6 +46,8 @@
             totalPlayers = leaderboard.total;
 
             serverVersion = serverDetails.version;
+            serverBranch = serverDetails.branch;
+            serverHash = serverDetails.hash;
 
             loading = false;
         } catch (e) {
@@ -57,7 +61,11 @@
     }
 </script>
 
-<h1 class="title">Dashboard Home</h1>
+<h1 class="title">
+    Dashboard Home <span class="role" data-role={$player.role}
+        >{$player.role}</span
+    >
+</h1>
 <span class="ident">POCKET RELAY MANAGER</span>
 
 <div class="cards">
@@ -108,7 +116,14 @@
         <p class="card__text">
             The Pocket Relay server you are connected to is currently on version
         </p>
-        <span class="card__value">{serverVersion}</span>
+        <span><b>Branch:</b> {serverBranch}</span>
+        <a
+            class="card__value"
+            href={`https://github.com/PocketRelay/Server/commit/${serverHash}`}
+            target="_blank"
+            >{serverVersion}
+            <span class="git">{serverBranch} / {serverHash}</span></a
+        >
     </div>
     <div class="card">
         <div class="card__head">
@@ -134,6 +149,13 @@
 </div>
 
 <style lang="scss">
+    .git {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 0.9rem;
+        color: #999;
+    }
+
     .title,
     .ident {
         margin-bottom: 0.5rem;
@@ -187,5 +209,7 @@
         font-weight: bold;
         align-self: stretch;
         margin-top: 1rem;
+        text-decoration: none;
+        display: block;
     }
 </style>

@@ -4,6 +4,8 @@ import { HttpMethod, request } from "./api";
 export interface ServerDetails {
     ident: string;
     version: string;
+    branch: string;
+    hash: string;
 }
 
 

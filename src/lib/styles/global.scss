@@ -43,3 +43,26 @@ body {
     color: #72B2B6;
     font-weight: bold;
 }
+
+.role {
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+    background-color: #333;
+    font-size: 1rem;
+    border-radius: 1rem;
+    font-weight: 400;
+    vertical-align: middle;
+    margin: 0 0.5rem;
+}
+
+.role[data-role="Default"] {
+    background-color: #72B2B6;
+}
+
+.role[data-role="Admin"] {
+    background-color: #CE5151;
+}
+
+.role[data-role="SuperAdmin"] {
+    background-color: #773131;
+}

@@ -178,7 +178,7 @@
 
         background-color: #101010;
         border-radius: 5px;
-        overflow: hidden;
+        // overflow: hidden;
     }
 
     .sidebar-button {
@@ -204,8 +204,9 @@
 
     .sidebar-button__text {
         display: inline-block;
-        transition: transform 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
         transform: translateX(20px);
+        opacity: 0;
         margin-left: 0.5rem;
         font-size: 1rem;
     }
@@ -238,14 +239,22 @@
 
     .admin-group__content {
         border-radius: 5px;
-        overflow: hidden;
+    }
+
+    .sidebar-button:hover .sidebar-button__text {
+        transform: translateX(10px);
+        opacity: 1;
+        pointer-events: none;
+        cursor: none;
     }
 
     .sidebar--expanded {
         max-width: 240px;
 
-        .sidebar-button__text {
+        .sidebar-button__text,
+        .sidebar-button:hover .sidebar-button__text {
             transform: translateX(0);
+            opacity: 1;
         }
 
         .menu {

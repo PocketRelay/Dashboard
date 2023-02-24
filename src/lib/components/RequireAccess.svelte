@@ -18,7 +18,7 @@
         let loaded = await loadPlayer();
 
         if (!loaded) {
-            await goto("/");
+            await goto("/login");
         } else {
             state = State.Loaded;
         }

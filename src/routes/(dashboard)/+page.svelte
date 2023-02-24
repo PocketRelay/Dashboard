@@ -1,20 +1,60 @@
 <script lang="ts">
     import { player } from "$lib/api/api";
+    import {
+        getLeaderboard,
+        getPlayerEntry,
+        LeaderboardName,
+    } from "$lib/api/leaderboard";
+    import { getServerDetails } from "$lib/api/server";
     import { getNumberWithOrdinal } from "$lib/tools/numbers";
     import Account from "svelte-material-icons/Account.svelte";
     import AccountMultiple from "svelte-material-icons/AccountMultiple.svelte";
     import List from "svelte-material-icons/FormatListNumbered.svelte";
     import Sync from "svelte-material-icons/Sync.svelte";
 
-    let n7placing = 15;
-    let cpplacing = 24;
+    // Loading state
+    let loading = true;
 
-    let n7rating = 700;
-    let cp = 300;
+    let n7Placing = 0;
+    let cpPlacing = 0;
 
-    let totalPlayers = 20;
+    let n7Rating = 0;
+    let challengePoints = 0;
 
-    let serverVersion = "0.3.0";
+    let totalPlayers = 0;
+
+    let serverVersion = "";
+
+    async function updateData(id: number) {
+        loading = true;
+        try {
+            let [n7Entry, cpEntry, leaderboard, serverDetails] =
+                await Promise.all([
+                    getPlayerEntry(LeaderboardName.N7Rating, id),
+                    getPlayerEntry(LeaderboardName.ChallengePoints, id),
+                    getLeaderboard(LeaderboardName.N7Rating, 0, 1),
+                    getServerDetails(),
+                ]);
+            n7Placing = n7Entry.rank;
+            n7Rating = n7Entry.value;
+
+            cpPlacing = cpEntry.rank;
+            challengePoints = cpEntry.value;
+
+            totalPlayers = leaderboard.total;
+
+            serverVersion = serverDetails.version;
+
+            loading = false;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    $: {
+        let id = $player.id;
+        updateData(id).then().catch();
+    }
 </script>
 
 <h1 class="title">Dashboard Home</h1>
@@ -40,10 +80,10 @@
         </div>
         <p class="card__text">
             You currently rank <span class="annot"
-                >{getNumberWithOrdinal(n7placing)}</span
+                >{getNumberWithOrdinal(n7Placing)}</span
             >
             place in the N7 Rating leaderboard and
-            <span class="annot">{getNumberWithOrdinal(cpplacing)}</span> place in
+            <span class="annot">{getNumberWithOrdinal(cpPlacing)}</span> place in
             the Challenge Points leaderboard
         </p>
         <a class="card__value card__value--button" href="/leaderboard"
@@ -78,7 +118,7 @@
         <p class="card__text">
             Your current N7 rating is below this is accumulated from leveling up
         </p>
-        <span class="card__value">{n7rating}</span>
+        <span class="card__value">{n7Rating}</span>
     </div>
     <div class="card">
         <div class="card__head">
@@ -89,7 +129,7 @@
             Your current total challenge point count is listed below. You can
             get these by completing challenges
         </p>
-        <span class="card__value">{cp}</span>
+        <span class="card__value">{challengePoints}</span>
     </div>
 </div>
 

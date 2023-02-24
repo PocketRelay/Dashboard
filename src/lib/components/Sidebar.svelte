@@ -28,7 +28,7 @@
         <a
             class="sidebar-button"
             href="/"
-            class:sidebar-button--selected={$page.route.id == "/"}
+            class:sidebar-button--selected={$page.route.id == "/(dashboard)"}
         >
             <Home class="sidebar-button__icon" />
             <span class="sidebar-button__text">Home</span>
@@ -36,7 +36,8 @@
         <a
             class="sidebar-button"
             href="/leaderboard"
-            class:sidebar-button--selected={$page.route.id == "/leaderboard"}
+            class:sidebar-button--selected={$page.route.id ==
+                "/(dashboard)/leaderboard"}
         >
             <List class="sidebar-button__icon" />
             <span class="sidebar-button__text">Leaderboard</span>
@@ -44,7 +45,8 @@
         <a
             class="sidebar-button"
             href="/inventory"
-            class:sidebar-button--selected={$page.route.id == "/inventory"}
+            class:sidebar-button--selected={$page.route.id ==
+                "/(dashboard)/inventory"}
         >
             <Inventory class="sidebar-button__icon" />
             <span class="sidebar-button__text">Inventory</span>
@@ -52,7 +54,8 @@
         <a
             class="sidebar-button"
             href="/classes"
-            class:sidebar-button--selected={$page.route.id == "/classes"}
+            class:sidebar-button--selected={$page.route.id ==
+                "/(dashboard)/classes"}
         >
             <Classes class="sidebar-button__icon" />
             <span class="sidebar-button__text">Classes</span>
@@ -60,7 +63,8 @@
         <a
             class="sidebar-button"
             href="/games"
-            class:sidebar-button--selected={$page.route.id == "/games"}
+            class:sidebar-button--selected={$page.route.id ==
+                "/(dashboard)/games"}
         >
             <Games class="sidebar-button__icon" />
             <span class="sidebar-button__text">Games</span>
@@ -74,7 +78,7 @@
                         class="sidebar-button"
                         href="/players"
                         class:sidebar-button--selected={$page.route.id ==
-                            "/players"}
+                            "/(dashboard)/players"}
                     >
                         <AccountMultiple class="sidebar-button__icon" />
                         <span class="sidebar-button__text">Players</span>
@@ -85,7 +89,7 @@
                             class="sidebar-button"
                             href="/logs"
                             class:sidebar-button--selected={$page.route.id ==
-                                "/logs"}
+                                "/(dashboard)/logs"}
                         >
                             <Logs class="sidebar-button__icon" />
                             <span class="sidebar-button__text">Logs</span>
@@ -99,7 +103,7 @@
     <div class="sidebar__group">
         <a
             class="sidebar-button"
-            href="/settings"
+            href="/(dashboard)/settings"
             class:sidebar-button--selected={$page.route.id == "/settings"}
         >
             <Settings class="sidebar-button__icon" />

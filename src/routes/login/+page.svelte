@@ -2,6 +2,7 @@
     import { goto } from "$app/navigation";
     import { setToken, type RequestError } from "$lib/api/api";
     import { doLogin } from "$lib/api/auth";
+    import Loader from "$lib/components/Loader.svelte";
 
     // Form fields
     let email: string = "";
@@ -47,6 +48,11 @@
         {#if error}
             <p class="error">{error}</p>
         {/if}
+
+        {#if loading}
+            <Loader />
+        {/if}
+
         <label class="input">
             <span class="input__label">Email</span>
             <input
@@ -75,6 +81,7 @@
     .ident {
         color: #777777;
     }
+
     .background {
         width: 100%;
         height: 100vh;

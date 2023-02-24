@@ -1,0 +1,257 @@
+<script lang="ts">
+    import Home from "svelte-material-icons/Home.svelte";
+    import Settings from "svelte-material-icons/Cog.svelte";
+    import List from "svelte-material-icons/FormatListNumbered.svelte";
+    import Inventory from "svelte-material-icons/Cube.svelte";
+    import Classes from "svelte-material-icons/AccountGroup.svelte";
+    import AccountMultiple from "svelte-material-icons/AccountMultiple.svelte";
+    import Games from "svelte-material-icons/Controller.svelte";
+    import Logs from "svelte-material-icons/TextBoxMultiple.svelte";
+    import Logout from "svelte-material-icons/LogoutVariant.svelte";
+    import { player } from "$lib/api/api";
+    import { PlayerRole } from "$lib/api/players";
+
+    import { page } from "$app/stores";
+
+    let expanded: boolean = true;
+</script>
+
+<aside class="sidebar" class:sidebar--expanded={expanded}>
+    <div class="sidebar__group">
+        <button class="sidebar-button " on:click={() => (expanded = !expanded)}>
+            <div class="menu">
+                <span />
+                <span />
+                <span />
+            </div>
+        </button>
+        <a
+            class="sidebar-button"
+            href="/"
+            class:sidebar-button--selected={$page.route.id == "/"}
+        >
+            <Home class="sidebar-button__icon" />
+            <span class="sidebar-button__text">Home</span>
+        </a>
+        <a
+            class="sidebar-button"
+            href="/leaderboard"
+            class:sidebar-button--selected={$page.route.id == "/leaderboard"}
+        >
+            <List class="sidebar-button__icon" />
+            <span class="sidebar-button__text">Leaderboard</span>
+        </a>
+        <a
+            class="sidebar-button"
+            href="/inventory"
+            class:sidebar-button--selected={$page.route.id == "/inventory"}
+        >
+            <Inventory class="sidebar-button__icon" />
+            <span class="sidebar-button__text">Inventory</span>
+        </a>
+        <a
+            class="sidebar-button"
+            href="/classes"
+            class:sidebar-button--selected={$page.route.id == "/classes"}
+        >
+            <Classes class="sidebar-button__icon" />
+            <span class="sidebar-button__text">Classes</span>
+        </a>
+        <a
+            class="sidebar-button"
+            href="/games"
+            class:sidebar-button--selected={$page.route.id == "/games"}
+        >
+            <Games class="sidebar-button__icon" />
+            <span class="sidebar-button__text">Games</span>
+        </a>
+
+        {#if $player.role == PlayerRole.Admin || $player.role == PlayerRole.SuperAdmin}
+            <div class="admin-group">
+                <span class="admin-group__title">Admin</span>
+                <div class="sidebar__group admin-group__content">
+                    <a
+                        class="sidebar-button"
+                        href="/players"
+                        class:sidebar-button--selected={$page.route.id ==
+                            "/players"}
+                    >
+                        <AccountMultiple class="sidebar-button__icon" />
+                        <span class="sidebar-button__text">Players</span>
+                    </a>
+
+                    {#if $player.role == PlayerRole.SuperAdmin}
+                        <a
+                            class="sidebar-button"
+                            href="/logs"
+                            class:sidebar-button--selected={$page.route.id ==
+                                "/logs"}
+                        >
+                            <Logs class="sidebar-button__icon" />
+                            <span class="sidebar-button__text">Logs</span>
+                        </a>
+                    {/if}
+                </div>
+            </div>
+        {/if}
+    </div>
+
+    <div class="sidebar__group">
+        <a
+            class="sidebar-button"
+            href="/settings"
+            class:sidebar-button--selected={$page.route.id == "/settings"}
+        >
+            <Settings class="sidebar-button__icon" />
+            <span class="sidebar-button__text">Settings</span>
+        </a>
+        <button class="sidebar-button">
+            <Logout class="sidebar-button__icon" />
+            <span class="sidebar-button__text">Logout</span>
+        </button>
+    </div>
+</aside>
+
+<style lang="scss">
+    .sidebar {
+        display: flex;
+        flex-flow: column;
+
+        justify-content: space-between;
+
+        width: 100%;
+
+        max-width: calc(24px + 2rem);
+        transition: max-width 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    }
+
+    .menu {
+        position: relative;
+
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.45rem;
+
+        overflow: hidden;
+
+        cursor: pointer;
+
+        > span {
+            width: 24px;
+            height: 2px;
+            background-color: #999999;
+            transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1),
+                opacity 0.15s ease, background-color 0.25s ease;
+
+            &:nth-child(2) {
+                transform: translateX(0px);
+                transition: transform 0.25s cubic-bezier(0.86, 0, 0.07, 1),
+                    opacity 0.15s ease, background-color 0.25s ease;
+                opacity: 1;
+            }
+        }
+
+        &:hover > span {
+            background-color: #ffffff;
+        }
+    }
+
+    .sidebar__group {
+        display: flex;
+        flex-flow: column;
+
+        background-color: #101010;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .sidebar-button {
+        padding: 1rem;
+        color: #bababa;
+
+        background-color: transparent;
+        border: none;
+
+        text-align: left;
+        text-decoration: none;
+        border-radius: 5px;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .sidebar-button > :global(svg) {
+        display: inline;
+        width: 24px;
+        height: 24px;
+        vertical-align: middle;
+    }
+
+    .sidebar-button__text {
+        display: inline-block;
+        transition: transform 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        transform: translateX(20px);
+        margin-left: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .sidebar-button--selected {
+        color: #ffffff;
+        background-color: #4e5382;
+    }
+
+    .admin-group {
+        background: #854747;
+        border-radius: 5px;
+        padding: 0.35rem;
+    }
+    .admin-group .sidebar-button {
+        padding: 1rem 0.65rem;
+        transition: padding 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    }
+
+    .sidebar--expanded .admin-group .sidebar-button {
+        padding: 1rem;
+    }
+
+    .admin-group__title {
+        text-align: center;
+        padding: 0.25rem 0;
+        display: block;
+        font-size: 0.75rem;
+    }
+
+    .admin-group__content {
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .sidebar--expanded {
+        max-width: 240px;
+
+        .sidebar-button__text {
+            transform: translateX(0);
+        }
+
+        .menu {
+            > span {
+                &:nth-child(1) {
+                    // Make top line into \
+                    transform: translateY(10px) rotate(45deg);
+                }
+
+                &:nth-child(2) {
+                    // Move and hide middle line
+                    transform: translateX(-100px);
+                    opacity: 0;
+                }
+
+                &:nth-child(3) {
+                    // Make bottom line into /
+                    transform: translateY(-8.5px) rotate(-45deg);
+                }
+            }
+        }
+    }
+</style>

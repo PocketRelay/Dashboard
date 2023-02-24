@@ -27,8 +27,6 @@ export function isAuthenticated(): boolean {
     return get(token) !== null;
 }
 
-
-
 export async function loadPlayer(): Promise<boolean> {
     if (!isAuthenticated()) {
         return false;

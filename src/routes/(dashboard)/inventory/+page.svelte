@@ -32,14 +32,23 @@
     }
 </script>
 
-<h1 class="title">Inventory</h1>
-<span class="ident">POCKET RELAY MANAGER</span>
-<p class="text">Click an inventory category to view its contents</p>
-{#if inventory}
-    <Inventory on:save={onSave} {inventory} />
-{/if}
+<div class="wrapper">
+    <h1 class="title">Inventory</h1>
+    <span class="ident">POCKET RELAY MANAGER</span>
+    <p class="text">Click an inventory category to view its contents</p>
+    {#if inventory}
+        <Inventory on:save={onSave} {inventory} />
+    {/if}
+</div>
 
 <style lang="scss">
+    .wrapper {
+        height: 100%;
+
+        display: flex;
+        flex-flow: column;
+    }
+
     .title,
     .ident,
     .text {

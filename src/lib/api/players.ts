@@ -25,3 +25,27 @@ export function getSelf(): Promise<PlayerAccount> {
         route: "players/self",
     })
 }
+
+export function setSelfDetails(username: string, email: string): Promise<void> {
+    return request({
+        method: HttpMethod.PUT,
+        route: "players/self/details",
+        body: {
+            username,
+            email
+        },
+        skip_response: true
+    })
+}
+
+export function setSelfPassword(current_password: string, new_password: string): Promise<void> {
+    return request({
+        method: HttpMethod.PUT,
+        route: "players/self/password",
+        body: {
+            current_password,
+            new_password
+        },
+        skip_response: true
+    })
+}

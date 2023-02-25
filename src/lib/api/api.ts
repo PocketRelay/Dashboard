@@ -92,7 +92,9 @@ export interface RequestConfig {
     // Body object for the request to encode as JSON
     body?: any;
     // Additional HTTP headers for the request
-    headers?: Record<string, string>
+    headers?: Record<string, string>,
+    // Skip response body JSON decoding
+    skip_response?: boolean,
 }
 
 /**
@@ -134,6 +136,10 @@ export async function request<T>(config: RequestConfig): Promise<T> {
 
     /// Handle 2xx status codes 
     if (statusPrefix === 2) {
+        if (config.skip_response) {
+            return status as T;
+        }
+
         // Handle invalid JSON responses
         try {
             return await response.json();

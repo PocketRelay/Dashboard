@@ -23,7 +23,7 @@
 </script>
 
 <aside class="sidebar">
-    <div class="sidebar__group">
+    <nav class="sidebar__group">
         <a
             class="sidebar-button"
             href="/"
@@ -97,7 +97,7 @@
                 </div>
             </div>
         {/if}
-    </div>
+    </nav>
 
     <div class="sidebar__group">
         <a

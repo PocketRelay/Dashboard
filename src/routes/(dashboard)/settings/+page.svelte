@@ -76,87 +76,87 @@
 <span class="ident">POCKET RELAY MANAGER</span>
 <p class="text">Edit the settings for your account below</p>
 <div class="forms">
-    <form class="form" on:submit|preventDefault={onUpdateBasic}>
-        <div>
-            <Account />
-            <h2>Basic Information</h2>
+    <form class="form card" on:submit|preventDefault={onUpdateBasic}>
+        <div class="form__wrapper">
+            <div class="form__head">
+                <Account class="form__icon" />
+                <h2 class="form__title">Basic Information</h2>
+            </div>
+            <p class="text">
+                Here you can modify your basic account information
+            </p>
+            {#if error1}
+                <p class="error">{error1}</p>
+            {/if}
+            {#if loading1}
+                <Loader />
+            {/if}
+            <label class="input">
+                <span class="input__label">Username</span>
+                <input
+                    class="input__value"
+                    type="text"
+                    bind:value={username}
+                    required
+                />
+            </label>
+            <label class="input">
+                <span class="input__label">Email</span>
+                <input
+                    class="input__value"
+                    type="email"
+                    bind:value={email}
+                    required
+                />
+            </label>
+            <button type="submit" class="button">Save Changes</button>
         </div>
-        <p class="text">Here you can modify your basic account information</p>
-        {#if error1}
-            <p class="error">{error1}</p>
-        {/if}
-
-        {#if loading1}
-            <Loader />
-        {/if}
-
-        <label class="input">
-            <span class="input__label">Username</span>
-            <input
-                class="input__value"
-                type="text"
-                bind:value={username}
-                required
-            />
-        </label>
-        <label class="input">
-            <span class="input__label">Email</span>
-            <input
-                class="input__value"
-                type="email"
-                bind:value={email}
-                required
-            />
-        </label>
-
-        <button type="submit" class="button">Save Changes</button>
     </form>
-    <form class="form" on:submit|preventDefault={onUpdatePassword}>
-        <div>
-            <Key />
-            <h2>Password</h2>
+    <form class="form card" on:submit|preventDefault={onUpdatePassword}>
+        <div class="form__wrapper">
+            <div class="form__head">
+                <Key class="form__icon" />
+                <h2 class="form__title">Password</h2>
+            </div>
+            <p class="text">
+                Here you can change your account password using your current
+                password
+            </p>
+            {#if error2}
+                <p class="error">{error2}</p>
+            {/if}
+            {#if loading2}
+                <Loader />
+            {/if}
+            <label class="input">
+                <span class="input__label">Current Password</span>
+                <input
+                    class="input__value"
+                    type="password"
+                    bind:value={currentPassword}
+                    required
+                />
+            </label>
+            <label class="input">
+                <span class="input__label">New Password</span>
+                <input
+                    class="input__value"
+                    type="password"
+                    bind:value={newPassword}
+                    required
+                />
+            </label>
+            <label class="input">
+                <span class="input__label">Confirm Password</span>
+                <input
+                    class="input__value"
+                    type="password"
+                    bind:value={confirmPassword}
+                    required
+                />
+            </label>
+            <button type="submit" class="button">Change Password</button>
         </div>
-        <p class="text">
-            Here you can change your account password using your current
-            password
-        </p>
-        {#if error2}
-            <p class="error">{error2}</p>
-        {/if}
-
-        {#if loading2}
-            <Loader />
-        {/if}
-
-        <label class="input">
-            <span class="input__label">Current Password</span>
-            <input
-                class="input__value"
-                type="password"
-                bind:value={currentPassword}
-                required
-            />
-        </label>
-        <label class="input">
-            <span class="input__label">New Password</span>
-            <input
-                class="input__value"
-                type="password"
-                bind:value={newPassword}
-                required
-            />
-        </label>
-        <label class="input">
-            <span class="input__label">Confirm Password</span>
-            <input
-                class="input__value"
-                type="password"
-                bind:value={confirmPassword}
-                required
-            />
-        </label>
-
-        <button type="submit" class="button">Change Password</button>
     </form>
 </div>
 
@@ -171,22 +171,32 @@
         color: #999999;
     }
 
-    .forms {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
+    .form {
+        margin-bottom: 2rem;
     }
 
-    .form {
+    .form__wrapper {
+        max-width: 400px;
+        widows: 100%;
         flex: auto;
 
         display: flex;
         flex-flow: column;
         gap: 1rem;
+    }
+    .form__head {
+        display: flex;
+        gap: 1rem;
+    }
 
-        padding: 2rem;
-        border-radius: 10px;
+    .form__title {
+    }
 
-        background-color: #0f0f0f;
+    :global(.form__icon) {
+        display: inline;
+        width: 24px;
+        height: 24px;
+        vertical-align: middle;
+        fill: white;
     }
 </style>

@@ -174,10 +174,6 @@
         flex-flow: column;
         flex: auto;
         justify-content: space-between;
-
-        background-color: #0f0f0f;
-        border-radius: 10px;
-        padding: 2rem;
     }
 
     .card__head {

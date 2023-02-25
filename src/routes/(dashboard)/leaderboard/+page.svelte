@@ -43,7 +43,7 @@
         </p>
         <div class="names">
             <button
-                class="name"
+                class="name card"
                 class:name--selected={selected == LeaderboardName.N7Rating}
                 on:click={() => (selected = LeaderboardName.N7Rating)}
             >
@@ -55,7 +55,7 @@
             </button>
 
             <button
-                class="name"
+                class="name card"
                 class:name--selected={selected ==
                     LeaderboardName.ChallengePoints}
                 on:click={() => (selected = LeaderboardName.ChallengePoints)}
@@ -198,11 +198,9 @@
     .name {
         cursor: pointer;
         border: none;
-        background-color: #0f0f0f;
         color: white;
         text-align: left;
         padding: 1rem;
-        border-radius: 10px;
     }
 
     .name--selected {

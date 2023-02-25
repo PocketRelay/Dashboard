@@ -102,7 +102,6 @@ export interface RequestConfig {
  * @returns The response type for the request
  */
 export async function request<T>(config: RequestConfig): Promise<T> {
-    console.log(config.method);
     const init: RequestInit = { method: config.method };
     const headers: Record<string, string> = config.headers ?? {};
 

@@ -121,6 +121,7 @@
             class="card__value"
             href={`https://github.com/PocketRelay/Server/commit/${serverHash}`}
             target="_blank"
+            rel="noreferrer"
             >{serverVersion}
             <span class="git">{serverBranch} / {serverHash}</span></a
         >

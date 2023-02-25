@@ -21,8 +21,6 @@
         error = null;
         loading = true;
 
-        console.log("Login");
-
         try {
             let response = await doLogin(email, password);
 
@@ -73,7 +71,7 @@
             />
         </label>
 
-        <button type="submit" class="submit">Login</button>
+        <button type="submit" class="button">Login</button>
     </form>
 </main>
 
@@ -104,15 +102,10 @@
         color: #c3c3c3;
     }
 
-    .submit {
-        background-color: #4e5382;
-        color: white;
-        padding: 1rem;
-        font-size: 1.2rem;
-        border-radius: 5px;
+    .button {
         margin-top: 0.5rem;
+        font-size: 1.2rem;
         font-weight: bold;
-        letter-spacing: 0.1rem;
-        border: none;
+        padding: 1rem;
     }
 </style>

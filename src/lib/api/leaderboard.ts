@@ -10,7 +10,7 @@ export interface LeaderboardEntry {
 
 export interface LeaderboardResponse {
     total: number;
-    entires: LeaderboardEntry[];
+    entries: LeaderboardEntry[];
     more: boolean;
 }
 

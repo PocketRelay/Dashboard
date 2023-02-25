@@ -10,8 +10,34 @@ body {
     color: #ffffff;
 }
 
+p {
+    line-height: 1.5;
+}
+
 .ident {
     color: #777777;
+    display: block;
+}
+
+.button {
+    padding: 0.75rem;
+    color: #ffffff;
+    background-color: #4E5382;
+    text-decoration: none;
+
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+
+    letter-spacing: 0.1rem;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.button:disabled {
+    opacity: 0.5;
 }
 
 

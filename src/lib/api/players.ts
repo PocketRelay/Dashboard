@@ -49,3 +49,16 @@ export function setSelfPassword(current_password: string, new_password: string):
         skip_response: true
     })
 }
+
+interface PlayerData {
+    key: string;
+    value: string;
+}
+
+export function getPlayerData(player_id: number, key: string): Promise<PlayerData> {
+    return request({
+        method: HttpMethod.GET,
+        route: `players/${player_id}/data/${key}`
+    })
+}
+

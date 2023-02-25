@@ -102,8 +102,9 @@
     <div class="sidebar__group">
         <a
             class="sidebar-button"
-            href="/(dashboard)/settings"
-            class:sidebar-button--selected={$page.route.id == "/settings"}
+            href="/settings"
+            class:sidebar-button--selected={$page.route.id ==
+                "/(dashboard)/settings"}
         >
             <Settings class="sidebar-button__icon" />
             <span class="sidebar-button__text">Settings</span>

@@ -34,7 +34,14 @@ p {
     cursor: pointer;
 }
 
+.button--alt {
+    background-color: #3d3f55;
+}
 
+.button--alt:hover {
+    background-color: #4E5382;
+
+}
 
 .button:disabled {
     opacity: 0.5;

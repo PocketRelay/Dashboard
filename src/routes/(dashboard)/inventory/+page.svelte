@@ -27,6 +27,12 @@
         console.log("Save");
     }
 
+    function onReset() {
+        if (playerBase != null) {
+            inventory = parseInventory(playerBase.inventory);
+        }
+    }
+
     $: {
         load($player.id).then().catch();
     }
@@ -37,7 +43,7 @@
     <span class="ident">POCKET RELAY MANAGER</span>
     <p class="text">Click an inventory category to view its contents</p>
     {#if inventory}
-        <Inventory on:save={onSave} {inventory} />
+        <Inventory on:save={onSave} on:reset={onReset} {inventory} />
     {/if}
 </div>
 

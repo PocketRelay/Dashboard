@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { player } from "$lib/api/api";
+    import { PlayerRole } from "$lib/api/players";
     import { createEventDispatcher } from "svelte";
     import InventoryCharacters from "./inventory/InventoryCharacters.svelte";
 
@@ -7,6 +9,7 @@
     interface Events {
         // Event triggering a save of the inventory
         save: undefined;
+        reset: undefined;
     }
 
     let dispatch = createEventDispatcher<Events>();
@@ -24,7 +27,20 @@
 
 <div class="wrapper">
     <div class="tabs">
-        <button class="button" on:click={() => dispatch("save")}>Save</button>
+        {#if $player.role == PlayerRole.Admin || $player.role == PlayerRole.SuperAdmin}
+            <button
+                class="button button--alt"
+                on:click={() => dispatch("save")}
+            >
+                Save
+            </button>
+            <button
+                class="button button--alt"
+                on:click={() => dispatch("reset")}
+            >
+                Reset
+            </button>
+        {/if}
         <button
             class="button tab"
             class:tab--active={tab == Tab.Characters}

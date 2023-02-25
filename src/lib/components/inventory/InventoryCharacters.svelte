@@ -1,6 +1,10 @@
 <script lang="ts">
+    import { player } from "$lib/api/api";
+    import { PlayerRole } from "$lib/api/players";
     import {
         CHARACTER_CLASSES,
+        MAX_CHARACTER_LEVEL,
+        UNSAFE_MAX,
         type Category,
         type Character,
     } from "$lib/data/inventory";
@@ -26,19 +30,82 @@
     <div class="contents">
         {#each selected.values as character}
             <div class="card">
-                <h2>{character.name}</h2>
-                <img
-                    src={`/assets/characters/${character.image}`}
-                    alt=""
-                    width="86"
-                    height="auto"
-                />
+                <div class="card__left">
+                    <img src={`/assets/characters/${character.image}`} alt="" />
+                </div>
+
+                <div class="card__right">
+                    <h2 class="card__name">{character.name}</h2>
+                    <span class="card__value">
+                        {inventory[character.index]}
+                    </span>
+
+                    {#if $player.role == PlayerRole.Admin || $player.role == PlayerRole.SuperAdmin}
+                        <label class="input">
+                            <input
+                                class="input__value"
+                                type="number"
+                                bind:value={inventory[character.index]}
+                                min="0"
+                                max="255"
+                            />
+                        </label>
+
+                        <div class="actions">
+                            <button
+                                class="button action"
+                                on:click={() =>
+                                    (inventory[character.index] = 0)}
+                                >Min</button
+                            >
+                            <button
+                                class="button action"
+                                on:click={() =>
+                                    (inventory[character.index] =
+                                        MAX_CHARACTER_LEVEL)}>Max</button
+                            >
+                            <button
+                                class="button action"
+                                on:click={() =>
+                                    (inventory[character.index] = UNSAFE_MAX)}
+                                >GOD</button
+                            >
+                        </div>
+                    {/if}
+                </div>
             </div>
         {/each}
     </div>
 </div>
 
 <style lang="scss">
+    .card {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        flex: auto;
+    }
+
+    .card__right {
+        flex: auto;
+        display: flex;
+        flex-flow: column;
+        gap: 1rem;
+        max-width: 450px;
+    }
+
+    .actions {
+        display: flex;
+        flex-flow: row;
+        gap: 1rem;
+    }
+
+    .action {
+        flex: auto;
+    }
+
     .wrapper {
         flex: auto;
         display: flex;
@@ -50,6 +117,10 @@
         flex: auto;
         height: 100%;
         overflow: auto;
+        display: flex;
+        flex-flow: row wrap;
+        gap: 1rem;
+        align-content: flex-start;
     }
 
     .tab {
@@ -64,5 +135,10 @@
         display: flex;
         flex-flow: column;
         gap: 1rem;
+    }
+
+    .card__value {
+        color: #72b2b6;
+        font-weight: bold;
     }
 </style>

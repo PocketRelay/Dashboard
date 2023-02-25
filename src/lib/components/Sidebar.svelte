@@ -14,7 +14,7 @@
     import { page } from "$app/stores";
     import { goto } from "$app/navigation";
 
-    let expanded: boolean = true;
+    let expanded: boolean = false;
 
     async function logout() {
         clearToken();
@@ -22,15 +22,8 @@
     }
 </script>
 
-<aside class="sidebar" class:sidebar--expanded={expanded}>
+<aside class="sidebar">
     <div class="sidebar__group">
-        <button class="sidebar-button " on:click={() => (expanded = !expanded)}>
-            <div class="menu">
-                <span />
-                <span />
-                <span />
-            </div>
-        </button>
         <a
             class="sidebar-button"
             href="/"
@@ -129,14 +122,9 @@
 
         justify-content: space-between;
 
-        width: 100%;
-
         background-color: #060606;
         padding: 1rem;
         border-radius: 10px;
-
-        max-width: calc(24px + 4rem);
-        transition: max-width 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
     }
 
     .menu {
@@ -182,6 +170,7 @@
     }
 
     .sidebar-button {
+        position: relative;
         padding: 1rem;
         color: #bababa;
 
@@ -200,19 +189,40 @@
         width: 24px;
         height: 24px;
         vertical-align: middle;
+        fill: white;
+    }
+
+    .sidebar-button--selected > :global(svg) {
+        color: white;
     }
 
     .sidebar-button__text {
-        display: inline-block;
-        transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-        transform: translateX(20px);
-        opacity: 0;
-        margin-left: 0.5rem;
+        background-color: #202020;
+
+        border-radius: 5px;
         font-size: 1rem;
+        padding: 0.5rem;
+        margin-left: 0.5rem;
+
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        z-index: 1;
+
+        pointer-events: none;
+
+        transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+        transform: translateX(0px) translateY(-50%);
+        opacity: 0;
+    }
+
+    .sidebar-button:hover .sidebar-button__text {
+        transform: translateX(10px) translateY(-50%);
+        opacity: 0.9;
     }
 
     .sidebar-button--selected {
-        color: #ffffff;
         background-color: #4e5382;
     }
 
@@ -223,11 +233,6 @@
     }
     .admin-group .sidebar-button {
         padding: 1rem 0.65rem;
-        transition: padding 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    }
-
-    .sidebar--expanded .admin-group .sidebar-button {
-        padding: 1rem;
     }
 
     .admin-group__title {
@@ -239,42 +244,5 @@
 
     .admin-group__content {
         border-radius: 5px;
-    }
-
-    .sidebar-button:hover .sidebar-button__text {
-        transform: translateX(10px);
-        opacity: 1;
-        pointer-events: none;
-        cursor: none;
-    }
-
-    .sidebar--expanded {
-        max-width: 240px;
-
-        .sidebar-button__text,
-        .sidebar-button:hover .sidebar-button__text {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .menu {
-            > span {
-                &:nth-child(1) {
-                    // Make top line into \
-                    transform: translateY(10px) rotate(45deg);
-                }
-
-                &:nth-child(2) {
-                    // Move and hide middle line
-                    transform: translateX(-100px);
-                    opacity: 0;
-                }
-
-                &:nth-child(3) {
-                    // Make bottom line into /
-                    transform: translateY(-8.5px) rotate(-45deg);
-                }
-            }
-        }
     }
 </style>

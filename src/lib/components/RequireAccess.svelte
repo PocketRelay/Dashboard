@@ -4,6 +4,7 @@
     import { loadPlayer, player } from "$lib/api/api";
     import { onMount } from "svelte";
     import Loader from "./Loader.svelte";
+    import { browser } from "$app/environment";
 
     const enum State {
         Loading = 0,
@@ -13,14 +14,16 @@
     let state = State.Loading;
 
     onMount(async () => {
-        state = State.Loading;
+        if (browser) {
+            state = State.Loading;
 
-        let loaded = await loadPlayer();
+            let loaded = await loadPlayer();
 
-        if (!loaded) {
-            await goto("/login");
-        } else {
-            state = State.Loaded;
+            if (!loaded) {
+                await goto("/login");
+            } else {
+                state = State.Loaded;
+            }
         }
     });
 </script>

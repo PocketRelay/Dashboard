@@ -1,4 +1,4 @@
-import { dev } from "$app/environment";
+import { browser, dev } from "$app/environment";
 import { get, writable, type Writable } from "svelte/store";
 import { getSelf, type PlayerAccount } from "../api/players";
 
@@ -65,7 +65,10 @@ export function loadToken() {
     player.set(null!);
 }
 
-loadToken();
+if (browser) {
+    loadToken();
+}
+
 
 // Constant enum for the different HTTP verbs
 export const enum HttpMethod {

@@ -68,7 +68,9 @@
     }
 
     $: {
-        setDefaults($player);
+        if (process.browser) {
+            setDefaults($player);
+        }
     }
 </script>
 

@@ -339,7 +339,7 @@ export const SHOTGUN_MODS: WeaponMod[] = [
 ];
 
 export const PISTOL_MODS: WeaponMod[] = [
-    { level_index: 46, name: "High-Caliber Barrel", image: "HighCaliberBarrel.webp", },
+    { level_index: 46, name: "High Caliber Barrel", image: "HighCaliberBarrel.webp", },
     { level_index: 47, name: "Scope", image: "Scope.webp", },
     { level_index: 48, name: "Melee Stunner", image: "PistolStability.webp", },
     { level_index: 49, name: "Magazine Upgrade", image: "MagSize.webp", },
@@ -351,7 +351,7 @@ export const PISTOL_MODS: WeaponMod[] = [
 ];
 
 export const SUB_MACHINE_GUN_MODS: WeaponMod[] = [
-    { level_index: 51, name: "High Caliber Barrel", image: "SMGDamage.webp", },
+    { level_index: 51, name: "High Caliber Barrel", image: "HighCaliberBarrel.webp", },
     { level_index: 52, name: "Scope", image: "Scope.webp", },
     { level_index: 53, name: "Ultralight Materials", image: "UltraLight.webp", },
     { level_index: 54, name: "Magazine Upgrade", image: "MagSize.webp", },

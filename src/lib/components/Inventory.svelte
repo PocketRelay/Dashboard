@@ -3,6 +3,8 @@
     import { PlayerRole } from "$lib/api/players";
     import { createEventDispatcher } from "svelte";
     import InventoryCharacters from "./inventory/InventoryCharacters.svelte";
+    import InventoryWeaponMods from "./inventory/InventoryWeaponMods.svelte";
+    import InventoryWeapons from "./inventory/InventoryWeapons.svelte";
 
     export let inventory: number[];
 
@@ -81,6 +83,10 @@
     <div class="contents">
         {#if tab == Tab.Characters}
             <InventoryCharacters {inventory} />
+        {:else if tab == Tab.Weapons}
+            <InventoryWeapons {inventory} />
+        {:else if tab == Tab.WeaponMods}
+            <InventoryWeaponMods {inventory} />
         {/if}
     </div>
 </div>

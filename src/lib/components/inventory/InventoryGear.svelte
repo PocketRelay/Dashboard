@@ -116,7 +116,7 @@
                         </span>
 
                         {#if $player.role == PlayerRole.Admin || $player.role == PlayerRole.SuperAdmin}
-                            <div>
+                            <div class="card__item">
                                 <label class="input">
                                     <span class="input__label">Stock</span>
                                     <input
@@ -152,7 +152,7 @@
                                     >
                                 </div>
                             </div>
-                            <div>
+                            <div class="card__item">
                                 <label class="input">
                                     <span class="input__label">Capacity</span>
                                     <input
@@ -258,6 +258,65 @@
         justify-content: center;
         padding: 1rem;
         flex: auto;
+    }
+
+    .card__right {
+        flex: auto;
+        display: flex;
+        flex-flow: column;
+        gap: 1rem;
+        max-width: 450px;
+    }
+
+    .actions {
+        display: flex;
+        flex-flow: row;
+        gap: 1rem;
+    }
+
+    .action {
+        flex: auto;
+    }
+
+    .wrapper {
+        flex: auto;
+        display: flex;
+        gap: 1rem;
+        height: 100%;
+    }
+
+    .contents {
+        flex: auto;
+        height: 100%;
+        overflow: auto;
+        display: flex;
+        flex-flow: row wrap;
+        gap: 1rem;
+        align-content: flex-start;
+    }
+
+    .tab {
+        background-color: #0f0f0f;
+    }
+
+    .card__item {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .tab--active {
+        background-color: #4e5382;
+    }
+
+    .tabs {
+        display: flex;
+        flex-flow: column;
+        gap: 1rem;
+    }
+
+    .card__value {
+        color: #72b2b6;
+        font-weight: bold;
     }
 
     .tier {

@@ -89,7 +89,6 @@
         flex-flow: column;
         gap: 2rem;
         align-items: center;
-        justify-content: center;
         padding: 1rem;
         flex: auto;
     }

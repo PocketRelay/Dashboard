@@ -62,3 +62,13 @@ export function getPlayerData(player_id: number, key: string): Promise<PlayerDat
     })
 }
 
+export function setPlayerData(player_id: number, key: string, value: string): Promise<PlayerData> {
+    return request({
+        method: HttpMethod.PUT,
+        route: `players/${player_id}/data/${key}`,
+        body: {
+            value
+        }
+    })
+}
+

@@ -1,11 +1,13 @@
 <script lang="ts">
     import { player } from "$lib/api/api";
     import {
+        encodeInventory,
+        encodePlayerBase,
         parseInventory,
         parsePlayerBase,
         type PlayerBase,
     } from "$lib/api/parser";
-    import { getPlayerData } from "$lib/api/players";
+    import { getPlayerData, setPlayerData } from "$lib/api/players";
     import Inventory from "$lib/components/Inventory.svelte";
 
     let playerBase: PlayerBase | null = null;
@@ -23,8 +25,23 @@
         }
     }
 
-    function onSave() {
+    async function onSave() {
+        if (!inventory || !playerBase) {
+            return;
+        }
         console.log("Save");
+
+        try {
+            let encodedInventory = encodeInventory(inventory);
+            let newBase: PlayerBase = {
+                ...playerBase,
+                inventory: encodedInventory,
+            };
+            let encodedPlayerBase = encodePlayerBase(newBase);
+            await setPlayerData($player.id, "Base", encodedPlayerBase);
+
+            playerBase = newBase;
+        } catch (e) {}
     }
 
     function onReset() {

@@ -3,6 +3,8 @@
     import { PlayerRole } from "$lib/api/players";
     import { createEventDispatcher } from "svelte";
     import InventoryCharacters from "./inventory/InventoryCharacters.svelte";
+    import InventoryConsumables from "./inventory/InventoryConsumables.svelte";
+    import InventoryGear from "./inventory/InventoryGear.svelte";
     import InventoryWeaponMods from "./inventory/InventoryWeaponMods.svelte";
     import InventoryWeapons from "./inventory/InventoryWeapons.svelte";
 
@@ -87,6 +89,10 @@
             <InventoryWeapons {inventory} />
         {:else if tab == Tab.WeaponMods}
             <InventoryWeaponMods {inventory} />
+        {:else if tab == Tab.Consumables}
+            <InventoryConsumables {inventory} />
+        {:else if tab == Tab.Gear}
+            <InventoryGear {inventory} />
         {/if}
     </div>
 </div>

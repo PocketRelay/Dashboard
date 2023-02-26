@@ -72,6 +72,12 @@ p {
     border-radius: 5px;
 }
 
+.input--value .input__value {
+    max-width: 4.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
 .annot {
     color: #72B2B6;
     font-weight: bold;

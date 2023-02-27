@@ -1,6 +1,6 @@
 import { dev } from "$app/environment";
 import { get, writable, type Writable } from "svelte/store";
-import { getSelf, type PlayerAccount } from "../api/players";
+import { getSelf, PlayerRole, type PlayerAccount } from "../api/players";
 
 // Base url segment based on whether in development mode or not
 const BASE_URL = dev ? "http://localhost/api/" : "/api/";
@@ -15,6 +15,10 @@ export function setToken(value: string) {
     player.set(null!);
     token.set(value);
     localStorage.setItem(TOKEN_STORAGE_KEY, value);
+}
+
+export function isAdmin(player: PlayerAccount): boolean {
+    return player.role == PlayerRole.Admin || player.role == PlayerRole.SuperAdmin;
 }
 
 export function clearToken() {

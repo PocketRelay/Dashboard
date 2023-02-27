@@ -119,7 +119,7 @@
                             />
                         </label>
                     {:else}
-                        <span>{clazz.value.level}</span>
+                        <span class="annot">{clazz.value.level}</span>
                     {/if}
                 </div>
                 <div>
@@ -136,7 +136,7 @@
                             />
                         </label>
                     {:else}
-                        <span>{clazz.value.promotions}</span>
+                        <span class="annot">{clazz.value.promotions}</span>
                     {/if}
                 </div>
             </div>

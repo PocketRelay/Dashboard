@@ -1,4 +1,4 @@
-import { HttpMethod, request } from "./api";
+import { HttpMethod, request, requestText } from "./api";
 
 
 export interface ServerDetails {
@@ -18,5 +18,23 @@ export function getServerDetails(): Promise<ServerDetails> {
     return request({
         method: HttpMethod.GET,
         route: "server",
+    })
+}
+
+export interface LogsResponse {
+    files: string[];
+}
+
+export function getServerLogs(): Promise<LogsResponse> {
+    return request({
+        method: HttpMethod.GET,
+        route: "server/logs",
+    })
+}
+
+export function getServerLog(name: string): Promise<string> {
+    return requestText({
+        method: HttpMethod.GET,
+        route: `server/logs/${name}`,
     })
 }

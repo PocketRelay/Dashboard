@@ -42,6 +42,7 @@
         flex-flow: row wrap;
         gap: 1rem;
         align-content: flex-start;
+        padding-right: 1rem;
     }
 
     // Tabs verticle list

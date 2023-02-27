@@ -1,4 +1,4 @@
-import { HttpMethod, request } from "./api";
+import { HttpMethod, request, requestInner, requestText } from "./api";
 
 
 export interface PlayerAccount {
@@ -26,28 +26,26 @@ export function getSelf(): Promise<PlayerAccount> {
     })
 }
 
-export function setSelfDetails(username: string, email: string): Promise<void> {
-    return request({
+export async function setSelfDetails(username: string, email: string): Promise<void> {
+    await requestInner({
         method: HttpMethod.PUT,
         route: "players/self/details",
         body: {
             username,
             email
         },
-        skip_response: true
-    })
+    });
 }
 
-export function setSelfPassword(current_password: string, new_password: string): Promise<void> {
-    return request({
+export async function setSelfPassword(current_password: string, new_password: string): Promise<void> {
+    await requestInner({
         method: HttpMethod.PUT,
         route: "players/self/password",
         body: {
             current_password,
             new_password
         },
-        skip_response: true
-    })
+    });
 }
 
 export interface PlayerData {

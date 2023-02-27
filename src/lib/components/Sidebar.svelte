@@ -230,7 +230,7 @@
     .admin-group {
         background: #854747;
         border-radius: 5px;
-        padding: 0.35rem;
+        padding: 0.15rem;
     }
     .admin-group .sidebar-button {
         padding: 1rem 0.65rem;

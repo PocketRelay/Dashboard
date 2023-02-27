@@ -19,6 +19,16 @@ p {
     display: block;
 }
 
+*::-webkit-scrollbar {
+    background-color: #0f0f0f;
+    width: 12px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #4E5382;
+    border-radius: 10px;
+}
+
 .button {
     padding: 0.75rem;
     color: #ffffff;

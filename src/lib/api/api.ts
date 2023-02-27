@@ -99,17 +99,9 @@ export interface RequestConfig {
     body?: any;
     // Additional HTTP headers for the request
     headers?: Record<string, string>,
-    // Skip response body JSON decoding
-    skip_response?: boolean,
-}
 
-/**
- * Makes a request according to the request config
- * 
- * @param config The request configuration
- * @returns The response type for the request
- */
-export async function request<T>(config: RequestConfig): Promise<T> {
+}
+export async function requestInner(config: RequestConfig): Promise<Response> {
     const init: RequestInit = { method: config.method };
     const headers: Record<string, string> = config.headers ?? {};
 
@@ -136,15 +128,47 @@ export async function request<T>(config: RequestConfig): Promise<T> {
         throw { status: -1, text: "Failed to connect" };
     }
 
+    return response;
+}
+
+export async function requestText(config: RequestConfig): Promise<string> {
+    const response = await requestInner(config);
     const status = response.status;
     // The first digit from the status code 
     const statusPrefix: number = Math.floor(status / 100);
 
     /// Handle 2xx status codes 
     if (statusPrefix === 2) {
-        if (config.skip_response) {
-            return status as T;
+        // Handle invalid JSON responses
+        try {
+            return await response.text();
+        } catch (e) {
+            console.error("Invalid JSON response", e);
+            throw { status, text: "Invalid server response" };
         }
+    }
+
+    // Handle non 200 status codes by taking the text response
+    let text: string;
+    try {
+        text = await response.text();
+    } catch (e) {
+        console.error("Failed to get error response text", e);
+        throw { status, text: "Unknown error" };
+    }
+
+    throw { status, text };
+}
+
+
+export async function request<T>(config: RequestConfig): Promise<T> {
+    const response = await requestInner(config);
+    const status = response.status;
+    // The first digit from the status code 
+    const statusPrefix: number = Math.floor(status / 100);
+
+    /// Handle 2xx status codes 
+    if (statusPrefix === 2) {
 
         // Handle invalid JSON responses
         try {

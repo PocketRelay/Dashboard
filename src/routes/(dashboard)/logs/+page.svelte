@@ -2,6 +2,7 @@
     import { getServerLog, getServerLogs } from "$lib/api/server";
     import Loader from "$lib/components/Loader.svelte";
     import { onMount } from "svelte";
+    import Download from "svelte-material-icons/Download.svelte";
 
     let logs: string[] = [];
 
@@ -24,6 +25,26 @@
         } catch (e) {}
 
         loading = false;
+    }
+    function download() {
+        if (!active || !activeContents) {
+            return;
+        }
+
+        var element = document.createElement("a");
+        element.setAttribute(
+            "href",
+            "data:text/plain;charset=utf-8," +
+                encodeURIComponent(activeContents)
+        );
+        element.setAttribute("download", active);
+
+        element.style.display = "none";
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
     }
 
     let active: string | null = null;
@@ -56,6 +77,11 @@
                 <option value={file}>{file}</option>
             {/each}
         </select>
+        {#if active != null && activeContents !== null}
+            <button class="button button--alt" on:click={download}>
+                <Download />
+            </button>
+        {/if}
     </div>
 
     <div class="card log">

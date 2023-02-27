@@ -27,6 +27,8 @@
                 <img
                     src={`/assets/gear/${consumable.image}`}
                     alt={consumable.name}
+                    width={160}
+                    height={120}
                 />
 
                 <div class="inv-card__value">
@@ -52,6 +54,8 @@
                 <img
                     src={`/assets/consumables/${consumable.stock_image}`}
                     alt={consumable.name}
+                    width={160}
+                    height={120}
                 />
 
                 <div class="inv-card__value">
@@ -94,6 +98,8 @@
                 <img
                     src={`/assets/consumables/${consumable.image}`}
                     alt={consumable.name}
+                    width={160}
+                    height={120}
                 />
 
                 <div class="inv-card__value">

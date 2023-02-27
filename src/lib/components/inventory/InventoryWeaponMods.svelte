@@ -11,7 +11,12 @@
 <InventoryList tabs={WEAPON_MODS} let:selected>
     {#each selected.values as weaponMod}
         <div class="card inv-card">
-            <img src={`/assets/weapon_mods/${weaponMod.image}`} alt="" />
+            <img
+                src={`/assets/weapon_mods/${weaponMod.image}`}
+                alt={weaponMod.name}
+                width={160}
+                height={120}
+            />
 
             <div class="inv-card__value">
                 <h2>{weaponMod.name}</h2>

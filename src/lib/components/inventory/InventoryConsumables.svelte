@@ -14,7 +14,12 @@
 <InventoryList tabs={CONSUMABLES} let:selected>
     {#each selected.values as consumable}
         <div class="card inv-card">
-            <img src={`/assets/consumables/${consumable.image}`} alt="" />
+            <img
+                src={`/assets/consumables/${consumable.image}`}
+                alt={consumable.name}
+                width={160}
+                height={120}
+            />
 
             <div class="inv-card__value">
                 <h2>{consumable.name}</h2>

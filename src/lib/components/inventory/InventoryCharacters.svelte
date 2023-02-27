@@ -17,6 +17,8 @@
             <img
                 src={`/assets/characters/${character.image}`}
                 alt={character.name}
+                width={140}
+                height={280}
             />
 
             <div class="inv-card__value">

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { player } from "$lib/api/api";
+    import { isAdmin, player } from "$lib/api/api";
     import { PlayerRole } from "$lib/api/players";
     import { createEventDispatcher } from "svelte";
     import InventoryCharacters from "./inventory/InventoryCharacters.svelte";
@@ -31,10 +31,11 @@
 
 <div class="wrapper">
     <div class="tabs">
-        {#if $player.role == PlayerRole.Admin || $player.role == PlayerRole.SuperAdmin}
+        {#if isAdmin($player)}
             <button
                 class="button button--alt"
                 on:click={() => dispatch("save")}
+                title="Saves any changes made to the inventory"
             >
                 Save
             </button>

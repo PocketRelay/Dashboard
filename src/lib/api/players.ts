@@ -50,7 +50,7 @@ export function setSelfPassword(current_password: string, new_password: string):
     })
 }
 
-interface PlayerData {
+export interface PlayerData {
     key: string;
     value: string;
 }
@@ -72,3 +72,9 @@ export function setPlayerData(player_id: number, key: string, value: string): Pr
     })
 }
 
+export function getAllPlayerData(player_id: number): Promise<Record<string, string>> {
+    return request({
+        method: HttpMethod.GET,
+        route: `players/${player_id}/data`
+    })
+}

@@ -26,6 +26,13 @@ export function getSelf(): Promise<PlayerAccount> {
     })
 }
 
+export function getPlayer(id: number): Promise<PlayerAccount> {
+    return request({
+        method: HttpMethod.GET,
+        route: `players/${id}`,
+    })
+}
+
 export async function setSelfDetails(username: string, email: string): Promise<void> {
     await requestInner({
         method: HttpMethod.PUT,
@@ -74,5 +81,17 @@ export function getAllPlayerData(player_id: number): Promise<Record<string, stri
     return request({
         method: HttpMethod.GET,
         route: `players/${player_id}/data`
+    })
+}
+
+export interface PlayersResponse {
+    players: PlayerAccount[];
+    more: boolean;
+}
+
+export function getPlayers(offset: number, count: number): Promise<PlayersResponse> {
+    return request({
+        method: HttpMethod.GET,
+        route: `players?offset=${offset}&count=${count}`
     })
 }

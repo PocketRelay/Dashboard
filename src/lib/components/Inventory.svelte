@@ -1,6 +1,18 @@
 <script lang="ts">
-    import { isAdmin, player } from "$lib/api/api";
-    import { createEventDispatcher } from "svelte";
+    import { isAdmin, player, type RequestError } from "$lib/api/api";
+    import {
+        encodeInventory,
+        encodePlayerBase,
+        parseInventory,
+        parsePlayerBase,
+        type PlayerBase,
+    } from "$lib/api/parser";
+    import {
+        getPlayerData,
+        setPlayerData,
+        type PlayerData,
+    } from "$lib/api/players";
+    import { onMount } from "svelte";
     import InventoryCharacters from "./inventory/InventoryCharacters.svelte";
     import InventoryConsumables from "./inventory/InventoryConsumables.svelte";
     import InventoryGear from "./inventory/InventoryGear.svelte";
@@ -8,16 +20,66 @@
     import InventoryWeaponMods from "./inventory/InventoryWeaponMods.svelte";
     import InventoryWeapons from "./inventory/InventoryWeapons.svelte";
 
-    export let inventory: number[];
-    export let credits: number;
+    export let playerId: number;
 
-    interface Events {
-        // Event triggering a save of the inventory
-        save: undefined;
-        reset: undefined;
+    let loading: boolean = true;
+
+    let playerBase: PlayerBase | null = null;
+    let inventory: number[] = [];
+    let credits: number = 0;
+
+    async function load() {
+        loading = true;
+        console.debug("Loading inventory");
+
+        let response: PlayerData;
+        try {
+            response = await getPlayerData(playerId, "Base");
+        } catch (e) {
+            let err = e as RequestError;
+            console.error(err);
+            loading = false;
+            return;
+        }
+        playerBase = parsePlayerBase(response.value);
+        if (playerBase == null) return;
+        credits = playerBase.credits;
+        inventory = parseInventory(playerBase.inventory);
+        loading = false;
     }
 
-    let dispatch = createEventDispatcher<Events>();
+    async function save() {
+        if (!playerBase) return;
+        loading = true;
+        console.debug("Saving inventory");
+
+        let encodedInventory = encodeInventory(inventory);
+        let newBase: PlayerBase = {
+            ...playerBase,
+            credits,
+            inventory: encodedInventory,
+        };
+
+        let encodedBase = encodePlayerBase(newBase);
+        try {
+            await setPlayerData(playerId, "Base", encodedBase);
+            playerBase = newBase;
+        } catch (e) {
+            let err = e as RequestError;
+            console.error(err);
+            loading = false;
+            return;
+        }
+    }
+
+    /**
+     * Reset the contents of the inventory by reparsing the
+     * stored inventory
+     */
+    function reset() {
+        if (!playerBase) return;
+        inventory = parseInventory(playerBase.inventory);
+    }
 
     const enum Tab {
         Characters,
@@ -29,24 +91,22 @@
     }
 
     let tab = Tab.Characters;
+
+    onMount(load);
 </script>
 
 <div class="wrapper">
     <div class="tabs">
+        <slot />
         {#if isAdmin($player)}
             <button
                 class="button button--alt"
-                on:click={() => dispatch("save")}
+                on:click={save}
                 title="Saves any changes made to the inventory"
             >
                 Save
             </button>
-            <button
-                class="button button--alt"
-                on:click={() => dispatch("reset")}
-            >
-                Reset
-            </button>
+            <button class="button button--alt" on:click={reset}> Reset </button>
         {/if}
         <button
             class="button tab"

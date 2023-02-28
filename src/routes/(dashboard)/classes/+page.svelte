@@ -10,7 +10,7 @@
     promotions
 </p>
 
-<Classes playerId={$player.id} isAdmin={isAdmin($player)} />
+<Classes playerId={$player.id} />
 
 <style lang="scss">
     .title,

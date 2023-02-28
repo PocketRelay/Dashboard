@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { RequestError } from "$lib/api/api";
+    import { isAdmin, player, type RequestError } from "$lib/api/api";
     import {
         encodePlayerClass,
         parsePlayerClass,
@@ -13,7 +13,6 @@
     import { onMount } from "svelte";
 
     export let playerId: number;
-    export let isAdmin: boolean;
 
     interface Events {
         // Event triggering a save of the classes
@@ -110,7 +109,8 @@
 </script>
 
 <div>
-    {#if isAdmin}
+    <slot />
+    {#if isAdmin($player)}
         <button
             class="button button--alt"
             on:click={save}
@@ -131,7 +131,7 @@
                 <div>
                     <h3>Level</h3>
 
-                    {#if isAdmin}
+                    {#if isAdmin($player)}
                         <label class="input">
                             <span class="input__label" />
                             <input
@@ -149,7 +149,7 @@
                 <div>
                     <h3>Promotions</h3>
 
-                    {#if isAdmin}
+                    {#if isAdmin($player)}
                         <label class="input">
                             <span class="input__label" />
                             <input

@@ -5,18 +5,16 @@
     if (Number.isNaN(playerId)) throw "NaN Player ID";
 </script>
 
-<h1 class="title">Player Classes</h1>
+<h1 class="title">Other Classes</h1>
 <span class="ident">POCKET RELAY MANAGER</span>
 <p class="text">
     Below is a list of all your classes along with their level and total
     promotions
 </p>
 
-<div>
+<Classes {playerId}>
     <a href={`/players/${playerId}`} class="button button--alt back">Back</a>
-</div>
-
-<Classes {playerId} isAdmin />
+</Classes>
 
 <style lang="scss">
     .title,

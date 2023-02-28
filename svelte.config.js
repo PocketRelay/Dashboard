@@ -12,7 +12,7 @@ const config = {
 			fallback: "index.html"
 		}),
 		prerender: {
-			entries: ["/login"]
+			entries: [],
 		}
 	}
 };

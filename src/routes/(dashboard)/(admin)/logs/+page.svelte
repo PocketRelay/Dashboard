@@ -1,43 +1,32 @@
 <script lang="ts">
-    import { getServerLog, getServerLogs } from "$lib/api/server";
+    import { getServerLog } from "$lib/api/server";
     import Loader from "$lib/components/Loader.svelte";
     import { onMount } from "svelte";
     import Download from "svelte-material-icons/Download.svelte";
 
-    let logs: string[] = [];
+    let contents: string | null = null;
+    let loading = false;
 
     async function load() {
         try {
-            let response = await getServerLogs();
-            logs = response.files;
+            let response = await getServerLog();
+            contents = response;
         } catch (e) {
             console.error(e);
         }
     }
 
-    async function loadActive(log: string) {
-        activeContents = null;
-        loading = true;
-
-        try {
-            let response = await getServerLog(log);
-            activeContents = response;
-        } catch (e) {}
-
-        loading = false;
-    }
     function download() {
-        if (!active || !activeContents) {
+        if (!contents) {
             return;
         }
 
         var element = document.createElement("a");
         element.setAttribute(
             "href",
-            "data:text/plain;charset=utf-8," +
-                encodeURIComponent(activeContents)
+            "data:text/plain;charset=utf-8," + encodeURIComponent(contents)
         );
-        element.setAttribute("download", active);
+        element.setAttribute("download", "server.log");
 
         element.style.display = "none";
         document.body.appendChild(element);
@@ -47,19 +36,9 @@
         document.body.removeChild(element);
     }
 
-    let active: string | null = null;
-    let activeContents: string | null = null;
-    let loading = false;
-
     onMount(() => {
         load().then().catch();
     });
-
-    $: {
-        if (active != null) {
-            loadActive(active).then().catch();
-        }
-    }
 </script>
 
 <div class="wrapper">
@@ -71,13 +50,7 @@
             button to download a copy
         </p>
 
-        <select class="select" bind:value={active}>
-            <option value={null}>None</option>
-            {#each logs as file}
-                <option value={file}>{file}</option>
-            {/each}
-        </select>
-        {#if active != null && activeContents !== null}
+        {#if contents !== null}
             <button class="button button--alt" on:click={download}>
                 <Download />
             </button>
@@ -87,8 +60,8 @@
     <div class="card log">
         {#if loading}
             <Loader />
-        {:else if activeContents !== null}
-            <pre>{activeContents}</pre>
+        {:else if contents !== null}
+            <pre>{contents}</pre>
         {/if}
     </div>
 </div>

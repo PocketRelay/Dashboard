@@ -25,16 +25,9 @@ export interface LogsResponse {
     files: string[];
 }
 
-export function getServerLogs(): Promise<LogsResponse> {
-    return request({
-        method: HttpMethod.GET,
-        route: "server/logs",
-    })
-}
-
-export function getServerLog(name: string): Promise<string> {
+export function getServerLog(): Promise<string> {
     return requestText({
         method: HttpMethod.GET,
-        route: `server/logs/${name}`,
+        route: "server/log",
     })
 }

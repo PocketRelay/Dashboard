@@ -4,6 +4,7 @@
         LeaderboardName,
         type LeaderboardEntry,
     } from "$lib/api/leaderboard";
+    import DashboardPage from "$lib/components/DashboardPage.svelte";
     import { getNumberWithOrdinal } from "$lib/tools/numbers";
 
     let selected = LeaderboardName.N7Rating;
@@ -33,14 +34,11 @@
     }
 </script>
 
-<div class="wrapper">
-    <div class="heading">
-        <h1 class="title">Leaderboard</h1>
-        <span class="ident">POCKET RELAY MANAGER</span>
-        <p class="text">
-            Click a leaderboard category to show results based on that
-            leaderboard
-        </p>
+<DashboardPage
+    title="Leaderboard"
+    text="Click a leaderboard category to show results based on that leaderboard"
+>
+    <svelte:fragment slot="heading">
         <div class="names">
             <button
                 class="name card"
@@ -92,38 +90,31 @@
                 Next
             </button>
         </div>
-    </div>
+    </svelte:fragment>
 
-    <div class="entries-wrapper">
-        <table class="entries">
-            <thead class="entries__head">
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Value</th>
+    <table class="entries">
+        <thead class="entries__head">
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody class="entries__body">
+            {#each entries as entry}
+                <tr class="entry">
+                    <td class="entry__place"
+                        >{getNumberWithOrdinal(entry.rank)}</td
+                    >
+                    <td class="entry__name">{entry.player_name}</td>
+                    <td class="entry__value">{entry.value}</td>
                 </tr>
-            </thead>
-            <tbody class="entries__body">
-                {#each entries as entry}
-                    <tr class="entry">
-                        <td class="entry__place"
-                            >{getNumberWithOrdinal(entry.rank)}</td
-                        >
-                        <td class="entry__name">{entry.player_name}</td>
-                        <td class="entry__value">{entry.value}</td>
-                    </tr>
-                {/each}
-            </tbody>
-        </table>
-    </div>
-</div>
+            {/each}
+        </tbody>
+    </table>
+</DashboardPage>
 
 <style lang="scss">
-    .entries-wrapper {
-        height: 100%;
-        overflow: auto;
-    }
-
     .entries {
         position: relative;
         width: 100%;
@@ -171,24 +162,6 @@
         color: #72b2b6;
         text-align: right;
     }
-
-    .wrapper {
-        display: flex;
-        flex-flow: column;
-        gap: 1rem;
-        height: 100%;
-    }
-
-    .title,
-    .ident,
-    .text {
-        margin-bottom: 0.5rem;
-    }
-
-    .text {
-        color: #999999;
-    }
-
     .names {
         display: grid;
         grid-template-columns: 1fr 1fr;

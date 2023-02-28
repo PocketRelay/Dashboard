@@ -7,6 +7,7 @@
         setPlayerPassword,
         type PlayerAccount,
     } from "$lib/api/players";
+    import DashboardPage from "$lib/components/DashboardPage.svelte";
     import Loader from "$lib/components/Loader.svelte";
     import Account from "svelte-material-icons/Account.svelte";
     import Key from "svelte-material-icons/Key.svelte";
@@ -86,96 +87,103 @@
 {#if loading}
     <Loader />
 {:else if player}
-    <h1 class="title">
-        Viewing {player.email}
-        <span class="role" data-role={player.role}>{player.role}</span>
-    </h1>
-    <span class="ident">POCKET RELAY MANAGER</span>
-    <p class="text">Edit the settings for your account below</p>
-
-    <nav class="nav">
-        <a href="/players" class="button button--alt ">Back</a>
-        <a href={`/players/${playerId}/inventory`} class="button button--alt ">
-            Edit Inventory
-        </a>
-        <a href={`/players/${playerId}/classes`} class="button button--alt ">
-            Edit Classes
-        </a>
-        <button class="button button--alt delete">Delete Account</button>
-    </nav>
-
-    <div class="forms">
-        <form class="form card" on:submit|preventDefault={onUpdateBasic}>
-            <div class="form__wrapper">
-                <div class="form__head">
-                    <Account class="form__icon" />
-                    <h2 class="form__title">Basic Information</h2>
+    <DashboardPage
+        title={`Viewing ${player.email}`}
+        text="Edit the settings for this account below"
+    >
+        <svelte:fragment slot="heading">
+            <nav class="nav">
+                <a href="/players" class="button button--alt ">Back</a>
+                <a
+                    href={`/players/${playerId}/inventory`}
+                    class="button button--alt "
+                >
+                    Edit Inventory
+                </a>
+                <a
+                    href={`/players/${playerId}/classes`}
+                    class="button button--alt "
+                >
+                    Edit Classes
+                </a>
+                <button class="button button--alt delete">Delete Account</button
+                >
+            </nav>
+        </svelte:fragment>
+        <div class="forms">
+            <form class="form card" on:submit|preventDefault={onUpdateBasic}>
+                <div class="form__wrapper">
+                    <div class="form__head">
+                        <Account class="form__icon" />
+                        <h2 class="form__title">Basic Information</h2>
+                    </div>
+                    <p class="text">Modify basic account information</p>
+                    {#if error1}
+                        <p class="error">{error1}</p>
+                    {/if}
+                    {#if loading1}
+                        <Loader />
+                    {/if}
+                    <label class="input">
+                        <span class="input__label">Username</span>
+                        <input
+                            class="input__value"
+                            type="text"
+                            bind:value={player.display_name}
+                            required
+                        />
+                    </label>
+                    <label class="input">
+                        <span class="input__label">Email</span>
+                        <input
+                            class="input__value"
+                            type="email"
+                            bind:value={player.email}
+                            required
+                        />
+                    </label>
+                    <button type="submit" class="button">Save Changes</button>
                 </div>
-                <p class="text">Modify basic account information</p>
-                {#if error1}
-                    <p class="error">{error1}</p>
-                {/if}
-                {#if loading1}
-                    <Loader />
-                {/if}
-                <label class="input">
-                    <span class="input__label">Username</span>
-                    <input
-                        class="input__value"
-                        type="text"
-                        bind:value={player.display_name}
-                        required
-                    />
-                </label>
-                <label class="input">
-                    <span class="input__label">Email</span>
-                    <input
-                        class="input__value"
-                        type="email"
-                        bind:value={player.email}
-                        required
-                    />
-                </label>
-                <button type="submit" class="button">Save Changes</button>
-            </div>
-        </form>
-        <form class="form card" on:submit|preventDefault={onUpdatePassword}>
-            <div class="form__wrapper">
-                <div class="form__head">
-                    <Key class="form__icon" />
-                    <h2 class="form__title">Password</h2>
+            </form>
+            <form class="form card" on:submit|preventDefault={onUpdatePassword}>
+                <div class="form__wrapper">
+                    <div class="form__head">
+                        <Key class="form__icon" />
+                        <h2 class="form__title">Password</h2>
+                    </div>
+                    <p class="text">
+                        Change the account password to the provided password
+                    </p>
+                    {#if error2}
+                        <p class="error">{error2}</p>
+                    {/if}
+                    {#if loading2}
+                        <Loader />
+                    {/if}
+                    <label class="input">
+                        <span class="input__label">New Password</span>
+                        <input
+                            class="input__value"
+                            type="password"
+                            bind:value={newPassword}
+                            required
+                        />
+                    </label>
+                    <label class="input">
+                        <span class="input__label">Confirm Password</span>
+                        <input
+                            class="input__value"
+                            type="password"
+                            bind:value={confirmPassword}
+                            required
+                        />
+                    </label>
+                    <button type="submit" class="button">Change Password</button
+                    >
                 </div>
-                <p class="text">
-                    Change the account password to the provided password
-                </p>
-                {#if error2}
-                    <p class="error">{error2}</p>
-                {/if}
-                {#if loading2}
-                    <Loader />
-                {/if}
-                <label class="input">
-                    <span class="input__label">New Password</span>
-                    <input
-                        class="input__value"
-                        type="password"
-                        bind:value={newPassword}
-                        required
-                    />
-                </label>
-                <label class="input">
-                    <span class="input__label">Confirm Password</span>
-                    <input
-                        class="input__value"
-                        type="password"
-                        bind:value={confirmPassword}
-                        required
-                    />
-                </label>
-                <button type="submit" class="button">Change Password</button>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+    </DashboardPage>
 {/if}
 
 <style lang="scss">
@@ -183,20 +191,6 @@
         display: inline-block;
         margin-bottom: 1rem;
     }
-
-    .title,
-    .ident,
-    .text {
-        margin-bottom: 0.5rem;
-    }
-
-    .text {
-        color: #999999;
-    }
-
-    .forms {
-    }
-
     .form {
         margin-bottom: 2rem;
     }

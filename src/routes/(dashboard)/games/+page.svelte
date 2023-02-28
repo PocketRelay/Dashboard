@@ -1,8 +1,7 @@
 <script lang="ts">
     import { getGames, type Game } from "$lib/api/games";
+    import DashboardPage from "$lib/components/DashboardPage.svelte";
     import GameComponent from "$lib/components/GameComponent.svelte";
-    import { onMount } from "svelte";
-
     let games: Game[] = [];
 
     let count: number = 20;
@@ -28,11 +27,11 @@
     }
 </script>
 
-<div class="wrapper">
-    <div class="heading">
-        <h1 class="title">Games</h1>
-        <span class="ident">POCKET RELAY MANAGER</span>
-        <p class="text">Below is a list of games that are currently running</p>
+<DashboardPage
+    title="Games"
+    text="Below is a list of games that are currently running"
+>
+    <svelte:fragment slot="heading">
         <div class="actions">
             <button class="action button" on:click={refresh}> Refresh </button>
             <button
@@ -58,20 +57,16 @@
                 Next
             </button>
         </div>
-    </div>
-
+    </svelte:fragment>
     <div class="games">
         {#each games as game}
             <GameComponent {game} />
         {/each}
     </div>
-</div>
+</DashboardPage>
 
 <style lang="scss">
     .games {
-        height: 100%;
-        overflow: auto;
-
         display: flex;
         flex-flow: row wrap;
         align-items: flex-start;
@@ -96,12 +91,5 @@
 
         letter-spacing: 0.1rem;
         border: none;
-    }
-
-    .wrapper {
-        display: flex;
-        flex-flow: column;
-        gap: 1rem;
-        height: 100%;
     }
 </style>

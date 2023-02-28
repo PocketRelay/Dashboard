@@ -1,5 +1,6 @@
 <script lang="ts">
     import { getServerLog } from "$lib/api/server";
+    import DashboardPage from "$lib/components/DashboardPage.svelte";
     import Loader from "$lib/components/Loader.svelte";
     import { onMount } from "svelte";
     import Download from "svelte-material-icons/Download.svelte";
@@ -41,22 +42,14 @@
     });
 </script>
 
-<div class="wrapper">
-    <div class="heading">
-        <h1 class="title">Server Logs</h1>
-        <span class="ident">POCKET RELAY MANAGER</span>
-        <p class="text">
-            Click a log file below to view its contents and press the download
-            button to download a copy
-        </p>
-
+<DashboardPage title="Server Logs">
+    <svelte:fragment slot="heading">
         {#if contents !== null}
             <button class="button button--alt" on:click={download}>
                 <Download />
             </button>
         {/if}
-    </div>
-
+    </svelte:fragment>
     <div class="card log">
         {#if loading}
             <Loader />
@@ -64,7 +57,7 @@
             <pre>{contents}</pre>
         {/if}
     </div>
-</div>
+</DashboardPage>
 
 <style>
     .log {
@@ -72,31 +65,5 @@
         overflow: auto;
         padding: 1rem;
         color: #999;
-    }
-
-    .title,
-    .ident,
-    .text {
-        margin-bottom: 0.5rem;
-    }
-
-    .text {
-        color: #999999;
-    }
-
-    .select {
-        background-color: #0f0f0f;
-        border-radius: 10px;
-        color: white;
-        padding: 1rem;
-        font-size: 1rem;
-        border: none;
-    }
-
-    .wrapper {
-        display: flex;
-        flex-flow: column;
-        gap: 1rem;
-        height: 100%;
     }
 </style>

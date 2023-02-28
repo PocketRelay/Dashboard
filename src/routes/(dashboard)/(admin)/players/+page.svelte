@@ -5,6 +5,7 @@
         PlayerRole,
         type PlayerAccount,
     } from "$lib/api/players";
+    import DashboardPage from "$lib/components/DashboardPage.svelte";
 
     let loading = true;
 
@@ -31,12 +32,11 @@
     }
 </script>
 
-<div class="wrapper">
-    <div class="heading">
-        <h1 class="title">Players</h1>
-        <span class="ident">POCKET RELAY MANAGER</span>
-        <p class="text">Below is a list of player accounts on this server</p>
-
+<DashboardPage
+    title="Players"
+    text="Below is a list of player accounts on this server"
+>
+    <svelte:fragment slot="heading">
         <div class="actions">
             <button
                 class="action button"
@@ -61,44 +61,36 @@
                 Next
             </button>
         </div>
-    </div>
-
-    <div class="entries-wrapper">
-        <table class="entries">
-            <thead class="entries__head">
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>View</th>
+    </svelte:fragment>
+    <table class="entries">
+        <thead class="entries__head">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody class="entries__body">
+            {#each entries as entry}
+                <tr class="entry">
+                    <td class="entry__name">{entry.display_name}</td>
+                    <td class="entry__value">{entry.email}</td>
+                    <td class="entry__value">{entry.role}</td>
+                    <td class="entry__value">
+                        {#if entry.role == PlayerRole.Default}
+                            <a class="button" href={`/players/${entry.id}`}>
+                                View
+                            </a>
+                        {/if}
+                    </td>
                 </tr>
-            </thead>
-            <tbody class="entries__body">
-                {#each entries as entry}
-                    <tr class="entry">
-                        <td class="entry__name">{entry.display_name}</td>
-                        <td class="entry__value">{entry.email}</td>
-                        <td class="entry__value">{entry.role}</td>
-                        <td class="entry__value">
-                            {#if entry.role == PlayerRole.Default}
-                                <a class="button" href={`/players/${entry.id}`}>
-                                    View
-                                </a>
-                            {/if}
-                        </td>
-                    </tr>
-                {/each}
-            </tbody>
-        </table>
-    </div>
-</div>
+            {/each}
+        </tbody>
+    </table>
+</DashboardPage>
 
 <style lang="scss">
-    .entries-wrapper {
-        height: 100%;
-        overflow: auto;
-    }
-
     .entries {
         position: relative;
         width: 100%;
@@ -137,23 +129,6 @@
     .entry__value {
         color: #72b2b6;
         text-align: right;
-    }
-
-    .wrapper {
-        display: flex;
-        flex-flow: column;
-        gap: 1rem;
-        height: 100%;
-    }
-
-    .title,
-    .ident,
-    .text {
-        margin-bottom: 0.5rem;
-    }
-
-    .text {
-        color: #999999;
     }
 
     .actions {

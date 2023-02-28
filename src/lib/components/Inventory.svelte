@@ -173,6 +173,7 @@
     .wrapper {
         display: flex;
         flex-flow: column;
+        height: 100%;
 
         flex: auto;
         overflow: auto;

@@ -5,6 +5,7 @@
         setSelfPassword,
         type PlayerAccount,
     } from "$lib/api/players";
+    import DashboardPage from "$lib/components/DashboardPage.svelte";
     import Dialog from "$lib/components/Dialog.svelte";
     import Loader from "$lib/components/Loader.svelte";
     import Account from "svelte-material-icons/Account.svelte";
@@ -86,95 +87,94 @@
     }
 </script>
 
-<h1 class="title">Settings</h1>
-<span class="ident">POCKET RELAY MANAGER</span>
-<p class="text">Edit the settings for your account below</p>
-<div class="forms">
-    <form class="form card" on:submit|preventDefault={onUpdateBasic}>
-        <div class="form__wrapper">
-            <div class="form__head">
-                <Account class="form__icon" />
-                <h2 class="form__title">Basic Information</h2>
+<DashboardPage title="Settings" text="Edit the settings for your account below">
+    <div class="forms">
+        <form class="form card" on:submit|preventDefault={onUpdateBasic}>
+            <div class="form__wrapper">
+                <div class="form__head">
+                    <Account class="form__icon" />
+                    <h2 class="form__title">Basic Information</h2>
+                </div>
+                <p class="text">
+                    Here you can modify your basic account information
+                </p>
+                {#if error1}
+                    <p class="error">{error1}</p>
+                {/if}
+                {#if loading1}
+                    <Loader />
+                {/if}
+                <label class="input">
+                    <span class="input__label">Username</span>
+                    <input
+                        class="input__value"
+                        type="text"
+                        bind:value={username}
+                        required
+                    />
+                </label>
+                <label class="input">
+                    <span class="input__label">Email</span>
+                    <input
+                        class="input__value"
+                        type="email"
+                        bind:value={email}
+                        required
+                    />
+                </label>
+                <button type="submit" class="button">Save Changes</button>
             </div>
-            <p class="text">
-                Here you can modify your basic account information
-            </p>
-            {#if error1}
-                <p class="error">{error1}</p>
-            {/if}
-            {#if loading1}
-                <Loader />
-            {/if}
-            <label class="input">
-                <span class="input__label">Username</span>
-                <input
-                    class="input__value"
-                    type="text"
-                    bind:value={username}
-                    required
-                />
-            </label>
-            <label class="input">
-                <span class="input__label">Email</span>
-                <input
-                    class="input__value"
-                    type="email"
-                    bind:value={email}
-                    required
-                />
-            </label>
-            <button type="submit" class="button">Save Changes</button>
-        </div>
-    </form>
-    <div class="form card" on:submit|preventDefault={onUpdatePassword}>
-        <div class="form__wrapper">
-            <div class="form__head">
-                <Key class="form__icon" />
-                <h2 class="form__title">Password</h2>
+        </form>
+        <div class="form card" on:submit|preventDefault={onUpdatePassword}>
+            <div class="form__wrapper">
+                <div class="form__head">
+                    <Key class="form__icon" />
+                    <h2 class="form__title">Password</h2>
+                </div>
+                <p class="text">
+                    Here you can change your account password using your current
+                    password
+                </p>
+                {#if error2}
+                    <p class="error">{error2}</p>
+                {/if}
+                {#if loading2}
+                    <Loader />
+                {/if}
+                <label class="input">
+                    <span class="input__label">Current Password</span>
+                    <input
+                        class="input__value"
+                        type="password"
+                        bind:value={currentPassword}
+                        required
+                    />
+                </label>
+                <label class="input">
+                    <span class="input__label">New Password</span>
+                    <input
+                        class="input__value"
+                        type="password"
+                        bind:value={newPassword}
+                        required
+                    />
+                </label>
+                <label class="input">
+                    <span class="input__label">Confirm Password</span>
+                    <input
+                        class="input__value"
+                        type="password"
+                        bind:value={confirmPassword}
+                        required
+                    />
+                </label>
+                <button on:click={confirmPasswordChange} class="button"
+                    >Change Password</button
+                >
             </div>
-            <p class="text">
-                Here you can change your account password using your current
-                password
-            </p>
-            {#if error2}
-                <p class="error">{error2}</p>
-            {/if}
-            {#if loading2}
-                <Loader />
-            {/if}
-            <label class="input">
-                <span class="input__label">Current Password</span>
-                <input
-                    class="input__value"
-                    type="password"
-                    bind:value={currentPassword}
-                    required
-                />
-            </label>
-            <label class="input">
-                <span class="input__label">New Password</span>
-                <input
-                    class="input__value"
-                    type="password"
-                    bind:value={newPassword}
-                    required
-                />
-            </label>
-            <label class="input">
-                <span class="input__label">Confirm Password</span>
-                <input
-                    class="input__value"
-                    type="password"
-                    bind:value={confirmPassword}
-                    required
-                />
-            </label>
-            <button on:click={confirmPasswordChange} class="button"
-                >Change Password</button
-            >
         </div>
     </div>
-</div>
+</DashboardPage>
 
 <Dialog visible={changeConfirm}>
     <h3>Confirm Change Password</h3>
@@ -191,16 +191,6 @@
 </Dialog>
 
 <style lang="scss">
-    .title,
-    .ident,
-    .text {
-        margin-bottom: 0.5rem;
-    }
-
-    .text {
-        color: #999999;
-    }
-
     .form {
         margin-bottom: 2rem;
     }

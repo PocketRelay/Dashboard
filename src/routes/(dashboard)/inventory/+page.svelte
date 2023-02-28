@@ -1,14 +1,15 @@
 <script lang="ts">
     import { player } from "$lib/api/api";
+    import DashboardPage from "$lib/components/DashboardPage.svelte";
     import Inventory from "$lib/components/Inventory.svelte";
 </script>
 
-<div class="wrapper">
-    <h1 class="title">Inventory</h1>
-    <span class="ident">POCKET RELAY MANAGER</span>
-    <p class="text">Click an inventory category to view its contents</p>
+<DashboardPage
+    title="Inventory"
+    text="Click an inventory category to view its contents"
+>
     <Inventory playerId={$player.id} />
-</div>
+</DashboardPage>
 
 <style lang="scss">
     .wrapper {
@@ -16,15 +17,5 @@
 
         display: flex;
         flex-flow: column;
-    }
-
-    .title,
-    .ident,
-    .text {
-        margin-bottom: 0.5rem;
-    }
-
-    .text {
-        color: #999999;
     }
 </style>

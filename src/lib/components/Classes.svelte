@@ -15,11 +15,6 @@
 
     export let playerId: number;
 
-    interface Events {
-        // Event triggering a save of the classes
-        save: undefined;
-    }
-
     // Type representing a class loaded from key values
     interface StoredClass {
         // The class key index value

@@ -69,7 +69,6 @@
 
     $: {
         setDefaults($player);
-    
     }
 </script>
 

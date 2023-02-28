@@ -77,7 +77,7 @@
                         class="sidebar-button"
                         href="/players"
                         class:sidebar-button--selected={$page.route.id ==
-                            "/(dashboard)/players"}
+                            "/(dashboard)/(admin)/players"}
                     >
                         <AccountMultiple class="sidebar-button__icon" />
                         <span class="sidebar-button__text">Players</span>
@@ -88,7 +88,7 @@
                             class="sidebar-button"
                             href="/logs"
                             class:sidebar-button--selected={$page.route.id ==
-                                "/(dashboard)/logs"}
+                                "/(dashboard)/(admin)/logs"}
                         >
                             <Logs class="sidebar-button__icon" />
                             <span class="sidebar-button__text">Logs</span>

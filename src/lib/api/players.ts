@@ -84,6 +84,28 @@ export function getAllPlayerData(player_id: number): Promise<Record<string, stri
     })
 }
 
+export async function setPlayerDetails(id: number, username: string, email: string): Promise<void> {
+    await requestInner({
+        method: HttpMethod.PUT,
+        route: `players/${id}/details`,
+        body: {
+            username,
+            email
+        },
+    });
+}
+
+export async function setPlayerPassword(id: number, new_password: string): Promise<void> {
+    await requestInner({
+        method: HttpMethod.PUT,
+        route: `players/${id}/password`,
+        body: {
+            new_password
+        },
+    });
+}
+
+
 export interface PlayersResponse {
     players: PlayerAccount[];
     more: boolean;

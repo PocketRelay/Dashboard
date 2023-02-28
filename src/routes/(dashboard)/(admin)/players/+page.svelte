@@ -1,5 +1,10 @@
 <script lang="ts">
-    import { getPlayers, type PlayerAccount } from "$lib/api/players";
+    import { player } from "$lib/api/api";
+    import {
+        getPlayers,
+        PlayerRole,
+        type PlayerAccount,
+    } from "$lib/api/players";
 
     let loading = true;
 
@@ -75,7 +80,11 @@
                         <td class="entry__value">{entry.email}</td>
                         <td class="entry__value">{entry.role}</td>
                         <td class="entry__value">
-                            <button class="button">View</button>
+                            {#if entry.role == PlayerRole.Default}
+                                <a class="button" href={`/players/${entry.id}`}>
+                                    View
+                                </a>
+                            {/if}
                         </td>
                     </tr>
                 {/each}

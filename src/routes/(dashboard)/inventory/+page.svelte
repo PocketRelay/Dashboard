@@ -12,12 +12,14 @@
 
     let playerBase: PlayerBase | null = null;
     let inventory: number[] | null = null;
+    let credits = 0;
 
     async function load(player: number) {
         try {
             let response = await getPlayerData(player, "Base");
             playerBase = parsePlayerBase(response.value);
             if (playerBase != null) {
+                credits = playerBase.credits;
                 inventory = parseInventory(playerBase.inventory);
             }
         } catch (e) {
@@ -35,6 +37,7 @@
             let encodedInventory = encodeInventory(inventory);
             let newBase: PlayerBase = {
                 ...playerBase,
+                credits,
                 inventory: encodedInventory,
             };
             let encodedPlayerBase = encodePlayerBase(newBase);
@@ -60,7 +63,7 @@
     <span class="ident">POCKET RELAY MANAGER</span>
     <p class="text">Click an inventory category to view its contents</p>
     {#if inventory}
-        <Inventory on:save={onSave} on:reset={onReset} {inventory} />
+        <Inventory on:save={onSave} on:reset={onReset} {inventory} {credits} />
     {/if}
 </div>
 

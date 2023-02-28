@@ -179,34 +179,6 @@
                 <button type="submit" class="button">Change Password</button>
             </div>
         </form>
-
-        <form class="form card" on:submit|preventDefault={onUpdatePassword}>
-            <div class="form__wrapper">
-                <div class="form__head">
-                    <Key class="form__icon" />
-                    <h2 class="form__title">Additional Data</h2>
-                </div>
-                <p class="text">Other account data that can be modified</p>
-                {#if error3}
-                    <p class="error">{error3}</p>
-                {/if}
-                {#if loading3}
-                    <Loader />
-                {/if}
-                <label class="input">
-                    <span class="input__label">Credits</span>
-                    <input
-                        class="input__value"
-                        type="number"
-                        bind:value={credits}
-                        required
-                        min={0}
-                    />
-                </label>
-
-                <button type="submit" class="button">Save Changes</button>
-            </div>
-        </form>
     </div>
 {/if}
 

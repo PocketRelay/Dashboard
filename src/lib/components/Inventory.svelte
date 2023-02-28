@@ -1,14 +1,15 @@
 <script lang="ts">
     import { isAdmin, player } from "$lib/api/api";
-    import { PlayerRole } from "$lib/api/players";
     import { createEventDispatcher } from "svelte";
     import InventoryCharacters from "./inventory/InventoryCharacters.svelte";
     import InventoryConsumables from "./inventory/InventoryConsumables.svelte";
     import InventoryGear from "./inventory/InventoryGear.svelte";
+    import InventoryOther from "./inventory/InventoryOther.svelte";
     import InventoryWeaponMods from "./inventory/InventoryWeaponMods.svelte";
     import InventoryWeapons from "./inventory/InventoryWeapons.svelte";
 
     export let inventory: number[];
+    export let credits: number;
 
     interface Events {
         // Event triggering a save of the inventory
@@ -24,6 +25,7 @@
         WeaponMods,
         Consumables,
         Gear,
+        Other,
     }
 
     let tab = Tab.Characters;
@@ -81,6 +83,13 @@
         >
             Gear
         </button>
+        <button
+            class="button tab"
+            class:tab--active={tab == Tab.Other}
+            on:click={() => (tab = Tab.Other)}
+        >
+            Other
+        </button>
     </div>
 
     <div class="contents">
@@ -94,6 +103,8 @@
             <InventoryConsumables {inventory} />
         {:else if tab == Tab.Gear}
             <InventoryGear {inventory} />
+        {:else if tab == Tab.Other}
+            <InventoryOther bind:credits />
         {/if}
     </div>
 </div>

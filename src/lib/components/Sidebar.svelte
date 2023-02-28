@@ -10,11 +10,8 @@
     import Logout from "svelte-material-icons/LogoutVariant.svelte";
     import { clearToken, player } from "$lib/api/api";
     import { PlayerRole } from "$lib/api/players";
-
     import { page } from "$app/stores";
     import { goto } from "$app/navigation";
-
-    let expanded: boolean = false;
 
     async function logout() {
         clearToken();
@@ -128,39 +125,6 @@
         border-radius: 10px;
     }
 
-    .menu {
-        position: relative;
-
-        display: flex;
-        flex-flow: column;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.45rem;
-
-        overflow: hidden;
-
-        cursor: pointer;
-
-        > span {
-            width: 24px;
-            height: 2px;
-            background-color: #999999;
-            transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1),
-                opacity 0.15s ease, background-color 0.25s ease;
-
-            &:nth-child(2) {
-                transform: translateX(0px);
-                transition: transform 0.25s cubic-bezier(0.86, 0, 0.07, 1),
-                    opacity 0.15s ease, background-color 0.25s ease;
-                opacity: 1;
-            }
-        }
-
-        &:hover > span {
-            background-color: #ffffff;
-        }
-    }
-
     .sidebar__group {
         display: flex;
         flex-flow: column;
@@ -175,7 +139,7 @@
         padding: 1rem;
         color: #bababa;
 
-        background-color: transparent;
+        background-color: #101010;
         border: none;
 
         text-align: left;
@@ -183,6 +147,10 @@
         border-radius: 5px;
         white-space: nowrap;
         cursor: pointer;
+    }
+
+    .sidebar-button:hover {
+        background-color: #1f1f1f;
     }
 
     .sidebar-button > :global(svg) {
@@ -226,7 +194,9 @@
     .sidebar-button--selected {
         background-color: #4e5382;
     }
-
+    .sidebar-button--selected:hover {
+        background-color: #676b96;
+    }
     .admin-group {
         background: #854747;
         border-radius: 5px;

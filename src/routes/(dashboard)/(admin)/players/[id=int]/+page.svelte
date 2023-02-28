@@ -187,18 +187,16 @@
 {/if}
 
 <style lang="scss">
-    .back {
-        display: inline-block;
+    .nav {
         margin-bottom: 1rem;
+        display: flex;
+        flex-flow: row;
+        gap: 1rem;
     }
+
     .form {
         margin-bottom: 2rem;
     }
-
-    .nav {
-        margin-bottom: 1rem;
-    }
-
     .form__wrapper {
         max-width: 400px;
         widows: 100%;
@@ -220,12 +218,6 @@
         vertical-align: middle;
         fill: white;
     }
-    .nav {
-        display: flex;
-        flex-flow: row;
-        gap: 1rem;
-    }
-
     .button--alt {
         background-color: #0f0f0f;
     }
@@ -235,5 +227,8 @@
 
     .delete {
         background-color: #a74343;
+    }
+    .delete:hover {
+        background-color: #b65a5a;
     }
 </style>

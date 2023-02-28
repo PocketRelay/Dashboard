@@ -10,12 +10,3 @@
 >
     <Inventory playerId={$player.id} />
 </DashboardPage>
-
-<style lang="scss">
-    .wrapper {
-        height: 100%;
-
-        display: flex;
-        flex-flow: column;
-    }
-</style>

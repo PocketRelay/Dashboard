@@ -11,6 +11,7 @@
         type PlayerData,
     } from "$lib/api/players";
     import { onMount } from "svelte";
+    import PlayerClassComponent from "./classes/PlayerClass.svelte";
 
     export let playerId: number;
 
@@ -123,48 +124,11 @@
 
 <div class="classes">
     {#each stored as { value }}
-        <div class="card">
-            <h2>{value.name}</h2>
-            <img src={`/assets/icons/${value.name}.webp`} alt={value.name} />
-
-            <div class="fields">
-                <div>
-                    <h3>Level</h3>
-
-                    {#if isAdmin($player)}
-                        <label class="input">
-                            <span class="input__label" />
-                            <input
-                                type="number"
-                                class="input__value"
-                                bind:value={value.level}
-                                min={1}
-                                max={20}
-                            />
-                        </label>
-                    {:else}
-                        <span class="annot">{value.level}</span>
-                    {/if}
-                </div>
-                <div>
-                    <h3>Promotions</h3>
-
-                    {#if isAdmin($player)}
-                        <label class="input">
-                            <span class="input__label" />
-                            <input
-                                type="number"
-                                class="input__value"
-                                bind:value={value.promotions}
-                                min={1}
-                            />
-                        </label>
-                    {:else}
-                        <span class="annot">{value.promotions}</span>
-                    {/if}
-                </div>
-            </div>
-        </div>
+        <PlayerClassComponent
+            name={value.name}
+            bind:level={value.level}
+            bind:promotions={value.promotions}
+        />
     {/each}
 </div>
 
@@ -174,18 +138,5 @@
         flex-flow: row wrap;
         gap: 2rem;
         margin-top: 1rem;
-    }
-
-    .card {
-        flex: auto;
-        text-align: center;
-    }
-
-    .fields {
-        display: flex;
-        flex-flow: column;
-        gap: 1rem;
-        max-width: 500px;
-        margin: 0 auto;
     }
 </style>

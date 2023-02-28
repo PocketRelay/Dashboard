@@ -6,14 +6,14 @@ import { getSelf, PlayerRole, type PlayerAccount } from "../api/players";
 const BASE_URL = dev ? "http://localhost/api/" : "/api/";
 
 // The API token used to authenticate with the server 
-const token: Writable<string | null> = writable(null);
+let token: string | null = null;
 export const player: Writable<PlayerAccount> = writable(null!);
 
 const TOKEN_STORAGE_KEY: string = "pr_token";
 
 export function setToken(value: string) {
     player.set(null!);
-    token.set(value);
+    token = value;
     localStorage.setItem(TOKEN_STORAGE_KEY, value);
 }
 
@@ -23,12 +23,12 @@ export function isAdmin(player: PlayerAccount): boolean {
 
 export function clearToken() {
     player.set(null!);
-    token.set(null);
+    token = null;
     localStorage.removeItem(TOKEN_STORAGE_KEY);
 }
 
 export function isAuthenticated(): boolean {
-    return get(token) !== null;
+    return token !== null;
 }
 
 export async function loadPlayer(): Promise<boolean> {
@@ -64,7 +64,7 @@ export function loadToken() {
     }
     console.debug("Loaded localStorage token", localToken);
     // Set the token state
-    token.set(localToken);
+    token = localToken;
     // Reset the stored user when the token changes 
     player.set(null!);
 }
@@ -106,9 +106,8 @@ export async function requestInner(config: RequestConfig): Promise<Response> {
     const headers: Record<string, string> = config.headers ?? {};
 
     // Append the Authorization header if there is an API token set
-    const tokenValue = get(token);
-    if (tokenValue !== null) {
-        headers["Authorization"] = "Bearer " + tokenValue;
+    if (token !== null) {
+        headers["Authorization"] = "Bearer " + token;
     }
 
     // Assign the body value for non GET requests if the body is present

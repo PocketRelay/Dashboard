@@ -20,16 +20,12 @@
     let loading2 = false;
     let error2: string | null = null;
 
-    let loading3 = false;
-    let error3: string | null = null;
-
     const playerId = parseInt($page.params.id);
     if (Number.isNaN(playerId)) throw "NaN Player ID";
 
     let loading = true;
     let error: string | null = null;
     let player: PlayerAccount | null = null;
-    let credits = 0;
 
     async function load(id: number) {
         loading = true;

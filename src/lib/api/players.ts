@@ -34,7 +34,7 @@ export function getPlayer(id: number): Promise<PlayerAccount> {
 }
 
 export async function setSelfDetails(username: string, email: string): Promise<void> {
-    await requestInner({
+    await requestText({
         method: HttpMethod.PUT,
         route: "players/self/details",
         body: {
@@ -45,7 +45,7 @@ export async function setSelfDetails(username: string, email: string): Promise<v
 }
 
 export async function setSelfPassword(current_password: string, new_password: string): Promise<void> {
-    await requestInner({
+    await requestText({
         method: HttpMethod.PUT,
         route: "players/self/password",
         body: {
@@ -85,7 +85,7 @@ export function getAllPlayerData(player_id: number): Promise<Record<string, stri
 }
 
 export async function setPlayerDetails(id: number, username: string, email: string): Promise<void> {
-    await requestInner({
+    await requestText({
         method: HttpMethod.PUT,
         route: `players/${id}/details`,
         body: {
@@ -96,7 +96,7 @@ export async function setPlayerDetails(id: number, username: string, email: stri
 }
 
 export async function setPlayerPassword(id: number, new_password: string): Promise<void> {
-    await requestInner({
+    await requestText({
         method: HttpMethod.PUT,
         route: `players/${id}/password`,
         body: {

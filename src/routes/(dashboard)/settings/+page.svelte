@@ -5,6 +5,7 @@
         setSelfPassword,
         type PlayerAccount,
     } from "$lib/api/players";
+    import Dialog from "$lib/components/Dialog.svelte";
     import Loader from "$lib/components/Loader.svelte";
     import Account from "svelte-material-icons/Account.svelte";
     import Key from "svelte-material-icons/Key.svelte";
@@ -21,6 +22,8 @@
 
     let loading2 = false;
     let error2: string | null = null;
+
+    let changeConfirm: boolean = false;
 
     async function onUpdateBasic() {
         error1 = null;
@@ -43,20 +46,15 @@
     }
 
     async function onUpdatePassword() {
-        if (newPassword !== confirmPassword) {
-            error2 = "Passwords don't match";
-            return;
-        }
-
+        changeConfirm = false;
         error2 = null;
         loading2 = true;
         try {
             await setSelfPassword(currentPassword, newPassword);
-            alert("Password updated");
         } catch (e) {
             let err = e as RequestError;
             error2 = err.text;
-            console.error(e);
+            console.error(err);
         } finally {
             loading2 = false;
         }
@@ -65,6 +63,22 @@
     function setDefaults(player: PlayerAccount) {
         username = player.display_name;
         email = player.email;
+    }
+
+    function confirmPasswordChange() {
+        if (newPassword !== confirmPassword) {
+            error2 = "Passwords don't match";
+            return;
+        }
+        if (
+            newPassword.length <= 0 ||
+            confirmPassword.length <= 0 ||
+            currentPassword.length <= 0
+        ) {
+            error2 = "Passwords cannot be empty";
+            return;
+        }
+        changeConfirm = true;
     }
 
     $: {
@@ -112,7 +126,7 @@
             <button type="submit" class="button">Save Changes</button>
         </div>
     </form>
-    <form class="form card" on:submit|preventDefault={onUpdatePassword}>
+    <div class="form card" on:submit|preventDefault={onUpdatePassword}>
         <div class="form__wrapper">
             <div class="form__head">
                 <Key class="form__icon" />
@@ -155,10 +169,26 @@
                     required
                 />
             </label>
-            <button type="submit" class="button">Change Password</button>
+            <button on:click={confirmPasswordChange} class="button"
+                >Change Password</button
+            >
         </div>
-    </form>
+    </div>
 </div>
+
+<Dialog visible={changeConfirm}>
+    <h3>Confirm Change Password</h3>
+    <p>Are you sure you want to change your account password?</p>
+    <div>
+        <button class="button button--alt" on:click={onUpdatePassword}
+            >Confirm</button
+        >
+        <button
+            class="button button--alt"
+            on:click={() => (changeConfirm = false)}>Cancel</button
+        >
+    </div>
+</Dialog>
 
 <style lang="scss">
     .title,
@@ -177,7 +207,7 @@
 
     .form__wrapper {
         max-width: 400px;
-        widows: 100%;
+        width: 100%;
         flex: auto;
 
         display: flex;
@@ -187,9 +217,6 @@
     .form__head {
         display: flex;
         gap: 1rem;
-    }
-
-    .form__title {
     }
 
     :global(.form__icon) {

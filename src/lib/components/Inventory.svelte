@@ -99,7 +99,7 @@
 <div class="wrapper">
     <div class="tabs">
         <slot />
-        {#if isAdmin($player)}
+        {#if isAdmin($player) && inventory.length > 0}
             <button
                 class="button button--alt"
                 on:click={save}

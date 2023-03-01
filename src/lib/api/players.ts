@@ -26,6 +26,16 @@ export function getSelf(): Promise<PlayerAccount> {
     })
 }
 
+export async function deleteSelf(password: string): Promise<void> {
+    await requestText({
+        method: HttpMethod.DELETE,
+        route: "players/self",
+        body: {
+            password
+        }
+    });
+}
+
 export function getPlayer(id: number): Promise<PlayerAccount> {
     return request({
         method: HttpMethod.GET,

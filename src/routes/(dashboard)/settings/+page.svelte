@@ -1,6 +1,8 @@
 <script lang="ts">
-    import { player, type RequestError } from "$lib/api/api";
+    import { goto } from "$app/navigation";
+    import { clearToken, player, type RequestError } from "$lib/api/api";
     import {
+        deleteSelf,
         setSelfDetails,
         setSelfPassword,
         type PlayerAccount,
@@ -10,6 +12,7 @@
     import Loader from "$lib/components/Loader.svelte";
     import Account from "svelte-material-icons/Account.svelte";
     import Key from "svelte-material-icons/Key.svelte";
+    import Delete from "svelte-material-icons/Delete.svelte";
 
     // Basic form state extended by the other forms
     interface FormState {
@@ -41,7 +44,9 @@
 
     // Delete state for account deletion
     type DeleteState = {
+        // The account password
         password: string;
+        // Whether the confirm screen is shown
         showConfirm: boolean;
     } & FormState;
 
@@ -110,6 +115,28 @@
         }
     }
 
+    async function doDelete() {
+        deleteState.showConfirm = false;
+        deleteState.error = null;
+        deleteState.loading = true;
+
+        try {
+            await deleteSelf(deleteState.password);
+
+            // Account was deleted update all associated state and redirect to login
+
+            clearToken();
+
+            await goto("/login");
+        } catch (e) {
+            let err = e as RequestError;
+            deleteState.error = err.text;
+            console.error(err);
+        } finally {
+            deleteState.loading = false;
+        }
+    }
+
     /**
      * Toggles the confirm password screen if the provided
      * password values are valid
@@ -133,6 +160,10 @@
 
         // Display the confirm dialog
         password.showConfirm = true;
+    }
+
+    function promptDelete() {
+        deleteState.showConfirm = true;
     }
 
     $: {
@@ -225,13 +256,35 @@
             </label>
             <button type="submit" class="button">Change Password</button>
         </form>
+        <form class="form card" on:submit|preventDefault={promptDelete}>
+            <h2 class="form__title">
+                <Delete class="form__icon" />
+                Delete Account
+            </h2>
+            <p class="text">
+                <span class="danger">DANGER ZONE</span> Warning deleting your account
+                is perminent and cannot be reversed
+            </p>
+            {#if deleteState.error}
+                <p class="error">{deleteState.error}</p>
+            {/if}
+            {#if deleteState.loading}
+                <Loader />
+            {/if}
+
+            <button type="submit" class="button button--danger"
+                >Delete Account</button
+            >
+        </form>
     </div>
 </DashboardPage>
 
+<!-- Password change confirmation -->
 <Dialog visible={password.showConfirm}>
     <h3>Confirm Change Password</h3>
-    <p>Are you sure you want to change your account password?</p>
-    <div>
+    <p class="text">Are you sure you want to change your account password?</p>
+
+    <div class="button-group">
         <button class="button button--alt" on:click={updatePassword}>
             Confirm
         </button>
@@ -244,17 +297,46 @@
     </div>
 </Dialog>
 
+<!-- Account deletion confirmation -->
+<Dialog visible={deleteState.showConfirm}>
+    <h3>Confirm Account Deletion</h3>
+    <p class="text">
+        <span class="danger">WARNING:</span> Account Deletion is
+        <b>perminent</b> and cannot be reversed enter your password below to confirm
+        deletion
+    </p>
+
+    <label class="input">
+        <span class="input__label"> Password</span>
+        <input
+            class="input__value"
+            type="password"
+            bind:value={deleteState.password}
+            required
+            autocomplete="current-password"
+        />
+    </label>
+    <div class="button-group">
+        <button class="button button--danger" on:click={doDelete}>
+            Confirm
+        </button>
+        <button
+            class="button button--alt"
+            on:click={() => (deleteState.showConfirm = false)}
+        >
+            Cancel
+        </button>
+    </div>
+</Dialog>
+
 <style lang="scss">
     .forms {
         display: flex;
         flex-flow: row wrap;
         gap: 1rem;
-        align-items: flex-start;
     }
 
     .form {
-        margin-bottom: 2rem;
-
         flex: auto;
 
         display: flex;
@@ -269,5 +351,10 @@
         height: 24px;
         vertical-align: middle;
         fill: white;
+    }
+
+    .danger {
+        color: #a74343;
+        font-weight: bold;
     }
 </style>

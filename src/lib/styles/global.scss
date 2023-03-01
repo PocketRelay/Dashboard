@@ -55,7 +55,21 @@ p {
 
 .button--alt:hover {
     background-color: #4E5382;
+}
 
+.button--danger {
+    background-color: #a74343;
+}
+
+.button-group {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem;
+}
+
+
+.button--danger:hover {
+    background-color: #b65a5a;
 }
 
 .button:disabled {

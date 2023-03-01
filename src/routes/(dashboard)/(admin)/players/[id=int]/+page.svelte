@@ -106,8 +106,7 @@
                 >
                     Edit Classes
                 </a>
-                <button class="button button--alt delete">Delete Account</button
-                >
+                <button class="button button--danger">Delete Account</button>
             </nav>
         </svelte:fragment>
         <div class="forms">
@@ -216,12 +215,5 @@
     }
     .button--alt:hover {
         background-color: #1f1f1f;
-    }
-
-    .delete {
-        background-color: #a74343;
-    }
-    .delete:hover {
-        background-color: #b65a5a;
     }
 </style>

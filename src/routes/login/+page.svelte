@@ -13,11 +13,10 @@
     let error: string | null = null;
 
     /**
-     * Handler to handle the actual login process and
-     * redirect the user to the dashboard once they
-     * are logged in.
+     * Handles attempting to login to the backend server
+     * using the provided credentials
      */
-    async function onLogin() {
+    async function login() {
         error = null;
         loading = true;
 
@@ -38,17 +37,17 @@
     }
 </script>
 
+{#if loading}
+    <Loader />
+{/if}
+
 <main class="background">
-    <form class="form" on:submit|preventDefault={onLogin}>
+    <form class="form" on:submit|preventDefault={login}>
         <span class="ident">POCKET RELAY MANAGER</span>
         <h1>Login</h1>
         <p class="text">Login to an existing account on the server</p>
         {#if error}
             <p class="error">{error}</p>
-        {/if}
-
-        {#if loading}
-            <Loader />
         {/if}
 
         <label class="input">
@@ -85,6 +84,14 @@
 
         justify-content: center;
         align-items: center;
+
+        background: linear-gradient(
+                rgba(0, 0, 0, 0.7),
+                rgba(0, 0, 0, 0.9),
+                rgba(0, 0, 0, 0.7)
+            ),
+            url("/login-background.webp") center no-repeat;
+        background-size: cover;
     }
 
     .form {

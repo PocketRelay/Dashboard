@@ -107,7 +107,7 @@ export async function requestInner(config: RequestConfig): Promise<Response> {
 
     // Append the Authorization header if there is an API token set
     if (token !== null) {
-        headers["Authorization"] = "Bearer " + token;
+        headers["X-Token"] = token;
     }
 
     // Assign the body value for non GET requests if the body is present

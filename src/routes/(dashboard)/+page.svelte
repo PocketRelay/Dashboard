@@ -161,6 +161,12 @@
         gap: 2rem;
     }
 
+    @media screen and (max-width: 920px) {
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
+
     .card {
         display: flex;
         flex-flow: column;

@@ -7,6 +7,7 @@
     import DashboardPage from "$lib/components/DashboardPage.svelte";
     import Loader from "$lib/components/Loader.svelte";
     import { getNumberWithOrdinal } from "$lib/tools/numbers";
+    import Refresh from "svelte-material-icons/Refresh.svelte";
 
     let selected = LeaderboardName.N7Rating;
 
@@ -30,9 +31,11 @@
         loading = false;
     }
 
-    $: {
-        load(selected, offset, count).then().catch();
+    function refresh() {
+        load(selected, offset, count);
     }
+
+    $: load(selected, offset, count);
 </script>
 
 <DashboardPage
@@ -68,6 +71,9 @@
         </div>
 
         <div class="actions">
+            <button class="action button" on:click={refresh}>
+                <Refresh width={24} height={24} />
+            </button>
             <button
                 class="action button"
                 disabled={offset == 0}

@@ -82,16 +82,16 @@
         inventory = parseInventory(playerBase.inventory);
     }
 
-    const enum Tab {
-        Characters,
-        Weapons,
-        WeaponMods,
-        Consumables,
-        Gear,
-        Other,
-    }
+    const TABS: string[] = [
+        "Characters",
+        "Weapons",
+        "WeaponMods",
+        "Consumables",
+        "Gear",
+        "Other",
+    ];
 
-    let tab = Tab.Characters;
+    let tab: string = TABS[0];
 
     onMount(load);
 </script>
@@ -109,48 +109,11 @@
             </button>
             <button class="button button--alt" on:click={reset}> Reset </button>
         {/if}
-        <button
-            class="button tab"
-            class:tab--active={tab == Tab.Characters}
-            on:click={() => (tab = Tab.Characters)}
-        >
-            Characters
-        </button>
-        <button
-            class="button tab"
-            class:tab--active={tab == Tab.Weapons}
-            on:click={() => (tab = Tab.Weapons)}
-        >
-            Weapons
-        </button>
-        <button
-            class="button tab"
-            class:tab--active={tab == Tab.WeaponMods}
-            on:click={() => (tab = Tab.WeaponMods)}
-        >
-            Weapon Mods
-        </button>
-        <button
-            class="button tab"
-            class:tab--active={tab == Tab.Consumables}
-            on:click={() => (tab = Tab.Consumables)}
-        >
-            Consumables
-        </button>
-        <button
-            class="button tab"
-            class:tab--active={tab == Tab.Gear}
-            on:click={() => (tab = Tab.Gear)}
-        >
-            Gear
-        </button>
-        <button
-            class="button tab"
-            class:tab--active={tab == Tab.Other}
-            on:click={() => (tab = Tab.Other)}
-        >
-            Other
-        </button>
+        <select class="select" bind:value={tab}>
+            {#each TABS as tab}
+                <option value={tab}>{tab}</option>
+            {/each}
+        </select>
     </div>
 
     <div class="contents">
@@ -165,17 +128,17 @@
             {#if loading}
                 <Loader />
             {/if}
-            {#if tab == Tab.Characters}
+            {#if tab == "Characters"}
                 <InventoryCharacters {inventory} />
-            {:else if tab == Tab.Weapons}
+            {:else if tab == "Weapons"}
                 <InventoryWeapons {inventory} />
-            {:else if tab == Tab.WeaponMods}
+            {:else if tab == "WeaponMods"}
                 <InventoryWeaponMods {inventory} />
-            {:else if tab == Tab.Consumables}
+            {:else if tab == "Consumables"}
                 <InventoryConsumables {inventory} />
-            {:else if tab == Tab.Gear}
+            {:else if tab == "Gear"}
                 <InventoryGear {inventory} />
-            {:else if tab == Tab.Other}
+            {:else if tab == "Other"}
                 <InventoryOther bind:credits />
             {/if}
         {/if}
@@ -200,12 +163,13 @@
         overflow: auto;
     }
 
-    .tab {
-        background-color: #0f0f0f;
-    }
-
-    .tab--active {
-        background-color: #4e5382;
+    .select {
+        background-color: #1f1f1f;
+        color: #ffffff;
+        border: none;
+        padding: 1rem;
+        font-size: 1rem;
+        border-radius: 10px;
     }
 
     .tabs {

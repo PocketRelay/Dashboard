@@ -11,205 +11,259 @@
     import Account from "svelte-material-icons/Account.svelte";
     import Key from "svelte-material-icons/Key.svelte";
 
-    let username = "";
-    let email = "";
+    // Basic form state extended by the other forms
+    interface FormState {
+        // Form loading state
+        loading: boolean;
+        // Form error state
+        error: string | null;
+    }
 
-    let currentPassword = "";
-    let newPassword = "";
-    let confirmPassword = "";
+    // Basic state adding username and email fields to the form
+    type BasicState = {
+        // The new account username
+        username: string;
+        // The new account email
+        email: string;
+    } & FormState;
 
-    let loading1 = false;
-    let error1: string | null = null;
+    // Password state adding password fields to the form
+    type PasswordState = {
+        // The current password
+        current: string;
+        // The new password
+        new: string;
+        // The password confirmation value
+        confirm: string;
+        // Show the confirmation screen
+        showConfirm: boolean;
+    } & FormState;
 
-    let loading2 = false;
-    let error2: string | null = null;
+    // Delete state for account deletion
+    type DeleteState = {
+        password: string;
+        showConfirm: boolean;
+    } & FormState;
 
-    let changeConfirm: boolean = false;
+    const basic: BasicState = {
+        username: "",
+        email: "",
+        // Form state
+        loading: false,
+        error: null,
+    };
 
-    async function onUpdateBasic() {
-        error1 = null;
-        loading1 = true;
+    const password: PasswordState = {
+        current: "",
+        new: "",
+        confirm: "",
+        showConfirm: false,
+        // Form state
+        loading: false,
+        error: null,
+    };
+
+    const deleteState: DeleteState = {
+        password: "",
+        showConfirm: false,
+        // Form state
+        loading: false,
+        error: null,
+    };
+
+    async function updateBasic() {
+        // Prepare the state
+        basic.error = null;
+        basic.loading = true;
+
         try {
-            await setSelfDetails(username, email);
+            await setSelfDetails(basic.username, basic.email);
 
             player.update((value) => {
-                value.email = email;
-                value.display_name = username;
+                value.email = basic.email;
+                value.display_name = basic.username;
                 return value;
             });
         } catch (e) {
             let err = e as RequestError;
-            error1 = err.text;
+            basic.error = err.text;
             console.error(e);
         } finally {
-            loading1 = false;
+            basic.loading = false;
         }
     }
 
-    async function onUpdatePassword() {
-        changeConfirm = false;
-        error2 = null;
-        loading2 = true;
+    async function updatePassword() {
+        // Prepare the state
+        password.showConfirm = false;
+        password.error = null;
+        password.loading = true;
+
         try {
-            await setSelfPassword(currentPassword, newPassword);
+            await setSelfPassword(password.current, password.new);
         } catch (e) {
             let err = e as RequestError;
-            error2 = err.text;
+            password.error = err.text;
             console.error(err);
         } finally {
-            loading2 = false;
+            password.loading = false;
         }
     }
 
-    function setDefaults(player: PlayerAccount) {
-        username = player.display_name;
-        email = player.email;
-    }
-
-    function confirmPasswordChange() {
-        if (newPassword !== confirmPassword) {
-            error2 = "Passwords don't match";
+    /**
+     * Toggles the confirm password screen if the provided
+     * password values are valid
+     */
+    function promptConfirmChange() {
+        // Fail if the passwords don't match
+        if (password.new !== password.confirm) {
+            password.error = "Passwords don't match";
             return;
         }
+
+        // Don't allow empty password fields
         if (
-            newPassword.length <= 0 ||
-            confirmPassword.length <= 0 ||
-            currentPassword.length <= 0
+            password.new.length <= 0 ||
+            password.confirm.length <= 0 ||
+            password.current.length <= 0
         ) {
-            error2 = "Passwords cannot be empty";
+            password.error = "Passwords cannot be empty";
             return;
         }
-        changeConfirm = true;
+
+        // Display the confirm dialog
+        password.showConfirm = true;
     }
 
     $: {
-        setDefaults($player);
+        // Update the initial values with the player details
+        let account = $player;
+        basic.username = account.display_name;
+        basic.email = account.email;
     }
 </script>
 
 <DashboardPage title="Settings" text="Edit the settings for your account below">
     <div class="forms">
-        <form class="form card" on:submit|preventDefault={onUpdateBasic}>
-            <div class="form__wrapper">
-                <div class="form__head">
-                    <Account class="form__icon" />
-                    <h2 class="form__title">Basic Information</h2>
-                </div>
-                <p class="text">
-                    Here you can modify your basic account information
-                </p>
-                {#if error1}
-                    <p class="error">{error1}</p>
-                {/if}
-                {#if loading1}
-                    <Loader />
-                {/if}
-                <label class="input">
-                    <span class="input__label">Username</span>
-                    <input
-                        class="input__value"
-                        type="text"
-                        bind:value={username}
-                        required
-                    />
-                </label>
-                <label class="input">
-                    <span class="input__label">Email</span>
-                    <input
-                        class="input__value"
-                        type="email"
-                        bind:value={email}
-                        required
-                    />
-                </label>
-                <button type="submit" class="button">Save Changes</button>
-            </div>
+        <form class="form card" on:submit|preventDefault={updateBasic}>
+            <h2 class="form__title">
+                <Account class="form__icon" />Basic Information
+            </h2>
+            <p class="text">
+                Here you can modify your basic account information
+            </p>
+            {#if basic.error}
+                <p class="error">{basic.error}</p>
+            {/if}
+            {#if basic.loading}
+                <Loader />
+            {/if}
+            <label class="input">
+                <span class="input__label">Username</span>
+                <input
+                    class="input__value"
+                    type="text"
+                    bind:value={basic.username}
+                    required
+                />
+            </label>
+            <label class="input">
+                <span class="input__label">Email</span>
+                <input
+                    class="input__value"
+                    type="email"
+                    bind:value={basic.email}
+                    required
+                />
+            </label>
+            <button type="submit" class="button">Save Changes</button>
         </form>
-        <div class="form card" on:submit|preventDefault={onUpdatePassword}>
-            <div class="form__wrapper">
-                <div class="form__head">
-                    <Key class="form__icon" />
-                    <h2 class="form__title">Password</h2>
-                </div>
-                <p class="text">
-                    Here you can change your account password using your current
-                    password
-                </p>
-                {#if error2}
-                    <p class="error">{error2}</p>
-                {/if}
-                {#if loading2}
-                    <Loader />
-                {/if}
-                <label class="input">
-                    <span class="input__label">Current Password</span>
-                    <input
-                        class="input__value"
-                        type="password"
-                        bind:value={currentPassword}
-                        required
-                    />
-                </label>
-                <label class="input">
-                    <span class="input__label">New Password</span>
-                    <input
-                        class="input__value"
-                        type="password"
-                        bind:value={newPassword}
-                        required
-                    />
-                </label>
-                <label class="input">
-                    <span class="input__label">Confirm Password</span>
-                    <input
-                        class="input__value"
-                        type="password"
-                        bind:value={confirmPassword}
-                        required
-                    />
-                </label>
-                <button on:click={confirmPasswordChange} class="button"
-                    >Change Password</button
-                >
-            </div>
-        </div>
+        <form class="form card" on:submit|preventDefault={promptConfirmChange}>
+            <h2 class="form__title">
+                <Key class="form__icon" />
+                Password
+            </h2>
+            <p class="text">
+                Here you can change your account password using your current
+                password
+            </p>
+            {#if password.error}
+                <p class="error">{password.error}</p>
+            {/if}
+            {#if password.loading}
+                <Loader />
+            {/if}
+            <label class="input">
+                <span class="input__label">Current Password</span>
+                <input
+                    class="input__value"
+                    type="password"
+                    bind:value={password.current}
+                    required
+                    autocomplete="current-password"
+                />
+            </label>
+            <label class="input">
+                <span class="input__label">New Password</span>
+                <input
+                    class="input__value"
+                    type="password"
+                    bind:value={password.new}
+                    required
+                    autocomplete="off"
+                />
+            </label>
+            <label class="input">
+                <span class="input__label">Confirm Password</span>
+                <input
+                    class="input__value"
+                    type="password"
+                    bind:value={password.confirm}
+                    required
+                    autocomplete="off"
+                />
+            </label>
+            <button type="submit" class="button">Change Password</button>
+        </form>
     </div>
 </DashboardPage>
 
-<Dialog visible={changeConfirm}>
+<Dialog visible={password.showConfirm}>
     <h3>Confirm Change Password</h3>
     <p>Are you sure you want to change your account password?</p>
     <div>
-        <button class="button button--alt" on:click={onUpdatePassword}
-            >Confirm</button
-        >
+        <button class="button button--alt" on:click={updatePassword}>
+            Confirm
+        </button>
         <button
             class="button button--alt"
-            on:click={() => (changeConfirm = false)}>Cancel</button
+            on:click={() => (password.showConfirm = false)}
         >
+            Cancel
+        </button>
     </div>
 </Dialog>
 
 <style lang="scss">
-    .form {
-        margin-bottom: 2rem;
+    .forms {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 1rem;
+        align-items: flex-start;
     }
 
-    .form__wrapper {
-        max-width: 400px;
-        width: 100%;
+    .form {
+        margin-bottom: 2rem;
+
         flex: auto;
 
         display: flex;
         flex-flow: column;
         gap: 1rem;
     }
-    .form__head {
-        display: flex;
-        gap: 1rem;
-    }
 
     :global(.form__icon) {
+        margin-right: 0.5rem;
         display: inline;
         width: 24px;
         height: 24px;

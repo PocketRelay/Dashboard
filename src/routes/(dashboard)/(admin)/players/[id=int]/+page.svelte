@@ -112,75 +112,68 @@
         </svelte:fragment>
         <div class="forms">
             <form class="form card" on:submit|preventDefault={onUpdateBasic}>
-                <div class="form__wrapper">
-                    <div class="form__head">
-                        <Account class="form__icon" />
-                        <h2 class="form__title">Basic Information</h2>
-                    </div>
-                    <p class="text">Modify basic account information</p>
-                    {#if error1}
-                        <p class="error">{error1}</p>
-                    {/if}
-                    {#if loading1}
-                        <Loader />
-                    {/if}
-                    <label class="input">
-                        <span class="input__label">Username</span>
-                        <input
-                            class="input__value"
-                            type="text"
-                            bind:value={player.display_name}
-                            required
-                        />
-                    </label>
-                    <label class="input">
-                        <span class="input__label">Email</span>
-                        <input
-                            class="input__value"
-                            type="email"
-                            bind:value={player.email}
-                            required
-                        />
-                    </label>
-                    <button type="submit" class="button">Save Changes</button>
-                </div>
+                <h2 class="form__title">
+                    <Account class="form__icon" /> Basic Information
+                </h2>
+                <p class="text">Modify basic account information</p>
+                {#if error1}
+                    <p class="error">{error1}</p>
+                {/if}
+                {#if loading1}
+                    <Loader />
+                {/if}
+                <label class="input">
+                    <span class="input__label">Username</span>
+                    <input
+                        class="input__value"
+                        type="text"
+                        bind:value={player.display_name}
+                        required
+                    />
+                </label>
+                <label class="input">
+                    <span class="input__label">Email</span>
+                    <input
+                        class="input__value"
+                        type="email"
+                        bind:value={player.email}
+                        required
+                    />
+                </label>
+                <button type="submit" class="button">Save Changes</button>
             </form>
             <form class="form card" on:submit|preventDefault={onUpdatePassword}>
-                <div class="form__wrapper">
-                    <div class="form__head">
-                        <Key class="form__icon" />
-                        <h2 class="form__title">Password</h2>
-                    </div>
-                    <p class="text">
-                        Change the account password to the provided password
-                    </p>
-                    {#if error2}
-                        <p class="error">{error2}</p>
-                    {/if}
-                    {#if loading2}
-                        <Loader />
-                    {/if}
-                    <label class="input">
-                        <span class="input__label">New Password</span>
-                        <input
-                            class="input__value"
-                            type="password"
-                            bind:value={newPassword}
-                            required
-                        />
-                    </label>
-                    <label class="input">
-                        <span class="input__label">Confirm Password</span>
-                        <input
-                            class="input__value"
-                            type="password"
-                            bind:value={confirmPassword}
-                            required
-                        />
-                    </label>
-                    <button type="submit" class="button">Change Password</button
-                    >
-                </div>
+                <h2 class="form__title">
+                    <Key class="form__icon" /> Password
+                </h2>
+                <p class="text">
+                    Change the account password to the provided password
+                </p>
+                {#if error2}
+                    <p class="error">{error2}</p>
+                {/if}
+                {#if loading2}
+                    <Loader />
+                {/if}
+                <label class="input">
+                    <span class="input__label">New Password</span>
+                    <input
+                        class="input__value"
+                        type="password"
+                        bind:value={newPassword}
+                        required
+                    />
+                </label>
+                <label class="input">
+                    <span class="input__label">Confirm Password</span>
+                    <input
+                        class="input__value"
+                        type="password"
+                        bind:value={confirmPassword}
+                        required
+                    />
+                </label>
+                <button type="submit" class="button"> Change Password </button>
             </form>
         </div>
     </DashboardPage>
@@ -193,25 +186,25 @@
         flex-flow: row;
         gap: 1rem;
     }
+    .forms {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 1rem;
+        align-items: flex-start;
+    }
 
     .form {
         margin-bottom: 2rem;
-    }
-    .form__wrapper {
-        max-width: 400px;
-        widows: 100%;
+
         flex: auto;
 
         display: flex;
         flex-flow: column;
         gap: 1rem;
     }
-    .form__head {
-        display: flex;
-        gap: 1rem;
-    }
 
     :global(.form__icon) {
+        margin-right: 0.5rem;
         display: inline;
         width: 24px;
         height: 24px;

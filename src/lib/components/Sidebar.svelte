@@ -117,15 +117,14 @@
         background-color: #060606;
         padding: 1rem;
         border-radius: 10px;
-    }
 
-    .sidebar__group {
-        display: flex;
-        flex-flow: column;
+        &__group {
+            display: flex;
+            flex-flow: column;
 
-        background-color: #101010;
-        border-radius: 5px;
-        // overflow: hidden;
+            background-color: #101010;
+            border-radius: 5px;
+        }
     }
 
     .sidebar-button {
@@ -141,54 +140,54 @@
         border-radius: 5px;
         white-space: nowrap;
         cursor: pointer;
-    }
 
-    .sidebar-button:hover {
-        background-color: #1f1f1f;
-    }
+        &__text {
+            background-color: #202020;
+            border-radius: 5px;
+            font-size: 1rem;
+            padding: 0.5rem;
+            margin-left: 0.5rem;
 
-    .sidebar-button > :global(svg) {
-        display: inline;
-        width: 24px;
-        height: 24px;
-        vertical-align: middle;
-        fill: white;
-    }
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            z-index: 1;
 
-    .sidebar-button--selected > :global(svg) {
-        color: white;
-    }
+            pointer-events: none;
 
-    .sidebar-button__text {
-        background-color: #202020;
+            transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 
-        border-radius: 5px;
-        font-size: 1rem;
-        padding: 0.5rem;
-        margin-left: 0.5rem;
+            transform: translateX(0px) translateY(-50%);
+            opacity: 0;
+        }
 
-        position: absolute;
-        top: 50%;
-        left: 100%;
-        z-index: 1;
+        &:hover {
+            background-color: #1f1f1f;
 
-        pointer-events: none;
+            .sidebar-button__text {
+                transform: translateX(10px) translateY(-50%);
+                opacity: 0.9;
+            }
+        }
 
-        transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        > :global(svg) {
+            display: inline;
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            fill: white;
+        }
 
-        transform: translateX(0px) translateY(-50%);
-        opacity: 0;
-    }
+        &--selected {
+            background-color: #4e5382;
 
-    .sidebar-button:hover .sidebar-button__text {
-        transform: translateX(10px) translateY(-50%);
-        opacity: 0.9;
-    }
+            > :global(svg) {
+                color: white;
+            }
 
-    .sidebar-button--selected {
-        background-color: #4e5382;
-    }
-    .sidebar-button--selected:hover {
-        background-color: #676b96;
+            &:hover {
+                background-color: #676b96;
+            }
+        }
     }
 </style>

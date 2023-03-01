@@ -1,8 +1,12 @@
 <script lang="ts">
     export let credits: number;
+
+    $: {
+        if (credits < 0) credits = 0;
+    }
 </script>
 
-<form class=" card">
+<div class="card">
     <label class="input">
         <span class="input__label">Credits</span>
         <input
@@ -13,7 +17,4 @@
             min={0}
         />
     </label>
-</form>
-
-<style lang="scss">
-</style>
+</div>

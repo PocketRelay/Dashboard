@@ -37,8 +37,4 @@
     .text {
         margin-bottom: 0.5rem;
     }
-
-    .text {
-        color: #999999;
-    }
 </style>

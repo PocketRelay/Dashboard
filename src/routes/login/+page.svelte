@@ -105,10 +105,6 @@
         background-color: #0f0f0f;
     }
 
-    .text {
-        color: #c3c3c3;
-    }
-
     .button {
         margin-top: 0.5rem;
         font-size: 1.2rem;

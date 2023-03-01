@@ -67,36 +67,30 @@
         </a>
 
         {#if $player.role == PlayerRole.Admin || $player.role == PlayerRole.SuperAdmin}
-            <div class="admin-group">
-                <span class="admin-group__title">Admin</span>
-                <div class="sidebar__group admin-group__content">
-                    <a
-                        class="sidebar-button"
-                        href="/players"
-                        class:sidebar-button--selected={$page.route.id ==
-                            "/(dashboard)/(admin)/players"}
-                    >
-                        <AccountMultiple class="sidebar-button__icon" />
-                        <span class="sidebar-button__text">Players</span>
-                    </a>
-
-                    {#if $player.role == PlayerRole.SuperAdmin}
-                        <a
-                            class="sidebar-button"
-                            href="/logs"
-                            class:sidebar-button--selected={$page.route.id ==
-                                "/(dashboard)/(admin)/logs"}
-                        >
-                            <Logs class="sidebar-button__icon" />
-                            <span class="sidebar-button__text">Logs</span>
-                        </a>
-                    {/if}
-                </div>
-            </div>
+            <a
+                class="sidebar-button"
+                href="/players"
+                class:sidebar-button--selected={$page.route.id ==
+                    "/(dashboard)/(admin)/players"}
+            >
+                <AccountMultiple class="sidebar-button__icon" />
+                <span class="sidebar-button__text">Players</span>
+            </a>
         {/if}
     </nav>
 
     <div class="sidebar__group">
+        {#if $player.role == PlayerRole.SuperAdmin}
+            <a
+                class="sidebar-button"
+                href="/logs"
+                class:sidebar-button--selected={$page.route.id ==
+                    "/(dashboard)/(admin)/logs"}
+            >
+                <Logs class="sidebar-button__icon" />
+                <span class="sidebar-button__text">Logs</span>
+            </a>
+        {/if}
         <a
             class="sidebar-button"
             href="/settings"
@@ -196,24 +190,5 @@
     }
     .sidebar-button--selected:hover {
         background-color: #676b96;
-    }
-    .admin-group {
-        background: #854747;
-        border-radius: 5px;
-        padding: 0.15rem;
-    }
-    .admin-group .sidebar-button {
-        padding: 1rem 0.65rem;
-    }
-
-    .admin-group__title {
-        text-align: center;
-        padding: 0.25rem 0;
-        display: block;
-        font-size: 0.75rem;
-    }
-
-    .admin-group__content {
-        border-radius: 5px;
     }
 </style>

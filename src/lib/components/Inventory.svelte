@@ -156,7 +156,7 @@
     <div class="contents">
         {#if inventory.length == 0}
             <h2>Inventory not initialized</h2>
-            <p class="text">
+            <p class="text text--wrapped">
                 This account inventory has not yet been created. In order to
                 create the inventory the player must have visited the
                 multiplayer menu

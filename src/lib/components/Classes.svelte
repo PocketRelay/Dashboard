@@ -108,9 +108,9 @@
 {#if loading}
     <Loader />
 {/if}
-<div>
+<div class="tabs">
     <slot />
-    {#if isAdmin($player)}
+    {#if isAdmin($player) && stored.length != 0}
         <button
             class="button button--alt"
             on:click={save}
@@ -122,13 +122,24 @@
 </div>
 
 <div class="classes">
-    {#each stored as { value }}
-        <PlayerClassComponent
-            name={value.name}
-            bind:level={value.level}
-            bind:promotions={value.promotions}
-        />
-    {/each}
+    {#if stored.length == 0}
+        <div>
+            <h2>Classes not initialized</h2>
+            <p class="text text--wrapped">
+                This account classes have not yet been created. In order to
+                create the classes the player must have completed the class
+                selection screen for first time opening multiplayer
+            </p>
+        </div>
+    {:else}
+        {#each stored as { value }}
+            <PlayerClassComponent
+                name={value.name}
+                bind:level={value.level}
+                bind:promotions={value.promotions}
+            />
+        {/each}
+    {/if}
 </div>
 
 <style lang="scss">
@@ -137,5 +148,10 @@
         flex-flow: row wrap;
         gap: 2rem;
         margin-top: 1rem;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 1rem;
     }
 </style>

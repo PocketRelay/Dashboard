@@ -21,10 +21,10 @@
         loading = true;
 
         try {
-            let response = await doLogin(email, password);
+            const { token } = await doLogin(email, password);
 
             // Assign the token
-            setToken(response.token);
+            setToken(token);
 
             await goto("/");
         } catch (e) {
@@ -42,9 +42,9 @@
 {/if}
 
 <main class="background">
-    <form class="form" on:submit|preventDefault={login}>
-        <span class="ident">POCKET RELAY MANAGER</span>
+    <form class="form card" on:submit|preventDefault={login}>
         <h1>Login</h1>
+        <span class="ident">POCKET RELAY MANAGER</span>
         <p class="text">Login to an existing account on the server</p>
         {#if error}
             <p class="error">{error}</p>
@@ -98,17 +98,11 @@
         display: flex;
         flex-flow: column;
         gap: 1rem;
-
-        padding: 2rem;
-        border-radius: 10px;
-
-        background-color: #0f0f0f;
     }
 
     .button {
-        margin-top: 0.5rem;
         font-size: 1.2rem;
+        margin-top: 0.5rem;
         font-weight: bold;
-        padding: 1rem;
     }
 </style>

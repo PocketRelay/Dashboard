@@ -166,12 +166,13 @@
         deleteState.showConfirm = true;
     }
 
-    $: {
-        // Update the initial values with the player details
-        let account = $player;
+    function setDefaults(account: PlayerAccount) {
         basic.username = account.display_name;
         basic.email = account.email;
     }
+
+    // Update the initial values with the player details
+    $: setDefaults($player);
 </script>
 
 <DashboardPage title="Settings" text="Edit the settings for your account below">

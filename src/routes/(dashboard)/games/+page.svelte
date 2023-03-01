@@ -2,29 +2,32 @@
     import { getGames, type Game } from "$lib/api/games";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
     import GameComponent from "$lib/components/GameComponent.svelte";
+    import Loader from "$lib/components/Loader.svelte";
     let games: Game[] = [];
 
+    let loading: boolean = false;
     let count: number = 20;
     let offset: number = 0;
     let more: boolean = false;
 
     async function load(offset: number, count: number) {
+        loading = true;
         try {
             let response = await getGames(offset, count);
             games = response.games;
             more = response.more;
         } catch (e) {
             console.error(e);
+        } finally {
+            loading = false;
         }
     }
 
     function refresh() {
-        load(offset, count).then().catch();
+        load(offset, count);
     }
 
-    $: {
-        load(offset, count).then().catch();
-    }
+    $: load(offset, count);
 </script>
 
 <DashboardPage
@@ -59,6 +62,9 @@
         </div>
     </svelte:fragment>
     <div class="games">
+        {#if loading}
+            <Loader />
+        {/if}
         {#each games as game}
             <GameComponent {game} />
         {/each}

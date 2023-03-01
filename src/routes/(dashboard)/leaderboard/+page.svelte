@@ -5,6 +5,7 @@
         type LeaderboardEntry,
     } from "$lib/api/leaderboard";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
+    import Loader from "$lib/components/Loader.svelte";
     import { getNumberWithOrdinal } from "$lib/tools/numbers";
 
     let selected = LeaderboardName.N7Rating;
@@ -93,6 +94,9 @@
     </svelte:fragment>
 
     <table class="entries">
+        {#if loading}
+            <Loader />
+        {/if}
         <thead class="entries__head">
             <tr>
                 <th>Rank</th>

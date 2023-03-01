@@ -42,6 +42,10 @@
     });
 </script>
 
+{#if loading}
+    <Loader />
+{/if}
+
 <DashboardPage title="Server Logs">
     <svelte:fragment slot="heading">
         {#if contents !== null}

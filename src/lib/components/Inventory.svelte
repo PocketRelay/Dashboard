@@ -19,6 +19,7 @@
     import InventoryOther from "./inventory/InventoryOther.svelte";
     import InventoryWeaponMods from "./inventory/InventoryWeaponMods.svelte";
     import InventoryWeapons from "./inventory/InventoryWeapons.svelte";
+    import Loader from "./Loader.svelte";
 
     export let playerId: number;
 
@@ -153,6 +154,9 @@
     </div>
 
     <div class="contents">
+        {#if loading}
+            <Loader />
+        {/if}
         {#if tab == Tab.Characters}
             <InventoryCharacters {inventory} />
         {:else if tab == Tab.Weapons}

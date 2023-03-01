@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { player } from "$lib/api/api";
     import {
         getPlayers,
         PlayerRole,
         type PlayerAccount,
     } from "$lib/api/players";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
+    import Loader from "$lib/components/Loader.svelte";
 
     let loading = true;
 
@@ -27,9 +27,11 @@
         loading = false;
     }
 
-    $: {
+    function refresh() {
         load(offset, count).then().catch();
     }
+
+    $: load(offset, count);
 </script>
 
 <DashboardPage
@@ -38,6 +40,7 @@
 >
     <svelte:fragment slot="heading">
         <div class="actions">
+            <button class="action button" on:click={refresh}> Refresh </button>
             <button
                 class="action button"
                 disabled={offset == 0}
@@ -62,7 +65,11 @@
             </button>
         </div>
     </svelte:fragment>
+
     <table class="entries">
+        {#if loading}
+            <Loader />
+        {/if}
         <thead class="entries__head">
             <tr>
                 <th>Name</th>

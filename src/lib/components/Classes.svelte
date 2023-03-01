@@ -12,6 +12,7 @@
     } from "$lib/api/players";
     import { onMount } from "svelte";
     import PlayerClassComponent from "./classes/PlayerClass.svelte";
+    import Loader from "./Loader.svelte";
 
     export let playerId: number;
 
@@ -104,6 +105,9 @@
     onMount(load);
 </script>
 
+{#if loading}
+    <Loader />
+{/if}
 <div>
     <slot />
     {#if isAdmin($player)}

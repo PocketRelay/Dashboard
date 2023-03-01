@@ -26,8 +26,8 @@ export function getSelf(): Promise<PlayerAccount> {
     })
 }
 
-export async function deleteSelf(password: string): Promise<void> {
-    await requestText({
+export function deleteSelf(password: string): Promise<any> {
+    return requestText({
         method: HttpMethod.DELETE,
         route: "players/self",
         body: {
@@ -43,8 +43,15 @@ export function getPlayer(id: number): Promise<PlayerAccount> {
     })
 }
 
-export async function setSelfDetails(username: string, email: string): Promise<void> {
-    await requestText({
+export function deletePlayer(id: number): Promise<any> {
+    return requestText({
+        method: HttpMethod.DELETE,
+        route: `players/${id}`,
+    });
+}
+
+export async function setSelfDetails(username: string, email: string): Promise<any> {
+    return requestText({
         method: HttpMethod.PUT,
         route: "players/self/details",
         body: {

@@ -1,35 +1,78 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import { page } from "$app/stores";
     import type { RequestError } from "$lib/api/api";
     import {
+        deletePlayer,
         getPlayer,
         setPlayerDetails,
         setPlayerPassword,
         type PlayerAccount,
     } from "$lib/api/players";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
+    import Dialog from "$lib/components/Dialog.svelte";
     import Loader from "$lib/components/Loader.svelte";
     import Account from "svelte-material-icons/Account.svelte";
     import Key from "svelte-material-icons/Key.svelte";
+    import Delete from "svelte-material-icons/Delete.svelte";
 
-    let newPassword = "";
-    let confirmPassword = "";
+    // Basic form state extended by the other forms
+    interface FormState {
+        // Form loading state
+        loading: boolean;
+        // Form error state
+        error: string | null;
+    }
 
-    let loading1 = false;
-    let error1: string | null = null;
+    // Password state adding password fields to the form
+    type PasswordState = {
+        // The new password
+        new: string;
+        // The password confirmation value
+        confirm: string;
+        // Show the confirmation screen
+        showConfirm: boolean;
+    } & FormState;
 
-    let loading2 = false;
-    let error2: string | null = null;
+    // Delete state for account deletion
+    type DeleteState = {
+        // Whether the confirm screen is shown
+        showConfirm: boolean;
+    } & FormState;
+
+    const basic: FormState = {
+        // Form state
+        loading: false,
+        error: null,
+    };
+
+    const password: PasswordState = {
+        new: "",
+        confirm: "",
+        showConfirm: false,
+        // Form state
+        loading: false,
+        error: null,
+    };
+
+    const deleteState: DeleteState = {
+        showConfirm: false,
+        // Form state
+        loading: false,
+        error: null,
+    };
 
     const playerId = parseInt($page.params.id);
     if (Number.isNaN(playerId)) throw "NaN Player ID";
 
-    let loading = true;
-    let error: string | null = null;
     let player: PlayerAccount | null = null;
+    let loading: boolean = false;
+    let error: string | null = null;
 
     async function load(id: number) {
+        error = null;
         loading = true;
+
         try {
             let response = await getPlayer(id);
             player = response;
@@ -37,14 +80,16 @@
             let err = e as RequestError;
             error = err.text;
             console.error(e);
+        } finally {
+            loading = false;
         }
-        loading = false;
     }
 
-    async function onUpdateBasic() {
+    async function updateBasic() {
         if (!player) return;
-        error1 = null;
-        loading1 = true;
+
+        basic.error = null;
+        basic.loading = true;
         try {
             await setPlayerDetails(
                 player.id,
@@ -53,39 +98,90 @@
             );
         } catch (e) {
             let err = e as RequestError;
-            error1 = err.text;
+            basic.error = err.text;
             console.error(e);
         } finally {
-            loading1 = false;
+            basic.loading = false;
         }
     }
 
-    async function onUpdatePassword() {
+    async function updatePassword() {
         if (!player) return;
-        if (newPassword !== confirmPassword) {
-            error2 = "Passwords don't match";
+
+        if (password.new !== password.confirm) {
+            password.error = "Passwords don't match";
             return;
         }
 
-        error2 = null;
-        loading2 = true;
+        password.error = null;
+        password.loading = true;
         try {
-            await setPlayerPassword(player.id, newPassword);
+            await setPlayerPassword(player.id, password.new);
             alert("Password updated");
         } catch (e) {
             let err = e as RequestError;
-            error2 = err.text;
+            password.error = err.text;
             console.error(e);
         } finally {
-            loading2 = false;
+            password.loading = false;
         }
     }
 
-    load(playerId).then().catch();
+    async function doDelete() {
+        if (!player) return;
+
+        deleteState.showConfirm = false;
+        deleteState.error = null;
+        deleteState.loading = true;
+
+        try {
+            await deletePlayer(player.id);
+
+            // Account was deleted update all associated state and redirect to login
+
+            await goto("/players");
+        } catch (e) {
+            let err = e as RequestError;
+            deleteState.error = err.text;
+            console.error(err);
+        } finally {
+            deleteState.loading = false;
+        }
+    }
+
+    /**
+     * Toggles the confirm password screen if the provided
+     * password values are valid
+     */
+    function promptConfirmChange() {
+        // Fail if the passwords don't match
+        if (password.new !== password.confirm) {
+            password.error = "Passwords don't match";
+            return;
+        }
+
+        // Don't allow empty password fields
+        if (password.new.length <= 0 || password.confirm.length <= 0) {
+            password.error = "Passwords cannot be empty";
+            return;
+        }
+
+        // Display the confirm dialog
+        password.showConfirm = true;
+    }
+
+    function promptDelete() {
+        deleteState.showConfirm = true;
+    }
+
+    load(playerId);
 </script>
 
 {#if loading}
     <Loader />
+{:else if error}
+    <h1>Failed to load player</h1>
+    <p class="error">{error}</p>
 {:else if player}
     <DashboardPage
         title={`Viewing ${player.email}`}
@@ -106,19 +202,18 @@
                 >
                     Edit Classes
                 </a>
-                <button class="button button--danger">Delete Account</button>
             </nav>
         </svelte:fragment>
         <div class="forms">
-            <form class="form card" on:submit|preventDefault={onUpdateBasic}>
+            <form class="form card" on:submit|preventDefault={updateBasic}>
                 <h2 class="form__title">
                     <Account class="form__icon" /> Basic Information
                 </h2>
                 <p class="text">Modify basic account information</p>
-                {#if error1}
-                    <p class="error">{error1}</p>
+                {#if basic.error}
+                    <p class="error">{basic.error}</p>
                 {/if}
-                {#if loading1}
+                {#if basic.loading}
                     <Loader />
                 {/if}
                 <label class="input">
@@ -141,17 +236,20 @@
                 </label>
                 <button type="submit" class="button">Save Changes</button>
             </form>
-            <form class="form card" on:submit|preventDefault={onUpdatePassword}>
+            <form
+                class="form card"
+                on:submit|preventDefault={promptConfirmChange}
+            >
                 <h2 class="form__title">
                     <Key class="form__icon" /> Password
                 </h2>
                 <p class="text">
                     Change the account password to the provided password
                 </p>
-                {#if error2}
-                    <p class="error">{error2}</p>
+                {#if password.error}
+                    <p class="error">{password.error}</p>
                 {/if}
-                {#if loading2}
+                {#if password.loading}
                     <Loader />
                 {/if}
                 <label class="input">
@@ -159,8 +257,9 @@
                     <input
                         class="input__value"
                         type="password"
-                        bind:value={newPassword}
+                        bind:value={password.new}
                         required
+                        autocomplete="off"
                     />
                 </label>
                 <label class="input">
@@ -168,14 +267,78 @@
                     <input
                         class="input__value"
                         type="password"
-                        bind:value={confirmPassword}
+                        bind:value={password.confirm}
                         required
+                        autocomplete="off"
                     />
                 </label>
                 <button type="submit" class="button"> Change Password </button>
             </form>
+            <form
+                class="form form--wide card"
+                on:submit|preventDefault={promptDelete}
+            >
+                <h2 class="form__title">
+                    <Delete class="form__icon" />
+                    Delete Account
+                </h2>
+                <p class="text">
+                    <span class="danger">DANGER ZONE</span> Warning deleting an account
+                    is perminent and cannot be reversed
+                </p>
+                {#if deleteState.error}
+                    <p class="error">{deleteState.error}</p>
+                {/if}
+                {#if deleteState.loading}
+                    <Loader />
+                {/if}
+
+                <button type="submit" class="button button--danger"
+                    >Delete Account</button
+                >
+            </form>
         </div>
     </DashboardPage>
+    <!-- Password change confirmation -->
+    <Dialog visible={password.showConfirm}>
+        <h3>Confirm Change Password</h3>
+        <p class="text">
+            Are you sure you want to change your account password?
+        </p>
+
+        <div class="button-group">
+            <button class="button button--alt" on:click={updatePassword}>
+                Confirm
+            </button>
+            <button
+                class="button button--alt"
+                on:click={() => (password.showConfirm = false)}
+            >
+                Cancel
+            </button>
+        </div>
+    </Dialog>
+
+    <!-- Account deletion confirmation -->
+    <Dialog visible={deleteState.showConfirm}>
+        <h3>Confirm Account Deletion</h3>
+        <p class="text">
+            <span class="danger">WARNING:</span> Account Deletion is
+            <b>perminent</b> and cannot be reversed
+        </p>
+
+        <div class="button-group">
+            <button class="button button--danger" on:click={doDelete}>
+                Confirm
+            </button>
+            <button
+                class="button button--alt"
+                on:click={() => (deleteState.showConfirm = false)}
+            >
+                Cancel
+            </button>
+        </div>
+    </Dialog>
 {/if}
 
 <style lang="scss">
@@ -185,21 +348,23 @@
         flex-flow: row;
         gap: 1rem;
     }
+
     .forms {
         display: flex;
         flex-flow: row wrap;
         gap: 1rem;
-        align-items: flex-start;
     }
 
     .form {
-        margin-bottom: 2rem;
-
         flex: auto;
 
         display: flex;
         flex-flow: column;
         gap: 1rem;
+    }
+
+    .form--wide {
+        width: 100%;
     }
 
     :global(.form__icon) {
@@ -210,6 +375,12 @@
         vertical-align: middle;
         fill: white;
     }
+
+    .danger {
+        color: #a74343;
+        font-weight: bold;
+    }
+
     .button--alt {
         background-color: #0f0f0f;
     }

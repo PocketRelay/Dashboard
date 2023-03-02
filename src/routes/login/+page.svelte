@@ -95,13 +95,10 @@
     }
 
     .form {
-        display: flex;
-        flex-flow: column;
-        gap: 1rem;
+        flex: none;
     }
 
     .button {
-        font-size: 1.2rem;
         margin-top: 0.5rem;
         font-weight: bold;
     }

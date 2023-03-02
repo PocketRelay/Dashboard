@@ -37,18 +37,18 @@
     text="Below is a list of games that are currently running"
 >
     <svelte:fragment slot="heading">
-        <div class="actions">
-            <button class="action button" on:click={refresh}>
+        <div class="button-group">
+            <button class=" button button--dark" on:click={refresh}>
                 <Refresh width={24} height={24} />
             </button>
             <button
-                class="action button"
+                class="button button--dark"
                 disabled={offset == 0}
                 on:click={() => (offset -= 1)}
             >
                 Previous
             </button>
-            <select class="action action-list" bind:value={count}>
+            <select class="select" bind:value={count}>
                 <option value={2}>2</option>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
@@ -57,7 +57,7 @@
                 <option value={50}>50</option>
             </select>
             <button
-                class="action button"
+                class="button button--dark"
                 disabled={!more}
                 on:click={() => (offset += 1)}
             >
@@ -68,10 +68,11 @@
     <div class="games">
         {#if loading}
             <Loader />
+        {:else}
+            {#each games as game}
+                <GameComponent {game} />
+            {/each}
         {/if}
-        {#each games as game}
-            <GameComponent {game} />
-        {/each}
     </div>
 </DashboardPage>
 
@@ -81,25 +82,5 @@
         flex-flow: row wrap;
         align-items: flex-start;
         gap: 1rem;
-    }
-
-    .actions {
-        display: flex;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-    .action-list {
-        padding: 0.75rem;
-        color: #ffffff;
-        background-color: #41445e;
-        text-decoration: none;
-
-        color: white;
-        font-size: 1rem;
-        border-radius: 5px;
-
-        letter-spacing: 0.1rem;
-        border: none;
     }
 </style>

@@ -66,7 +66,7 @@
                     <Account class="card__head__icon" />
                     <h2 class="card__head__title">Current Player</h2>
                 </div>
-                <p class="card__text">
+                <p>
                     Welcome to your dashboard you are the <span class="annot"
                         >{getNumberWithOrdinal($player.id)}</span
                     > player to join this server
@@ -78,7 +78,7 @@
                     <List class="card__head__icon" />
                     <h2 class="card__head__title">Leaderboard Placing</h2>
                 </div>
-                <p class="card__text">
+                <p>
                     You currently rank <span class="annot"
                         >{getNumberWithOrdinal(data.n7Entry.rank)}</span
                     >
@@ -97,9 +97,7 @@
                     <AccountMultiple class="card__head__icon" />
                     <h2 class="card__head__title">Total Players</h2>
                 </div>
-                <p class="card__text">
-                    Below is the total number of players apart of this server
-                </p>
+                <p>Below is the total number of players apart of this server</p>
                 <span class="card__value">{data.totalPlayers}</span>
             </div>
             <div class="card">
@@ -107,7 +105,7 @@
                     <Sync class="card__head__icon" />
                     <h2 class="card__head__title">Server Version</h2>
                 </div>
-                <p class="card__text">
+                <p>
                     The Pocket Relay server you are connected to is currently on
                     version
                 </p>
@@ -128,7 +126,7 @@
                     <List class="card__head__icon" />
                     <h2 class="card__head__title">N7 Rating</h2>
                 </div>
-                <p class="card__text">
+                <p>
                     Your current N7 rating is below this is accumulated from
                     leveling up
                 </p>
@@ -139,7 +137,7 @@
                     <List class="card__head__icon" />
                     <h2 class="card__head__title">Challenge Points</h2>
                 </div>
-                <p class="card__text">
+                <p>
                     Your current total challenge point count is listed below.
                     You can get these by completing challenges
                 </p>
@@ -193,11 +191,6 @@
         flex: auto;
         margin-left: 1rem;
         font-size: 1rem;
-    }
-
-    .card__text {
-        line-height: 1.5;
-        margin-bottom: 0.5rem;
     }
 
     .card__value {

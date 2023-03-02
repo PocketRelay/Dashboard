@@ -29,7 +29,7 @@
     }
 
     function refresh() {
-        load(offset, count).then().catch();
+        load(offset, count);
     }
 
     $: load(offset, count);
@@ -40,18 +40,18 @@
     text="Below is a list of player accounts on this server"
 >
     <svelte:fragment slot="heading">
-        <div class="actions">
-            <button class="action button" on:click={refresh}>
+        <div class="button-group">
+            <button class="button button--dark" on:click={refresh}>
                 <Refresh width={24} height={24} />
             </button>
             <button
-                class="action button"
+                class="button button--dark"
                 disabled={offset == 0}
                 on:click={() => (offset -= 1)}
             >
                 Previous
             </button>
-            <select class="action action-list" bind:value={count}>
+            <select class="select" bind:value={count}>
                 <option value={2}>2</option>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
@@ -60,7 +60,7 @@
                 <option value={50}>50</option>
             </select>
             <button
-                class="action button"
+                class="button button--dark"
                 disabled={!more}
                 on:click={() => (offset += 1)}
             >
@@ -71,8 +71,8 @@
     {#if loading}
         <Loader />
     {/if}
-    <table class="entries">
-        <thead class="entries__head">
+    <table class="table">
+        <thead class="table__head">
             <tr>
                 <th>Name</th>
                 <th>Email</th>
@@ -80,13 +80,13 @@
                 <th>View</th>
             </tr>
         </thead>
-        <tbody class="entries__body">
+        <tbody class="table__body">
             {#each entries as entry}
-                <tr class="entry">
-                    <td class="entry__name">{entry.display_name}</td>
-                    <td class="entry__value">{entry.email}</td>
-                    <td class="entry__value">{entry.role}</td>
-                    <td class="entry__value">
+                <tr class="table__entry">
+                    <td>{entry.display_name}</td>
+                    <td>{entry.email}</td>
+                    <td>{entry.role}</td>
+                    <td>
                         {#if entry.role == PlayerRole.Default}
                             <a class="button" href={`/players/${entry.id}`}>
                                 View
@@ -98,65 +98,3 @@
         </tbody>
     </table>
 </DashboardPage>
-
-<style lang="scss">
-    .entries {
-        position: relative;
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .entries__head {
-        position: sticky;
-        top: 0;
-        background-color: #222;
-    }
-
-    .entry {
-        border-collapse: collapse;
-        background-color: #0f0f0f;
-    }
-
-    .entry > td,
-    .entries__head th {
-        padding: 1rem;
-        text-align: left;
-    }
-
-    .entries__head th:last-child,
-    .entry > td:last-child {
-        text-align: right;
-    }
-
-    .entry:nth-child(even) {
-        background-color: #1a1a1a;
-    }
-    .entry__name {
-        text-align: left;
-    }
-
-    .entry__value {
-        color: #72b2b6;
-        text-align: right;
-    }
-
-    .actions {
-        display: flex;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-    .action-list {
-        padding: 0.75rem;
-        color: #ffffff;
-        background-color: #41445e;
-        text-decoration: none;
-
-        color: white;
-        font-size: 1rem;
-        border-radius: 5px;
-
-        letter-spacing: 0.1rem;
-        border: none;
-    }
-</style>

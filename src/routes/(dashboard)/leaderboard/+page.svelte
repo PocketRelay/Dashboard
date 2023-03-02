@@ -54,7 +54,7 @@
                 on:click={() => (selected = LeaderboardName.N7Rating)}
             >
                 <h2 class="name__title">N7 Rating</h2>
-                <p class="name__desc">
+                <p class="text text--wrapped">
                     This leaderboard is ranked based on your total class levels
                     and promotions combined
                 </p>
@@ -67,25 +67,25 @@
                 on:click={() => (selected = LeaderboardName.ChallengePoints)}
             >
                 <h2 class="name__title">Challenge Points</h2>
-                <p class="name__desc">
+                <p class="text text--wrapped">
                     This leaderboard is ranked based on the amount challenge
                     points you’ve gained from completing challenges
                 </p>
             </button>
         </div>
 
-        <div class="actions">
-            <button class="action button" on:click={refresh}>
+        <div class="button-group">
+            <button class="button button--dark" on:click={refresh}>
                 <Refresh width={24} height={24} />
             </button>
             <button
-                class="action button"
+                class="button button--dark"
                 disabled={offset == 0}
                 on:click={() => (offset -= 1)}
             >
                 Previous
             </button>
-            <select class="action action-list" bind:value={count}>
+            <select class="select" bind:value={count}>
                 <option value={2}>2</option>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
@@ -94,7 +94,7 @@
                 <option value={50}>50</option>
             </select>
             <button
-                class="action button"
+                class="button button--dark"
                 disabled={!more}
                 on:click={() => (offset += 1)}
             >
@@ -103,11 +103,11 @@
         </div>
     </svelte:fragment>
 
-    <table class="entries">
+    <table class="table">
         {#if loading}
             <Loader />
         {/if}
-        <thead class="entries__head">
+        <thead class="table__head">
             <tr>
                 <th>Rank</th>
                 <th>Name</th>
@@ -116,12 +116,10 @@
         </thead>
         <tbody class="entries__body">
             {#each entries as entry}
-                <tr class="entry">
-                    <td class="entry__place"
-                        >{getNumberWithOrdinal(entry.rank)}</td
-                    >
-                    <td class="entry__name">{entry.player_name}</td>
-                    <td class="entry__value">{entry.value}</td>
+                <tr class="table__entry">
+                    <td class="annot">{getNumberWithOrdinal(entry.rank)}</td>
+                    <td>{entry.player_name}</td>
+                    <td class="annot">{entry.value}</td>
                 </tr>
             {/each}
         </tbody>
@@ -129,57 +127,11 @@
 </DashboardPage>
 
 <style lang="scss">
-    .entries {
-        position: relative;
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .entries__head {
-        position: sticky;
-        top: 0;
-        background-color: #222;
-    }
-
-    .entry {
-        border-collapse: collapse;
-        background-color: #0f0f0f;
-    }
-
-    .entry > td,
-    .entries__head th {
-        padding: 1rem;
-    }
-
-    .entries__head th {
-        text-align: left;
-    }
-
-    .entries__head th:last-child {
-        text-align: right;
-    }
-
-    .entry:nth-child(even) {
-        background-color: #1a1a1a;
-    }
-
-    .entry__place {
-        color: #72b2b6;
-        font-weight: bold;
-    }
-
-    .entry__name {
-        text-align: left;
-    }
-
-    .entry__value {
-        color: #72b2b6;
-        text-align: right;
-    }
     .names {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
+        margin-bottom: 1rem;
     }
 
     .name {
@@ -199,28 +151,7 @@
         margin-bottom: 0.5rem;
     }
 
-    .name__desc {
-        font-size: 1rem;
-        max-width: 500px;
-    }
-
-    .actions {
-        display: flex;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-    .action-list {
-        padding: 0.75rem;
-        color: #ffffff;
-        background-color: #41445e;
-        text-decoration: none;
-
-        color: white;
-        font-size: 1rem;
-        border-radius: 5px;
-
-        letter-spacing: 0.1rem;
-        border: none;
+    .name--selected .text {
+        color: #ececec;
     }
 </style>

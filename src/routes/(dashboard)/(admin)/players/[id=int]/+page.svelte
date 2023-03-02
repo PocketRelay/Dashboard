@@ -188,17 +188,17 @@
         text="Edit the settings for this account below"
     >
         <svelte:fragment slot="heading">
-            <nav class="nav">
-                <a href="/players" class="button button--alt ">Back</a>
+            <nav class="button-group">
+                <a href="/players" class="button button--dark ">Back</a>
                 <a
                     href={`/players/${playerId}/inventory`}
-                    class="button button--alt "
+                    class="button button--dark "
                 >
                     Edit Inventory
                 </a>
                 <a
                     href={`/players/${playerId}/classes`}
-                    class="button button--alt "
+                    class="button button--dark "
                 >
                     Edit Classes
                 </a>
@@ -307,11 +307,11 @@
         </p>
 
         <div class="button-group">
-            <button class="button button--alt" on:click={updatePassword}>
+            <button class="button button--dark" on:click={updatePassword}>
                 Confirm
             </button>
             <button
-                class="button button--alt"
+                class="button button--dark"
                 on:click={() => (password.showConfirm = false)}
             >
                 Cancel
@@ -332,7 +332,7 @@
                 Confirm
             </button>
             <button
-                class="button button--alt"
+                class="button button--dark"
                 on:click={() => (deleteState.showConfirm = false)}
             >
                 Cancel
@@ -340,51 +340,3 @@
         </div>
     </Dialog>
 {/if}
-
-<style lang="scss">
-    .nav {
-        margin-bottom: 1rem;
-        display: flex;
-        flex-flow: row;
-        gap: 1rem;
-    }
-
-    .forms {
-        display: flex;
-        flex-flow: row wrap;
-        gap: 1rem;
-    }
-
-    .form {
-        flex: auto;
-
-        display: flex;
-        flex-flow: column;
-        gap: 1rem;
-    }
-
-    .form--wide {
-        width: 100%;
-    }
-
-    :global(.form__icon) {
-        margin-right: 0.5rem;
-        display: inline;
-        width: 24px;
-        height: 24px;
-        vertical-align: middle;
-        fill: white;
-    }
-
-    .danger {
-        color: #a74343;
-        font-weight: bold;
-    }
-
-    .button--alt {
-        background-color: #0f0f0f;
-    }
-    .button--alt:hover {
-        background-color: #1f1f1f;
-    }
-</style>

@@ -2,6 +2,7 @@
     import { page } from "$app/stores";
     import Classes from "$lib/components/Classes.svelte";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
+
     const playerId = parseInt($page.params.id);
     if (Number.isNaN(playerId)) throw "NaN Player ID";
 </script>

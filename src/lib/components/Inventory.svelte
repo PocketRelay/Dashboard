@@ -97,7 +97,7 @@
 </script>
 
 <div class="wrapper">
-    <div class="tabs">
+    <div class="button-group">
         <slot />
         {#if isAdmin($player) && inventory.length > 0}
             <button
@@ -158,19 +158,5 @@
         display: flex;
         flex-flow: column;
         overflow: auto;
-    }
-
-    .select {
-        background-color: #1f1f1f;
-        color: #ffffff;
-        border: none;
-        padding: 1rem;
-        font-size: 1rem;
-        border-radius: 10px;
-    }
-
-    .tabs {
-        display: flex;
-        gap: 1rem;
     }
 </style>

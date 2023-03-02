@@ -327,33 +327,3 @@
         </button>
     </div>
 </Dialog>
-
-<style lang="scss">
-    .forms {
-        display: flex;
-        flex-flow: row wrap;
-        gap: 1rem;
-    }
-
-    .form {
-        flex: auto;
-
-        display: flex;
-        flex-flow: column;
-        gap: 1rem;
-    }
-
-    :global(.form__icon) {
-        margin-right: 0.5rem;
-        display: inline;
-        width: 24px;
-        height: 24px;
-        vertical-align: middle;
-        fill: white;
-    }
-
-    .danger {
-        color: #a74343;
-        font-weight: bold;
-    }
-</style>

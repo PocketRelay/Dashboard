@@ -68,8 +68,8 @@
         } catch (e) {
             let err = e as RequestError;
             console.error(err);
+        } finally {
             loading = false;
-            return;
         }
     }
 

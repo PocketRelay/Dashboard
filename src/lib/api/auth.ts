@@ -1,9 +1,8 @@
 
 
-// Token response from the server which contains an
-
 import { HttpMethod, request } from "./api";
 
+// Token response from the server which contains an
 // authentication token
 export interface TokenResponse {
     // The authentication token
@@ -26,5 +25,5 @@ export function doLogin(email: string, password: string): Promise<TokenResponse>
             email,
             password
         }
-    })
+    });
 }

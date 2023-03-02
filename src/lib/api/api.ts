@@ -1,5 +1,5 @@
 import { dev } from "$app/environment";
-import { get, writable, type Writable } from "svelte/store";
+import { writable, type Writable } from "svelte/store";
 import { getSelf, PlayerRole, type PlayerAccount } from "../api/players";
 
 // Base url segment based on whether in development mode or not
@@ -9,32 +9,57 @@ const BASE_URL = dev ? "http://localhost/api/" : "/api/";
 let token: string | null = null;
 export const player: Writable<PlayerAccount> = writable(null!);
 
+// Local storage key for the token
 const TOKEN_STORAGE_KEY: string = "pr_token";
 
+/**
+ * Check whether a player is an admin
+ * 
+ * @param player The player to check for admin permission
+ * 
+ * @returns Whether the player is an admin
+ */
+export function isAdmin(player: PlayerAccount): boolean {
+    return player.role == PlayerRole.Admin || player.role == PlayerRole.SuperAdmin;
+}
+
+
+/**
+ * Sets the current authentication token to the provided
+ * value storing it in localStorage for future access and
+ * clearing the active player if one is present
+ * 
+ * @param value 
+ */
 export function setToken(value: string) {
     player.set(null!);
     token = value;
     localStorage.setItem(TOKEN_STORAGE_KEY, value);
 }
 
-export function isAdmin(player: PlayerAccount): boolean {
-    return player.role == PlayerRole.Admin || player.role == PlayerRole.SuperAdmin;
-}
 
+/**
+ * Clears the active token and removes the token from
+ * localStorage 
+ */
 export function clearToken() {
     player.set(null!);
     token = null;
     localStorage.removeItem(TOKEN_STORAGE_KEY);
 }
 
-export function isAuthenticated(): boolean {
-    return token !== null;
-}
-
+/**
+ * Attempts to load the currently authenticated player using the
+ * stored authentication token will immediately return false if
+ * there is not an active token
+ * 
+ * @returns Whether the player was loaded
+ */
 export async function loadPlayer(): Promise<boolean> {
-    if (!isAuthenticated()) {
+    if (!token) {
         return false;
     }
+
 
     try {
         let value: PlayerAccount = await getSelf();
@@ -56,13 +81,17 @@ export async function loadPlayer(): Promise<boolean> {
     }
 }
 
+/**
+ * Loads the authorization token from localStorage and clears
+ * the active player in preperation for a call to `loadPlayer`
+ */
 export function loadToken() {
     let localToken: string | null = localStorage.getItem(TOKEN_STORAGE_KEY);
     // Ignore the token if its not set
     if (localToken == null) {
         return;
     }
-    console.debug("Loaded localStorage token", localToken);
+
     // Set the token state
     token = localToken;
     // Reset the stored user when the token changes 
@@ -70,7 +99,6 @@ export function loadToken() {
 }
 
 loadToken();
-
 
 
 // Constant enum for the different HTTP verbs
@@ -99,8 +127,8 @@ export interface RequestConfig {
     body?: any;
     // Additional HTTP headers for the request
     headers?: Record<string, string>,
-
 }
+
 export async function requestInner(config: RequestConfig): Promise<Response> {
     const init: RequestInit = { method: config.method };
     const headers: Record<string, string> = config.headers ?? {};

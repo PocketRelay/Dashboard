@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { RequestError } from "$lib/api/api";
     import {
         getLeaderboard,
         LeaderboardName,
@@ -26,7 +27,10 @@
             let response = await getLeaderboard(name, offset, count);
             entries = response.entries;
             more = response.more;
-        } catch (e) {}
+        } catch (e) {
+            let err = e as RequestError;
+            console.error(err);
+        }
 
         loading = false;
     }

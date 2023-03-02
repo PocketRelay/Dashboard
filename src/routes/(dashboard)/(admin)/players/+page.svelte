@@ -68,11 +68,10 @@
             </button>
         </div>
     </svelte:fragment>
-
+    {#if loading}
+        <Loader />
+    {/if}
     <table class="entries">
-        {#if loading}
-            <Loader />
-        {/if}
         <thead class="entries__head">
             <tr>
                 <th>Name</th>

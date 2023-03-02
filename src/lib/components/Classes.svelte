@@ -107,40 +107,41 @@
 
 {#if loading}
     <Loader />
-{/if}
-<div class="tabs">
-    <slot />
-    {#if isAdmin($player) && stored.length != 0}
-        <button
-            class="button button--alt"
-            on:click={save}
-            title="Saves any changes made to the classes"
-        >
-            Save
-        </button>
-    {/if}
-</div>
+{:else}
+    <div class="tabs">
+        <slot />
+        {#if isAdmin($player) && stored.length != 0}
+            <button
+                class="button button--alt"
+                on:click={save}
+                title="Saves any changes made to the classes"
+            >
+                Save
+            </button>
+        {/if}
+    </div>
 
-<div class="classes">
-    {#if stored.length == 0}
-        <div>
-            <h2>Classes not initialized</h2>
-            <p class="text text--wrapped">
-                This account classes have not yet been created. In order to
-                create the classes the player must have completed the class
-                selection screen for first time opening multiplayer
-            </p>
-        </div>
-    {:else}
-        {#each stored as { value }}
-            <PlayerClassComponent
-                name={value.name}
-                bind:level={value.level}
-                bind:promotions={value.promotions}
-            />
-        {/each}
-    {/if}
-</div>
+    <div class="classes">
+        {#if stored.length == 0}
+            <div>
+                <h2>Classes not initialized</h2>
+                <p class="text text--wrapped">
+                    This account classes have not yet been created. In order to
+                    create the classes the player must have completed the class
+                    selection screen for first time opening multiplayer
+                </p>
+            </div>
+        {:else}
+            {#each stored as { value }}
+                <PlayerClassComponent
+                    name={value.name}
+                    bind:level={value.level}
+                    bind:promotions={value.promotions}
+                />
+            {/each}
+        {/if}
+    </div>
+{/if}
 
 <style lang="scss">
     .classes {

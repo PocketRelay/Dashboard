@@ -117,30 +117,27 @@
     </div>
 
     <div class="contents">
-        {#if inventory.length == 0}
+        {#if loading}
+            <Loader />
+        {:else if inventory.length == 0}
             <h2>Inventory not initialized</h2>
             <p class="text text--wrapped">
                 This account inventory has not yet been created. In order to
                 create the inventory the player must have visited the
                 multiplayer menu
             </p>
-        {:else}
-            {#if loading}
-                <Loader />
-            {/if}
-            {#if tab == "Characters"}
-                <InventoryCharacters {inventory} />
-            {:else if tab == "Weapons"}
-                <InventoryWeapons {inventory} />
-            {:else if tab == "WeaponMods"}
-                <InventoryWeaponMods {inventory} />
-            {:else if tab == "Consumables"}
-                <InventoryConsumables {inventory} />
-            {:else if tab == "Gear"}
-                <InventoryGear {inventory} />
-            {:else if tab == "Other"}
-                <InventoryOther bind:credits />
-            {/if}
+        {:else if tab == "Characters"}
+            <InventoryCharacters {inventory} />
+        {:else if tab == "Weapons"}
+            <InventoryWeapons {inventory} />
+        {:else if tab == "WeaponMods"}
+            <InventoryWeaponMods {inventory} />
+        {:else if tab == "Consumables"}
+            <InventoryConsumables {inventory} />
+        {:else if tab == "Gear"}
+            <InventoryGear {inventory} />
+        {:else if tab == "Other"}
+            <InventoryOther bind:credits />
         {/if}
     </div>
 </div>

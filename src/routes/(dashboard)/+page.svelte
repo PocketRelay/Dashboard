@@ -1,34 +1,33 @@
 <script lang="ts">
-    import { player } from "$lib/api/api";
+    import { player, type RequestError } from "$lib/api/api";
     import {
         getLeaderboard,
         getPlayerEntry,
         LeaderboardName,
+        type LeaderboardEntry,
     } from "$lib/api/leaderboard";
-    import { getServerDetails } from "$lib/api/server";
+    import { getServerDetails, type ServerDetails } from "$lib/api/server";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
+    import Loader from "$lib/components/Loader.svelte";
     import { getNumberWithOrdinal } from "$lib/tools/numbers";
     import Account from "svelte-material-icons/Account.svelte";
     import AccountMultiple from "svelte-material-icons/AccountMultiple.svelte";
     import List from "svelte-material-icons/FormatListNumbered.svelte";
     import Sync from "svelte-material-icons/Sync.svelte";
 
+    interface Data {
+        n7Entry: LeaderboardEntry;
+        cpEntry: LeaderboardEntry;
+        totalPlayers: number;
+        serverDetails: ServerDetails;
+    }
+
     // Loading state
     let loading = true;
+    // Loaded data state
+    let data: Data | null = null;
 
-    let n7Placing = 0;
-    let cpPlacing = 0;
-
-    let n7Rating = 0;
-    let challengePoints = 0;
-
-    let totalPlayers = 0;
-
-    let serverVersion = "";
-    let serverBranch = "";
-    let serverHash = "";
-
-    async function updateData(id: number) {
+    async function load(id: number) {
         loading = true;
         try {
             let [n7Entry, cpEntry, leaderboard, serverDetails] =
@@ -38,113 +37,116 @@
                     getLeaderboard(LeaderboardName.N7Rating, 0, 1),
                     getServerDetails(),
                 ]);
-            n7Placing = n7Entry.rank;
-            n7Rating = n7Entry.value;
 
-            cpPlacing = cpEntry.rank;
-            challengePoints = cpEntry.value;
-
-            totalPlayers = leaderboard.total;
-
-            serverVersion = serverDetails.version;
-            serverBranch = serverDetails.branch;
-            serverHash = serverDetails.hash;
-
-            loading = false;
+            data = {
+                n7Entry,
+                cpEntry,
+                totalPlayers: leaderboard.total,
+                serverDetails,
+            };
         } catch (e) {
-            console.error(e);
+            let err = e as RequestError;
+            console.error(err);
+        } finally {
+            loading = false;
         }
     }
 
-    $: {
-        let id = $player.id;
-        updateData(id).then().catch();
-    }
+    // Load the player data
+    $: load($player.id);
 </script>
 
 <DashboardPage title={"Dashboard Home"}>
-    <div class="cards">
-        <div class="card">
-            <div class="card__head">
-                <Account class="card__head__icon" />
-                <h2 class="card__head__title">Current Player</h2>
+    {#if loading}
+        <Loader />
+    {:else if data}
+        <div class="cards">
+            <div class="card">
+                <div class="card__head">
+                    <Account class="card__head__icon" />
+                    <h2 class="card__head__title">Current Player</h2>
+                </div>
+                <p class="card__text">
+                    Welcome to your dashboard you are the <span class="annot"
+                        >{getNumberWithOrdinal($player.id)}</span
+                    > player to join this server
+                </p>
+                <span class="card__value">{$player.display_name}</span>
             </div>
-            <p class="card__text">
-                Welcome to your dashboard you are the <span class="annot"
-                    >{getNumberWithOrdinal($player.id)}</span
-                > player to join this server
-            </p>
-            <span class="card__value">{$player.display_name}</span>
-        </div>
-        <div class="card">
-            <div class="card__head">
-                <List class="card__head__icon" />
-                <h2 class="card__head__title">Leaderboard Placing</h2>
-            </div>
-            <p class="card__text">
-                You currently rank <span class="annot"
-                    >{getNumberWithOrdinal(n7Placing)}</span
+            <div class="card">
+                <div class="card__head">
+                    <List class="card__head__icon" />
+                    <h2 class="card__head__title">Leaderboard Placing</h2>
+                </div>
+                <p class="card__text">
+                    You currently rank <span class="annot"
+                        >{getNumberWithOrdinal(data.n7Entry.rank)}</span
+                    >
+                    place in the N7 Rating leaderboard and
+                    <span class="annot"
+                        >{getNumberWithOrdinal(data.cpEntry.rank)}</span
+                    >
+                    place in the Challenge Points leaderboard
+                </p>
+                <a class="card__value card__value--button" href="/leaderboard"
+                    >View Leaderboard</a
                 >
-                place in the N7 Rating leaderboard and
-                <span class="annot">{getNumberWithOrdinal(cpPlacing)}</span> place
-                in the Challenge Points leaderboard
-            </p>
-            <a class="card__value card__value--button" href="/leaderboard"
-                >View Leaderboard</a
-            >
-        </div>
-        <div class="card">
-            <div class="card__head">
-                <AccountMultiple class="card__head__icon" />
-                <h2 class="card__head__title">Total Players</h2>
             </div>
-            <p class="card__text">
-                Below is the total number of players apart of this server
-            </p>
-            <span class="card__value">{totalPlayers}</span>
-        </div>
-        <div class="card">
-            <div class="card__head">
-                <Sync class="card__head__icon" />
-                <h2 class="card__head__title">Server Version</h2>
+            <div class="card">
+                <div class="card__head">
+                    <AccountMultiple class="card__head__icon" />
+                    <h2 class="card__head__title">Total Players</h2>
+                </div>
+                <p class="card__text">
+                    Below is the total number of players apart of this server
+                </p>
+                <span class="card__value">{data.totalPlayers}</span>
             </div>
-            <p class="card__text">
-                The Pocket Relay server you are connected to is currently on
-                version
-            </p>
-            <span><b>Branch:</b> {serverBranch}</span>
-            <a
-                class="card__value"
-                href={`https://github.com/PocketRelay/Server/commit/${serverHash}`}
-                target="_blank"
-                rel="noreferrer"
-                >{serverVersion}
-                <span class="git">{serverBranch} / {serverHash}</span></a
-            >
-        </div>
-        <div class="card">
-            <div class="card__head">
-                <List class="card__head__icon" />
-                <h2 class="card__head__title">N7 Rating</h2>
+            <div class="card">
+                <div class="card__head">
+                    <Sync class="card__head__icon" />
+                    <h2 class="card__head__title">Server Version</h2>
+                </div>
+                <p class="card__text">
+                    The Pocket Relay server you are connected to is currently on
+                    version
+                </p>
+                <a
+                    class="card__value"
+                    href={`https://github.com/PocketRelay/Server/commit/${data.serverDetails.hash}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    >{data.serverDetails.version}
+                    <span class="git"
+                        >{data.serverDetails.branch} / {data.serverDetails
+                            .hash}</span
+                    ></a
+                >
             </div>
-            <p class="card__text">
-                Your current N7 rating is below this is accumulated from
-                leveling up
-            </p>
-            <span class="card__value">{n7Rating}</span>
-        </div>
-        <div class="card">
-            <div class="card__head">
-                <List class="card__head__icon" />
-                <h2 class="card__head__title">Challenge Points</h2>
+            <div class="card">
+                <div class="card__head">
+                    <List class="card__head__icon" />
+                    <h2 class="card__head__title">N7 Rating</h2>
+                </div>
+                <p class="card__text">
+                    Your current N7 rating is below this is accumulated from
+                    leveling up
+                </p>
+                <span class="card__value">{data.n7Entry.value}</span>
             </div>
-            <p class="card__text">
-                Your current total challenge point count is listed below. You
-                can get these by completing challenges
-            </p>
-            <span class="card__value">{challengePoints}</span>
+            <div class="card">
+                <div class="card__head">
+                    <List class="card__head__icon" />
+                    <h2 class="card__head__title">Challenge Points</h2>
+                </div>
+                <p class="card__text">
+                    Your current total challenge point count is listed below.
+                    You can get these by completing challenges
+                </p>
+                <span class="card__value">{data.cpEntry.value}</span>
+            </div>
         </div>
-    </div>
+    {/if}
 </DashboardPage>
 
 <style lang="scss">

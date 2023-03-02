@@ -83,7 +83,7 @@
 
         try {
             await setSelfDetails(basic.username, basic.email);
-
+            // Update the local stored player state
             player.update((value) => {
                 value.email = basic.email;
                 value.display_name = basic.username;
@@ -124,9 +124,7 @@
             await deleteSelf(deleteState.password);
 
             // Account was deleted update all associated state and redirect to login
-
             clearToken();
-
             await goto("/login");
         } catch (e) {
             let err = e as RequestError;

@@ -151,7 +151,7 @@
             position: absolute;
             top: 50%;
             left: 100%;
-            z-index: 1;
+            z-index: 2;
 
             pointer-events: none;
 

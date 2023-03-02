@@ -29,7 +29,7 @@
             await goto("/");
         } catch (e) {
             let err = e as RequestError;
-            console.error(error);
+            console.error(err);
             error = err.text;
         } finally {
             loading = false;

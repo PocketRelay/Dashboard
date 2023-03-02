@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { RequestError } from "$lib/api/api";
     import { getServerLog } from "$lib/api/server";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
     import Loader from "$lib/components/Loader.svelte";
@@ -9,11 +10,15 @@
     let loading = false;
 
     async function load() {
+        loading = true;
         try {
             let response = await getServerLog();
             contents = response;
         } catch (e) {
-            console.error(e);
+            const err = e as RequestError;
+            console.error(err);
+        } finally {
+            loading = false;
         }
     }
 
@@ -42,10 +47,6 @@
     });
 </script>
 
-{#if loading}
-    <Loader />
-{/if}
-
 <DashboardPage title="Server Logs">
     <svelte:fragment slot="heading">
         {#if contents !== null}
@@ -54,6 +55,7 @@
             </button>
         {/if}
     </svelte:fragment>
+
     <div class="card log">
         {#if loading}
             <Loader />

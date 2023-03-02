@@ -74,7 +74,6 @@ export async function loadPlayer(): Promise<boolean> {
         return false;
     }
 
-
     try {
         let value: PlayerAccount = await getSelf();
         player.set(value);

@@ -10,18 +10,34 @@
     import { getNumberWithOrdinal } from "$lib/tools/numbers";
     import Refresh from "svelte-material-icons/Refresh.svelte";
 
-    let selected = LeaderboardName.N7Rating;
+    let loading: boolean = true;
+    let error: string | null = null;
 
-    let loading = true;
-
+    // The current entries list
     let entries: LeaderboardEntry[] = [];
+    // Whether there are more entries at the next offset
     let more: boolean = false;
 
+    // The selected leaderboard name
+    let selected: LeaderboardName = LeaderboardName.N7Rating;
+
+    // Query parameters
     let count: number = 20;
     let offset: number = 0;
 
+    /**
+     * Loads the leaderboard for the provided name at the provided
+     * offset and loads the provided number of entries
+     *
+     * Handles errors and loading state
+     *
+     * @param name   The name of the leaderboard to query
+     * @param offset The offset to query
+     * @param count  The number of entries to query for
+     */
     async function load(name: LeaderboardName, offset: number, count: number) {
         loading = true;
+        error = null;
 
         try {
             let response = await getLeaderboard(name, offset, count);
@@ -30,11 +46,16 @@
         } catch (e) {
             let err = e as RequestError;
             console.error(err);
+            error = err.text;
+        } finally {
+            loading = false;
         }
-
-        loading = false;
     }
 
+    /**
+     * Refreshes the current leaderboard query to get the
+     * up-to-date rankings
+     */
     function refresh() {
         load(selected, offset, count);
     }
@@ -101,6 +122,10 @@
                 Next
             </button>
         </div>
+
+        {#if error}
+            <p class="error">{error}</p>
+        {/if}
     </svelte:fragment>
 
     <table class="table">
@@ -114,7 +139,7 @@
                 <th>Value</th>
             </tr>
         </thead>
-        <tbody class="entries__body">
+        <tbody class="table__body">
             {#each entries as entry}
                 <tr class="table__entry">
                     <td class="annot">{getNumberWithOrdinal(entry.rank)}</td>

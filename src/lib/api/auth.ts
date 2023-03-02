@@ -1,5 +1,3 @@
-
-
 import { HttpMethod, request } from "./api";
 
 // Token response from the server which contains an

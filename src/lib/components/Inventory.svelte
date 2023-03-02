@@ -5,6 +5,7 @@
         encodePlayerBase,
         parseInventory,
         parsePlayerBase,
+        PLAYER_BASE_KEY,
         type PlayerBase,
     } from "$lib/api/parser";
     import {
@@ -35,7 +36,7 @@
 
         let response: PlayerData;
         try {
-            response = await getPlayerData(playerId, "Base");
+            response = await getPlayerData(playerId, PLAYER_BASE_KEY);
         } catch (e) {
             let err = e as RequestError;
             console.error(err);
@@ -63,7 +64,7 @@
 
         let encodedBase = encodePlayerBase(newBase);
         try {
-            await setPlayerData(playerId, "Base", encodedBase);
+            await setPlayerData(playerId, PLAYER_BASE_KEY, encodedBase);
             playerBase = newBase;
         } catch (e) {
             let err = e as RequestError;

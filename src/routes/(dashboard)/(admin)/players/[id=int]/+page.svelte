@@ -12,6 +12,7 @@
         type AllowedSetRoles,
         type PlayerAccount,
     } from "$lib/api/players";
+    import { player as selfPlayer } from "$lib/api/api";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
     import Dialog from "$lib/components/Dialog.svelte";
     import Loader from "$lib/components/Loader.svelte";
@@ -310,27 +311,34 @@
                 </label>
                 <button type="submit" class="button"> Change Password </button>
             </form>
-            <form class="form card" on:submit|preventDefault={updateRole}>
-                <h2 class="form__title">
-                    <AccountCog class="form__icon" />
-                    Role
-                </h2>
-                <p class="text">Set the role of this account</p>
-                {#if role.error}
-                    <p class="error">{deleteState.error}</p>
-                {/if}
-                {#if role.loading}
-                    <Loader />
-                {/if}
-                <select class="select" bind:value={role.role}>
-                    {#each roles as role}
-                        <option value={role}>{role}</option>
-                    {/each}
-                </select>
 
-                <button type="submit" class="button ">Apply Role</button>
-            </form>
-            <form class="form card" on:submit|preventDefault={promptDelete}>
+            {#if $selfPlayer.role == PlayerRole.SuperAdmin}
+                <form class="form card" on:submit|preventDefault={updateRole}>
+                    <h2 class="form__title">
+                        <AccountCog class="form__icon" />
+                        Role
+                    </h2>
+                    <p class="text">Set the role of this account</p>
+                    {#if role.error}
+                        <p class="error">{deleteState.error}</p>
+                    {/if}
+                    {#if role.loading}
+                        <Loader />
+                    {/if}
+                    <select class="select" bind:value={role.role}>
+                        {#each roles as role}
+                            <option value={role}>{role}</option>
+                        {/each}
+                    </select>
+
+                    <button type="submit" class="button ">Apply Role</button>
+                </form>
+            {/if}
+            <form
+                class="form card"
+                class:form--wide={$selfPlayer.role !== PlayerRole.SuperAdmin}
+                on:submit|preventDefault={promptDelete}
+            >
                 <h2 class="form__title">
                     <Delete class="form__icon" />
                     Delete Account

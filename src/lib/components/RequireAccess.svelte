@@ -22,7 +22,6 @@
         } else {
             state = State.Loaded;
         }
-
     });
 </script>
 

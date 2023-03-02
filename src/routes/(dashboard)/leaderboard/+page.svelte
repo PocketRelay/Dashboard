@@ -7,8 +7,8 @@
     } from "$lib/api/leaderboard";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
     import Loader from "$lib/components/Loader.svelte";
+    import QueryPagination from "$lib/components/QueryPagination.svelte";
     import { getNumberWithOrdinal } from "$lib/tools/numbers";
-    import Refresh from "svelte-material-icons/Refresh.svelte";
 
     let loading: boolean = true;
     let error: string | null = null;
@@ -95,33 +95,7 @@
             </button>
         </div>
 
-        <div class="button-group">
-            <button class="button button--dark" on:click={refresh}>
-                <Refresh width={24} height={24} />
-            </button>
-            <button
-                class="button button--dark"
-                disabled={offset == 0}
-                on:click={() => (offset -= 1)}
-            >
-                Previous
-            </button>
-            <select class="select" bind:value={count}>
-                <option value={2}>2</option>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20} selected>20</option>
-                <option value={30}>30</option>
-                <option value={50}>50</option>
-            </select>
-            <button
-                class="button button--dark"
-                disabled={!more}
-                on:click={() => (offset += 1)}
-            >
-                Next
-            </button>
-        </div>
+        <QueryPagination bind:count bind:offset {more} on:refresh={refresh} />
 
         {#if error}
             <p class="error">{error}</p>

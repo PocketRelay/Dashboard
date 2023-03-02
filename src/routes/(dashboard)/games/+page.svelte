@@ -1,30 +1,53 @@
 <script lang="ts">
+    import type { RequestError } from "$lib/api/api";
     import { getGames, type Game } from "$lib/api/games";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
     import GameComponent from "$lib/components/GameComponent.svelte";
     import Loader from "$lib/components/Loader.svelte";
-    import Refresh from "svelte-material-icons/Refresh.svelte";
+    import QueryPagination from "$lib/components/QueryPagination.svelte";
 
+    let loading: boolean = true;
+    let error: string | null = null;
+
+    // The current games list
     let games: Game[] = [];
-
-    let loading: boolean = false;
-    let count: number = 20;
-    let offset: number = 0;
+    // Whether there are more entries at the next offset
     let more: boolean = false;
 
+    // Query parameters
+    let count: number = 10;
+    let offset: number = 0;
+
+    /**
+     * Loads the games list for at the provided
+     * offset and loads the provided number of entries
+     *
+     * Handles errors and loading state
+     *
+     * @param offset The offset to query
+     * @param count  The number of entries to query for
+     */
     async function load(offset: number, count: number) {
         loading = true;
+        error = null;
+
         try {
             let response = await getGames(offset, count);
             games = response.games;
             more = response.more;
         } catch (e) {
-            console.error(e);
+            let err = e as RequestError;
+            console.error(err);
+            error = err.text;
         } finally {
             loading = false;
         }
     }
 
+    /**
+     * Refreshes the current games query to get the
+     * up-to-date games list
+     */
     function refresh() {
         load(offset, count);
     }
@@ -37,33 +60,11 @@
     text="Below is a list of games that are currently running"
 >
     <svelte:fragment slot="heading">
-        <div class="button-group">
-            <button class=" button button--dark" on:click={refresh}>
-                <Refresh width={24} height={24} />
-            </button>
-            <button
-                class="button button--dark"
-                disabled={offset == 0}
-                on:click={() => (offset -= 1)}
-            >
-                Previous
-            </button>
-            <select class="select" bind:value={count}>
-                <option value={2}>2</option>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20} selected>20</option>
-                <option value={30}>30</option>
-                <option value={50}>50</option>
-            </select>
-            <button
-                class="button button--dark"
-                disabled={!more}
-                on:click={() => (offset += 1)}
-            >
-                Next
-            </button>
-        </div>
+        <QueryPagination bind:count bind:offset {more} on:refresh={refresh} />
+
+        {#if error}
+            <p class="error">{error}</p>
+        {/if}
     </svelte:fragment>
     <div class="games">
         {#if loading}

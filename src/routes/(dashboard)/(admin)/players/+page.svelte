@@ -1,34 +1,52 @@
 <script lang="ts">
-    import { isPlayerEditable, player } from "$lib/api/api";
-    import {
-        getPlayers,
-        PlayerRole,
-        type PlayerAccount,
-    } from "$lib/api/players";
+    import { isPlayerEditable, player, type RequestError } from "$lib/api/api";
+    import { getPlayers, type PlayerAccount } from "$lib/api/players";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
     import Loader from "$lib/components/Loader.svelte";
-    import Refresh from "svelte-material-icons/Refresh.svelte";
+    import QueryPagination from "$lib/components/QueryPagination.svelte";
 
     let loading = true;
+    let error: string | null = null;
 
+    // The current entries list
     let entries: PlayerAccount[] = [];
+    // Whether there are more entries at the next offset
     let more: boolean = false;
 
+    // Query parameters
     let count: number = 20;
     let offset: number = 0;
 
+    /**
+     * Loads the players list at the provided offset
+     * and loads the provided number of entries
+     *
+     * Handles errors and loading state
+     *
+     * @param offset The offset to query
+     * @param count  The number of entries to query for
+     */
     async function load(offset: number, count: number) {
         loading = true;
+        error = null;
 
         try {
             let response = await getPlayers(offset, count);
             entries = response.players;
             more = response.more;
-        } catch (e) {}
-
-        loading = false;
+        } catch (e) {
+            let err = e as RequestError;
+            console.error(err);
+            error = err.text;
+        } finally {
+            loading = false;
+        }
     }
 
+    /**
+     * Refreshes the current players query to get the
+     * up-to-date players list
+     */
     function refresh() {
         load(offset, count);
     }
@@ -41,37 +59,13 @@
     text="Below is a list of player accounts on this server"
 >
     <svelte:fragment slot="heading">
-        <div class="button-group">
-            <button class="button button--dark" on:click={refresh}>
-                <Refresh width={24} height={24} />
-            </button>
-            <button
-                class="button button--dark"
-                disabled={offset == 0}
-                on:click={() => (offset -= 1)}
-            >
-                Previous
-            </button>
-            <select class="select" bind:value={count}>
-                <option value={2}>2</option>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20} selected>20</option>
-                <option value={30}>30</option>
-                <option value={50}>50</option>
-            </select>
-            <button
-                class="button button--dark"
-                disabled={!more}
-                on:click={() => (offset += 1)}
-            >
-                Next
-            </button>
-        </div>
+        <QueryPagination bind:count bind:offset {more} on:refresh={refresh} />
     </svelte:fragment>
+
     {#if loading}
         <Loader />
     {/if}
+
     <table class="table">
         <thead class="table__head">
             <tr>

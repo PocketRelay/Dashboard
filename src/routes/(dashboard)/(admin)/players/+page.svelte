@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { isPlayerEditable, player } from "$lib/api/api";
     import {
         getPlayers,
         PlayerRole,
@@ -87,7 +88,7 @@
                     <td>{entry.email}</td>
                     <td>{entry.role}</td>
                     <td>
-                        {#if entry.role == PlayerRole.Default}
+                        {#if isPlayerEditable($player, entry)}
                             <a class="button" href={`/players/${entry.id}`}>
                                 View
                             </a>

@@ -23,6 +23,20 @@ export function isAdmin(player: PlayerAccount): boolean {
     return player.role == PlayerRole.Admin || player.role == PlayerRole.SuperAdmin;
 }
 
+export function isPlayerEditable(self: PlayerAccount, other: PlayerAccount) {
+    // Allow editing all default role accounts
+    if (other.role == PlayerRole.Default) {
+        return true;
+    }
+    // Don't allow editing other roles if not super admin
+    if (self.role != PlayerRole.SuperAdmin) return false;
+    // Don't allow self editing from the editor
+    if (self.id === other.id) return false;
+
+    // Don't allow editing other super admins
+    return other.role != PlayerRole.SuperAdmin;
+}
+
 
 /**
  * Sets the current authentication token to the provided

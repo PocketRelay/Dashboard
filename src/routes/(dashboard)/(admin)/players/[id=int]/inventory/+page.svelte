@@ -12,6 +12,6 @@
     text="Click an inventory category to view its contents"
 >
     <Inventory {playerId}>
-        <a href={`/players/${playerId}`} class="button button--alt "> Back </a>
+        <a href={`/players/${playerId}`} class="button button--alt"> Back </a>
     </Inventory>
 </DashboardPage>

@@ -5,8 +5,11 @@
     import {
         deletePlayer,
         getPlayer,
+        PlayerRole,
         setPlayerDetails,
         setPlayerPassword,
+        setPlayerRole,
+        type AllowedSetRoles,
         type PlayerAccount,
     } from "$lib/api/players";
     import DashboardPage from "$lib/components/DashboardPage.svelte";
@@ -15,6 +18,7 @@
     import Account from "svelte-material-icons/Account.svelte";
     import Key from "svelte-material-icons/Key.svelte";
     import Delete from "svelte-material-icons/Delete.svelte";
+    import AccountCog from "svelte-material-icons/AccountCog.svelte";
 
     // Basic form state extended by the other forms
     interface FormState {
@@ -40,6 +44,10 @@
         showConfirm: boolean;
     } & FormState;
 
+    type RoleState = {
+        role: AllowedSetRoles;
+    } & FormState;
+
     const basic: FormState = {
         // Form state
         loading: false,
@@ -62,6 +70,14 @@
         error: null,
     };
 
+    const role: RoleState = {
+        role: PlayerRole.Default,
+        loading: false,
+        error: null,
+    };
+
+    const roles: PlayerRole[] = [PlayerRole.Default, PlayerRole.Admin];
+
     const playerId = parseInt($page.params.id);
     if (Number.isNaN(playerId)) throw "NaN Player ID";
 
@@ -76,6 +92,9 @@
         try {
             let response = await getPlayer(id);
             player = response;
+            if (player.role != PlayerRole.SuperAdmin) {
+                role.role = player.role;
+            }
         } catch (e) {
             let err = e as RequestError;
             error = err.text;
@@ -108,6 +127,8 @@
     async function updatePassword() {
         if (!player) return;
 
+        password.showConfirm = false;
+
         if (password.new !== password.confirm) {
             password.error = "Passwords don't match";
             return;
@@ -117,13 +138,28 @@
         password.loading = true;
         try {
             await setPlayerPassword(player.id, password.new);
-            alert("Password updated");
         } catch (e) {
             let err = e as RequestError;
             password.error = err.text;
-            console.error(e);
+            console.error(err);
         } finally {
             password.loading = false;
+        }
+    }
+
+    async function updateRole() {
+        if (!player) return;
+
+        role.error = null;
+        role.loading = true;
+        try {
+            await setPlayerRole(player.id, role.role);
+        } catch (e) {
+            let err = e as RequestError;
+            role.error = err.text;
+            console.error(err);
+        } finally {
+            role.loading = false;
         }
     }
 
@@ -274,10 +310,27 @@
                 </label>
                 <button type="submit" class="button"> Change Password </button>
             </form>
-            <form
-                class="form form--wide card"
-                on:submit|preventDefault={promptDelete}
-            >
+            <form class="form card" on:submit|preventDefault={updateRole}>
+                <h2 class="form__title">
+                    <AccountCog class="form__icon" />
+                    Role
+                </h2>
+                <p class="text">Set the role of this account</p>
+                {#if role.error}
+                    <p class="error">{deleteState.error}</p>
+                {/if}
+                {#if role.loading}
+                    <Loader />
+                {/if}
+                <select class="select" bind:value={role.role}>
+                    {#each roles as role}
+                        <option value={role}>{role}</option>
+                    {/each}
+                </select>
+
+                <button type="submit" class="button ">Apply Role</button>
+            </form>
+            <form class="form card" on:submit|preventDefault={promptDelete}>
                 <h2 class="form__title">
                     <Delete class="form__icon" />
                     Delete Account

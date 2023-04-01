@@ -19,7 +19,7 @@
         n7Entry: LeaderboardEntry;
         cpEntry: LeaderboardEntry;
         totalPlayers: number;
-        serverDetails: ServerDetails;
+        version: string;
     }
 
     // Loading state
@@ -42,7 +42,7 @@
                 n7Entry,
                 cpEntry,
                 totalPlayers: leaderboard.total,
-                serverDetails,
+                version: serverDetails.version,
             };
         } catch (e) {
             let err = e as RequestError;
@@ -109,17 +109,7 @@
                     The Pocket Relay server you are connected to is currently on
                     version
                 </p>
-                <a
-                    class="card__value"
-                    href={`https://github.com/PocketRelay/Server/commit/${data.serverDetails.hash}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    >{data.serverDetails.version}
-                    <span class="git"
-                        >{data.serverDetails.branch} / {data.serverDetails
-                            .hash}</span
-                    ></a
-                >
+                <span class="card__value">{data.version}</span>
             </div>
             <div class="card">
                 <div class="card__head">
@@ -148,13 +138,6 @@
 </DashboardPage>
 
 <style lang="scss">
-    .git {
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 0.9rem;
-        color: #999;
-    }
-
     .cards {
         display: grid;
         grid-template-columns: 1fr 1fr;

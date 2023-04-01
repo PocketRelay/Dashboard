@@ -1,10 +1,11 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
     import { setToken, type RequestError } from "$lib/api/api";
-    import { doLogin } from "$lib/api/auth";
+    import { doCreate } from "$lib/api/auth";
     import Loader from "$lib/components/Loader.svelte";
 
     // Form fields
+    let username: string = "";
     let email: string = "";
     let password: string = "";
 
@@ -13,7 +14,7 @@
     let error: string | null = null;
 
     /**
-     * Handles attempting to login to the backend server
+     * Handles attempting to create on the backend server
      * using the provided credentials
      */
     async function login() {
@@ -21,7 +22,7 @@
         loading = true;
 
         try {
-            const { token } = await doLogin(email, password);
+            const { token } = await doCreate(username, email, password);
 
             // Assign the token
             setToken(token);
@@ -43,12 +44,22 @@
 
 <main class="background">
     <form class="form card" on:submit|preventDefault={login}>
-        <h1>Login</h1>
+        <h1>Create</h1>
         <span class="ident">POCKET RELAY MANAGER</span>
-        <p class="text">Login to an existing account on the server</p>
+        <p class="text">Create an account to login to the server.</p>
         {#if error}
             <p class="error">{error}</p>
         {/if}
+
+        <label class="input">
+            <span class="input__label">Username</span>
+            <input
+                class="input__value"
+                type="text"
+                bind:value={username}
+                required
+            />
+        </label>
 
         <label class="input">
             <span class="input__label">Email</span>
@@ -70,8 +81,8 @@
             />
         </label>
 
-        <button type="submit" class="button">Login</button>
-        <a href="/create" class="annot">Create an account</a>
+        <button type="submit" class="button">Create</button>
+        <a href="/login" class="annot">Login to an account</a>
     </form>
 </main>
 
@@ -97,6 +108,8 @@
 
     .form {
         flex: none;
+        max-width: 450px;
+        width: 100%;
     }
 
     .button {

@@ -28,13 +28,10 @@ export function isPlayerEditable(self: PlayerAccount, other: PlayerAccount) {
     if (other.role == PlayerRole.Default) {
         return true;
     }
-    // Don't allow editing other roles if not super admin
-    if (self.role != PlayerRole.SuperAdmin) return false;
-    // Don't allow self editing from the editor
-    if (self.id === other.id) return false;
+
 
     // Don't allow editing other super admins
-    return other.role != PlayerRole.SuperAdmin;
+    return other.role != PlayerRole.SuperAdmin || self.id === other.id;
 }
 
 

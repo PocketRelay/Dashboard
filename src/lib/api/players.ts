@@ -97,6 +97,13 @@ export function setPlayerData(player_id: number, key: string, value: string): Pr
     })
 }
 
+export function deletePlayerData(player_id: number, key: string): Promise<PlayerData> {
+    return request({
+        method: HttpMethod.DELETE,
+        route: `players/${player_id}/data/${key}`,
+    })
+}
+
 export function getAllPlayerData(player_id: number): Promise<Record<string, string>> {
     return request({
         method: HttpMethod.GET,

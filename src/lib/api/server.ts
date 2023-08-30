@@ -29,3 +29,14 @@ export function getServerLog(): Promise<string> {
         route: "server/log",
     })
 }
+
+export interface DashboardDetails {
+    disable_registration: boolean;
+}
+
+export function getDashboardDetails(): Promise<DashboardDetails> {
+    return request({
+        method: HttpMethod.GET,
+        route: "server/dashboard",
+    })
+}

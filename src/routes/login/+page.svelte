@@ -75,16 +75,26 @@
 
     <button type="submit" class="button">Login</button>
 
-    <div class="info">
-      {#if !$disableAccountCreation}
-        <a href="/create" class="annot">Create an account</a>
-      {/if}
+    {#if !$disableAccountCreation}
+      <a href="/create" class="annot">Create an account</a>
+    {/if}
 
+    <div class="info">
       <a
         class="annot"
         href="https://github.com/PocketRelay/Client/releases/latest/download/pocket-relay-client.exe"
         rel="noreferrer"
+        target="_blank"
         title="Download the latest client version">Download Client</a
+      >
+
+      <a
+        class="annot"
+        href="https://pocket-relay.pages.dev/"
+        rel="noreferrer"
+        target="_blank"
+        title="View the website for the Pocket Relay project"
+        >Pocket Relay Website</a
       >
     </div>
   </form>
@@ -94,6 +104,10 @@
   .info {
     display: flex;
     justify-content: space-between;
+
+    margin-top: 0.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
   }
 
   .background {

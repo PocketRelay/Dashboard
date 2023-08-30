@@ -90,11 +90,26 @@
     </label>
 
     <button type="submit" class="button">Create</button>
-    <a href="/login" class="annot">Login to an account</a>
+
+    <div class="info">
+      <a href="/login" class="annot">Login to an account</a>
+
+      <a
+        class="annot"
+        href="https://github.com/PocketRelay/Client/releases/latest/download/pocket-relay-client.exe"
+        rel="noreferrer"
+        title="Download the latest client version">Download Client</a
+      >
+    </div>
   </form>
 </main>
 
 <style lang="scss">
+  .info {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .background {
     width: 100%;
     height: 100vh;

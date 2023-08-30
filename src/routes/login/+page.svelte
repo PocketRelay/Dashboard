@@ -75,13 +75,27 @@
 
     <button type="submit" class="button">Login</button>
 
-    {#if !$disableAccountCreation}
-      <a href="/create" class="annot">Create an account</a>
-    {/if}
+    <div class="info">
+      {#if !$disableAccountCreation}
+        <a href="/create" class="annot">Create an account</a>
+      {/if}
+
+      <a
+        class="annot"
+        href="https://github.com/PocketRelay/Client/releases/latest/download/pocket-relay-client.exe"
+        rel="noreferrer"
+        title="Download the latest client version">Download Client</a
+      >
+    </div>
   </form>
 </main>
 
 <style lang="scss">
+  .info {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .background {
     width: 100%;
     height: 100vh;

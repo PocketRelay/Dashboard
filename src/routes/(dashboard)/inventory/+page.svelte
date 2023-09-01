@@ -8,5 +8,5 @@
   title="Inventory"
   text="Click an inventory category to view its contents"
 >
-  <Inventory playerId={$player.id} displayName={$player.display_name} />
+  <Inventory playerId={$player.id} />
 </DashboardPage>

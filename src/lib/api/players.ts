@@ -87,7 +87,7 @@ export function getPlayerData(player_id: number, key: string): Promise<PlayerDat
     })
 }
 
-export function setPlayerData(player_id: number, key: string, value: string): Promise<PlayerData> {
+export function setPlayerData(player_id: number, key: string, value: string): Promise<void> {
     return request({
         method: HttpMethod.PUT,
         route: `players/${player_id}/data/${key}`,

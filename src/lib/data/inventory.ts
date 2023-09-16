@@ -157,6 +157,7 @@ export const ASSAULT_RIFLES: Weapon[] = [
     { level_index: 626, rarity: Rarity.UltraRare, name: "Geth Spitfire", image: "AssaultRifle_Spitfire.webp" },
     { level_index: 623, rarity: Rarity.UltraRare, name: "M-7 Lancer", image: "AssaultRifle_Lancer_MP.webp" },
     { level_index: 627, rarity: Rarity.Rare, name: "Adas Anti-Synthetic Rifle", image: "AssaultRifle_Adas_MP.webp" },
+    { level_index: 289, rarity: Rarity.Rare, name: "Chakram Launcher", image: "AssaultRifle_Reckoning.webp" },
 ];
 
 export const SUB_MACHINE_GUNS: Weapon[] = [
@@ -487,7 +488,7 @@ export const AMMO_CONSUMABLES: TieredConsumable[] = [
     {
         name: "Polonium Rounds",
         image: "AmmoPower_Polonium.webp",
-        indexes: [515, 520, 525],
+        indexes: [515, 520, 525, 526],
         unused: true
     },
 ];

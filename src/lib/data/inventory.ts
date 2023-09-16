@@ -278,7 +278,7 @@ export const INFILTRATOR_CHARACTERS: Character[] = [
     { index: 504, name: "Drell Assassin", image: "MP_DrellINF.webp" },
     { index: 510, name: "Asari Huntress", image: "MP_AsariINF.webp" },
     { index: 602, name: "Alliance Infiltration Unit", image: "MP_FBotINF.webp" },
-
+    { index: 290, name: "Battlefield 3 Infiltrator", image: "MP_BF3_INF.webp" }
 ];
 
 

@@ -10,7 +10,7 @@ async function loadDashboardDetails() {
         ]);
 
         disableAccountCreation.set(dashboardDetails.disable_registration);
-        serverVersion.set("0.5.6")
+        serverVersion.set(serverDetails.version);
     } catch (error) {
         console.error("Failed to load dashboard details", error);
     }

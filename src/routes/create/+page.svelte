@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { setToken, type RequestError } from "$lib/api/api";
+  import { setToken } from "$lib/api/api";
   import { doCreate } from "$lib/api/auth";
   import Loader from "$lib/components/Loader.svelte";
   import { disableAccountCreation } from "$lib/dashboard.state";
@@ -30,9 +30,9 @@
 
       await goto("/");
     } catch (e) {
-      let err = e as RequestError;
+      let err = e as Error;
       console.error(err);
-      error = err.text;
+      error = err.message;
     } finally {
       loading = false;
     }

@@ -6,8 +6,8 @@ async function loadDashboardDetails() {
     try {
         const details: DashboardDetails = await getDashboardDetails();
         disableAccountCreation.set(details.disable_registration);
-    } catch (err) {
-        console.error("Failed to load dashboard details");
+    } catch (error) {
+        console.error("Failed to load dashboard details", error);
     }
 }
 

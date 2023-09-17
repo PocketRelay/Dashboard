@@ -75,18 +75,9 @@ export async function loadPlayer(): Promise<boolean> {
         let value: PlayerAccount = await getSelf();
         player.set(value);
         return true;
-    } catch (e) {
-        const err = e as RequestError;
-
-        switch (err.status) {
-            case 500:
-                console.error("Internal server error while attempting to load player")
-                break;
-            case 401:
-                console.error("Stored token is no longer valid", err.text);
-                clearToken();
-                break;
-        }
+    } catch (error) {
+        console.error("Error while loading player", error);
+        clearToken();
         return false;
     }
 }
@@ -117,14 +108,6 @@ export const enum HttpMethod {
     POST = "POST",
     PUT = "PUT",
     DELETE = "DELETE"
-}
-
-// Type used as an error from requests
-export interface RequestError {
-    /// The HTTP status code of the error
-    status: number;
-    /// The error message
-    text: string;
 }
 
 // Configuration object structure for requests
@@ -161,8 +144,8 @@ export async function requestInner(config: RequestConfig): Promise<Response> {
     try {
         let url = BASE_URL + config.route;
         response = await fetch(url, init);
-    } catch {
-        throw { status: -1, text: "Failed to connect" };
+    } catch (error) {
+        throw new Error("Failed to connect", { cause: error });
     }
 
     return response;
@@ -170,18 +153,15 @@ export async function requestInner(config: RequestConfig): Promise<Response> {
 
 export async function requestText(config: RequestConfig): Promise<string> {
     const response = await requestInner(config);
-    const status = response.status;
-    // The first digit from the status code 
-    const statusPrefix: number = Math.floor(status / 100);
-
     /// Handle 2xx status codes 
-    if (statusPrefix === 2) {
+    if (!response.ok) {
         // Handle invalid JSON responses
         try {
             return await response.text();
-        } catch (e) {
-            console.error("Invalid JSON response", e);
-            throw { status, text: "Invalid server response" };
+        } catch (error) {
+            throw new Error("Invalid server response", {
+                cause: error
+            });
         }
     }
 
@@ -189,42 +169,43 @@ export async function requestText(config: RequestConfig): Promise<string> {
     let text: string;
     try {
         text = await response.text();
-    } catch (e) {
-        console.error("Failed to get error response text", e);
-        throw { status, text: "Unknown error" };
+    } catch (error) {
+        throw new Error("Failed to get error response text", {
+            cause: error
+        });
     }
 
-    throw { status, text };
+    throw new Error(text);
 }
+
 
 
 export async function request<T>(config: RequestConfig): Promise<T> {
     const response = await requestInner(config);
-    const status = response.status;
-    // The first digit from the status code 
-    const statusPrefix: number = Math.floor(status / 100);
 
-    /// Handle 2xx status codes 
-    if (statusPrefix === 2) {
+    if (!response.ok) {
 
         // Handle invalid JSON responses
         try {
             return await response.json();
-        } catch (e) {
-            console.error("Invalid JSON response", e);
-            throw { status, text: "Invalid server response" };
+        } catch (error) {
+            throw new Error("Invalid server response", {
+                cause: error,
+            });
         }
     }
+
 
     // Handle non 200 status codes by taking the text response
     let text: string;
     try {
         text = await response.text();
-    } catch (e) {
-        console.error("Failed to get error response text", e);
-        throw { status, text: "Unknown error" };
+    } catch (error) {
+        throw new Error("Failed to get error response text", {
+            cause: error
+        });
     }
 
-    throw { status, text };
+    throw new Error(text);
 }
 

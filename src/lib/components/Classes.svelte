@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isAdmin, player, type RequestError } from "$lib/api/api";
+  import { isAdmin, player } from "$lib/api/api";
   import {
     encodePlayerClass,
     parsePlayerClass,
@@ -42,7 +42,7 @@
     try {
       response = await getAllPlayerData(playerId);
     } catch (e) {
-      let err = e as RequestError;
+      let err = e as Error;
       console.error(err);
       loading = false;
       return;
@@ -94,7 +94,7 @@
     try {
       await Promise.all(promises);
     } catch (e) {
-      let err = e as RequestError;
+      let err = e as Error;
       console.error(err);
     } finally {
       loading = false;

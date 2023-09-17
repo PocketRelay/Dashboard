@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isAdmin, player, type RequestError } from "$lib/api/api";
+  import { isAdmin, player } from "$lib/api/api";
   import {
     encodeInventory,
     encodePlayerBase,
@@ -38,7 +38,7 @@
     try {
       response = await getPlayerData(playerId, PLAYER_BASE_KEY);
     } catch (e) {
-      let err = e as RequestError;
+      let err = e as Error;
       console.error(err);
       loading = false;
       return;
@@ -67,7 +67,7 @@
       await setPlayerData(playerId, PLAYER_BASE_KEY, encodedBase);
       playerBase = newBase;
     } catch (e) {
-      let err = e as RequestError;
+      let err = e as Error;
       console.error(err);
     } finally {
       loading = false;

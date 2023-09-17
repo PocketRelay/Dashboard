@@ -1,7 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
-  import type { RequestError } from "$lib/api/api";
   import {
     deletePlayer,
     getPlayer,
@@ -127,8 +126,8 @@
         role.role = player.role;
       }
     } catch (e) {
-      let err = e as RequestError;
-      error = err.text;
+      let err = e as Error;
+      error = err.message;
       console.error(e);
     } finally {
       loading = false;
@@ -143,8 +142,8 @@
     try {
       await setPlayerDetails(player.id, player.display_name, player.email);
     } catch (e) {
-      let err = e as RequestError;
-      basic.error = err.text;
+      let err = e as Error;
+      basic.error = err.message;
       console.error(e);
     } finally {
       basic.loading = false;
@@ -166,8 +165,8 @@
     try {
       await setPlayerPassword(player.id, password.new);
     } catch (e) {
-      let err = e as RequestError;
-      password.error = err.text;
+      let err = e as Error;
+      password.error = err.message;
       console.error(err);
     } finally {
       password.loading = false;
@@ -182,8 +181,8 @@
     try {
       await setPlayerRole(player.id, role.role);
     } catch (e) {
-      let err = e as RequestError;
-      role.error = err.text;
+      let err = e as Error;
+      role.error = err.message;
       console.error(err);
     } finally {
       role.loading = false;
@@ -204,8 +203,8 @@
 
       await goto("/players");
     } catch (e) {
-      let err = e as RequestError;
-      deleteState.error = err.text;
+      let err = e as Error;
+      deleteState.error = err.message;
       console.error(err);
     } finally {
       deleteState.loading = false;
@@ -248,8 +247,8 @@
     try {
       playerData = await getAllPlayerData(savePlayer.id);
     } catch (e) {
-      let err = e as RequestError;
-      deleteState.error = err.text;
+      let err = e as Error;
+      deleteState.error = err.message;
       console.error(err);
       clearState.loading = false;
       return;
@@ -309,8 +308,8 @@
     try {
       await Promise.all(promises);
     } catch (e) {
-      let err = e as RequestError;
-      importState.error = err.text;
+      let err = e as Error;
+      importState.error = err.message;
       console.error(err);
       return;
     } finally {
@@ -340,8 +339,8 @@
     try {
       playerData = await getAllPlayerData(playerId);
     } catch (e) {
-      let err = e as RequestError;
-      deleteState.error = err.text;
+      let err = e as Error;
+      deleteState.error = err.message;
       console.error(err);
       clearState.loading = false;
       return;
@@ -354,8 +353,8 @@
     try {
       await Promise.all(promises);
     } catch (e) {
-      let err = e as RequestError;
-      deleteState.error = err.text;
+      let err = e as Error;
+      deleteState.error = err.message;
       console.error(err);
       return;
     } finally {

@@ -1594,6 +1594,7 @@ __metadata:
     "@sveltejs/adapter-static": ^2.0.1
     "@sveltejs/kit": ^1.5.0
     sass: ^1.58.3
+    semver-lite: ^0.0.6
     svelte: ^3.54.0
     svelte-check: ^3.0.1
     svelte-material-icons: ^3.0.4
@@ -1788,6 +1789,13 @@ __metadata:
   bin:
     sass: sass.js
   checksum: 35a2b98c037ef80fdc93c9b0be846e6ccc7d75596351a37ee79c397e66666d0a754c52c4696e746c0aff32327471e185343ca349e998a58340411adc9d0489a5
+  languageName: node
+  linkType: hard
+
+"semver-lite@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "semver-lite@npm:0.0.6"
+  checksum: d24df69fa69e4cd8bbf74c7ced0fa4dcc0e8dd7ed128cc61f6e3040e0cbf972609c3105b5dad48a5bb3c57814761d378c2bdb9d9ad5743f64405a8e8be8784f3
   languageName: node
   linkType: hard
 

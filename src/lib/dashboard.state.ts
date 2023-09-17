@@ -1,11 +1,16 @@
 import { writable, type Writable } from "svelte/store";
-import { getDashboardDetails, type DashboardDetails } from "./api/server";
+import { getDashboardDetails, type DashboardDetails, type ServerDetails, getServerDetails } from "./api/server";
 
 
 async function loadDashboardDetails() {
     try {
-        const details: DashboardDetails = await getDashboardDetails();
-        disableAccountCreation.set(details.disable_registration);
+        let [dashboardDetails, serverDetails]: [DashboardDetails, ServerDetails] = await Promise.all([
+            getDashboardDetails(),
+            getServerDetails(),
+        ]);
+
+        disableAccountCreation.set(dashboardDetails.disable_registration);
+        serverVersion.set("0.5.6")
     } catch (error) {
         console.error("Failed to load dashboard details", error);
     }
@@ -14,3 +19,4 @@ async function loadDashboardDetails() {
 loadDashboardDetails();
 
 export const disableAccountCreation: Writable<boolean> = writable(false);
+export const serverVersion: Writable<string | null> = writable(null);

@@ -1,25 +1,28 @@
 <script lang="ts">
   import { player } from "$lib/api/api";
+  import { getLatestRelease, type GitHubRelease } from "$lib/api/github";
   import {
     getLeaderboard,
     getPlayerEntry,
     LeaderboardName,
     type LeaderboardEntry,
   } from "$lib/api/leaderboard";
+  import { PlayerRole, type PlayerAccount } from "$lib/api/players";
   import { getServerDetails } from "$lib/api/server";
   import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Loader from "$lib/components/Loader.svelte";
+  import { serverVersion } from "$lib/dashboard.state";
   import { getNumberWithOrdinal } from "$lib/tools/numbers";
   import Account from "svelte-material-icons/Account.svelte";
   import AccountMultiple from "svelte-material-icons/AccountMultiple.svelte";
   import List from "svelte-material-icons/FormatListNumbered.svelte";
   import Sync from "svelte-material-icons/Sync.svelte";
+  import semver from "semver-lite";
 
   interface Data {
     n7Entry: LeaderboardEntry;
     cpEntry: LeaderboardEntry;
     totalPlayers: number;
-    version: string;
   }
 
   // Loading state
@@ -27,21 +30,21 @@
   // Loaded data state
   let data: Data | null = null;
 
+  let newerRelease: GitHubRelease | null = null;
+
   async function load(id: number) {
     loading = true;
     try {
-      let [n7Entry, cpEntry, leaderboard, serverDetails] = await Promise.all([
+      let [n7Entry, cpEntry, leaderboard] = await Promise.all([
         getPlayerEntry(LeaderboardName.N7Rating, id),
         getPlayerEntry(LeaderboardName.ChallengePoints, id),
         getLeaderboard(LeaderboardName.N7Rating, 0, 1),
-        getServerDetails(),
       ]);
 
       data = {
         n7Entry,
         cpEntry,
         totalPlayers: leaderboard.total,
-        version: serverDetails.version,
       };
     } catch (e) {
       let err = e as Error;
@@ -53,6 +56,39 @@
 
   // Load the player data
   $: load($player.id);
+
+  async function updateCheck(
+    player: PlayerAccount,
+    currentVersion: string | null
+  ) {
+    // Only check for updates on the super admin account
+    if (player.role !== PlayerRole.SuperAdmin) {
+      return;
+    }
+
+    // Server version isn't loaded yet
+    if (currentVersion === null) {
+      return;
+    }
+
+    try {
+      const release = await getLatestRelease();
+      if (semver.gt(currentVersion, release.tag_name)) {
+        console.debug(
+          `Server is running future relase version ${currentVersion} (Latest: ${release.tag_name})`
+        );
+      } else if (semver.lt(currentVersion, release.tag_name)) {
+        console.debug(
+          `Server is running outdated relase version ${currentVersion} (Latest: ${release.tag_name})`
+        );
+        newerRelease = release;
+      }
+    } catch (error) {
+      console.error("Failed to check latest GitHub release", error);
+    }
+  }
+
+  $: updateCheck($player, $serverVersion);
 </script>
 
 <DashboardPage title={"Dashboard Home"}>
@@ -97,15 +133,34 @@
         <p>Below is the total number of players apart of this server</p>
         <span class="card__value">{data.totalPlayers}</span>
       </div>
-      <div class="card">
+      <div class="card" data-warning={newerRelease !== null}>
         <div class="card__head">
           <Sync class="card__head__icon" />
-          <h2 class="card__head__title">Server Version</h2>
+          <h2 class="card__head__title">
+            Server Version {#if newerRelease !== null}
+              <b class="outdated">Outdated</b>
+            {/if}
+          </h2>
         </div>
         <p>
           The Pocket Relay server you are connected to is currently on version
         </p>
-        <span class="card__value">{data.version}</span>
+        {#if newerRelease === null}
+          <span class="card__value">{$serverVersion ?? "Loading..."}</span>
+        {:else}
+          <p class="version">
+            Current version: <b class="version__old"
+              >v{$serverVersion ?? "..."}</b
+            >
+            Latest version:
+            <a
+              class="version__new"
+              href={newerRelease.html_url}
+              target="_blank"
+              rel="noreferrer">{newerRelease.tag_name}</a
+            >
+          </p>
+        {/if}
       </div>
       <div class="card">
         <div class="card__head">
@@ -139,6 +194,21 @@
     gap: 2rem;
   }
 
+  .version {
+    margin-top: 1rem;
+  }
+
+  .version__old {
+    color: #ee4e1d;
+    text-decoration: underline;
+  }
+
+  .version__new {
+    color: #72b2b6;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
   @media screen and (max-width: 920px) {
     .cards {
       grid-template-columns: 1fr;
@@ -150,6 +220,18 @@
     flex-flow: column;
     flex: auto;
     justify-content: space-between;
+  }
+
+  .card[data-warning="true"] {
+    border: 2px solid #ee4e1d;
+  }
+
+  .outdated {
+    border: 2px solid #ee4e1d;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-left: 0.5rem;
+    // float: right;
   }
 
   .card__head {

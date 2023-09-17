@@ -24,14 +24,15 @@
 
   export let playerId: number;
 
-  let loading: boolean = true;
+  let initialLoading: boolean = false;
+  let loading: boolean = false;
 
   let playerBase: PlayerBase | null = null;
   let inventory: number[] = [];
   let credits: number = 0;
 
   async function load() {
-    loading = true;
+    initialLoading = true;
     console.debug("Loading inventory");
 
     let response: PlayerData;
@@ -40,14 +41,14 @@
     } catch (e) {
       let err = e as Error;
       console.error(err);
-      loading = false;
+      initialLoading = false;
       return;
     }
     playerBase = parsePlayerBase(response.value);
     if (playerBase == null) return;
     credits = playerBase.credits;
     inventory = parseInventory(playerBase.inventory);
-    loading = false;
+    initialLoading = false;
   }
 
   async function save() {
@@ -121,7 +122,7 @@
   </div>
 
   <div class="contents">
-    {#if loading}
+    {#if initialLoading}
       <Loader />
     {:else if inventory.length == 0}
       <h2 class="title">Inventory not initialized</h2>
@@ -159,6 +160,10 @@
       <InventoryGear {inventory} />
     {:else if tab == "Other"}
       <InventoryOther bind:credits />
+    {/if}
+
+    {#if loading}
+      <Loader />
     {/if}
   </div>
 </div>

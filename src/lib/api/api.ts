@@ -154,7 +154,7 @@ export async function requestInner(config: RequestConfig): Promise<Response> {
 export async function requestText(config: RequestConfig): Promise<string> {
     const response = await requestInner(config);
     /// Handle 2xx status codes 
-    if (!response.ok) {
+    if (response.ok) {
         // Handle invalid JSON responses
         try {
             return await response.text();
@@ -183,7 +183,7 @@ export async function requestText(config: RequestConfig): Promise<string> {
 export async function request<T>(config: RequestConfig): Promise<T> {
     const response = await requestInner(config);
 
-    if (!response.ok) {
+    if (response.ok) {
 
         // Handle invalid JSON responses
         try {

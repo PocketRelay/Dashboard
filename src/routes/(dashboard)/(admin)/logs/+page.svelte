@@ -1,16 +1,20 @@
 <script lang="ts">
-  import { getServerLog } from "$lib/api/server";
+  import { clearServerLog, getServerLog } from "$lib/api/server";
   import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import { onMount } from "svelte";
   import Download from "svelte-material-icons/Download.svelte";
   import Refresh from "svelte-material-icons/Refresh.svelte";
+  import Delete from "svelte-material-icons/Delete.svelte";
+  import Dialog from "$lib/components/Dialog.svelte";
 
   let loading = false;
   let error: string | null = null;
 
   // The log file contents
   let contents: string | null = null;
+
+  let confirmClear: boolean = false;
 
   /**
    * Loads the current server log file
@@ -28,6 +32,22 @@
       error = err.message;
     } finally {
       loading = false;
+    }
+  }
+
+  async function clear() {
+    confirmClear = true;
+    loading = true;
+    try {
+      await clearServerLog();
+      await load();
+    } catch (e) {
+      let err = e as Error;
+      console.error("Failed to clear server logs", err);
+      error = err.message;
+    } finally {
+      loading = false;
+      confirmClear = false;
     }
   }
 
@@ -78,6 +98,13 @@
       <button class="button button--dark" on:click={refresh}>
         <Refresh width={24} height={24} />
       </button>
+      <button
+        class="button button--dark"
+        title="Clear Logs"
+        on:click={() => (confirmClear = true)}
+      >
+        <Delete width={24} height={24} />
+      </button>
     </div>
   </svelte:fragment>
 
@@ -89,6 +116,21 @@
     {/if}
   </div>
 </DashboardPage>
+<!-- Log Delete Confirmation -->
+<Dialog visible={confirmClear}>
+  <h3>Confirm Log Clear</h3>
+  <p class="text">
+    <span class="danger">WARNING:</span> Clearing your logs is
+    <b>perminent</b> and cannot be reversed are you sure you want to clear them
+  </p>
+
+  <div class="button-group">
+    <button class="button button--danger" on:click={clear}> Confirm </button>
+    <button class="button button--alt" on:click={() => (confirmClear = false)}>
+      Cancel
+    </button>
+  </div>
+</Dialog>
 
 <style>
   .log {

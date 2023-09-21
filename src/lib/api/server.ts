@@ -30,6 +30,14 @@ export function getServerLog(): Promise<string> {
     })
 }
 
+
+export function clearServerLog(): Promise<string> {
+    return requestText({
+        method: HttpMethod.DELETE,
+        route: "server/log",
+    })
+}
+
 export interface DashboardDetails {
     disable_registration: boolean;
 }

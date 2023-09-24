@@ -20,8 +20,8 @@
   import semver from "semver-lite";
 
   interface Data {
-    n7Entry: LeaderboardEntry;
-    cpEntry: LeaderboardEntry;
+    n7Entry: LeaderboardEntry | null;
+    cpEntry: LeaderboardEntry | null;
     totalPlayers: number;
   }
 
@@ -35,16 +35,17 @@
   async function load(id: number) {
     loading = true;
     try {
-      let [n7Entry, cpEntry, leaderboard] = await Promise.all([
+      let [n7Entry, cpEntry, leaderboard] = await Promise.allSettled([
         getPlayerEntry(LeaderboardName.N7Rating, id),
         getPlayerEntry(LeaderboardName.ChallengePoints, id),
         getLeaderboard(LeaderboardName.N7Rating, 0, 1),
       ]);
 
       data = {
-        n7Entry,
-        cpEntry,
-        totalPlayers: leaderboard.total,
+        n7Entry: n7Entry.status === "fulfilled" ? n7Entry.value : null,
+        cpEntry: cpEntry.status === "fulfilled" ? cpEntry.value : null,
+        totalPlayers:
+          leaderboard.status === "fulfilled" ? leaderboard.value.total : 0,
       };
     } catch (e) {
       let err = e as Error;
@@ -115,10 +116,16 @@
         </div>
         <p>
           You currently rank <span class="annot"
-            >{getNumberWithOrdinal(data.n7Entry.rank)}</span
+            >{data.n7Entry !== null
+              ? getNumberWithOrdinal(data.n7Entry.rank)
+              : "Not yet ranked"}</span
           >
           place in the N7 Rating leaderboard and
-          <span class="annot">{getNumberWithOrdinal(data.cpEntry.rank)}</span>
+          <span class="annot"
+            >{data.cpEntry !== null
+              ? getNumberWithOrdinal(data.cpEntry.rank)
+              : "Not yet ranked"}</span
+          >
           place in the Challenge Points leaderboard
         </p>
         <a class="card__value card__value--button" href="/leaderboard"
@@ -170,7 +177,9 @@
         <p>
           Your current N7 rating is below this is accumulated from leveling up
         </p>
-        <span class="card__value">{data.n7Entry.value}</span>
+        <span class="card__value"
+          >{data.n7Entry !== null ? data.n7Entry.value : "Not yet ranked"}</span
+        >
       </div>
       <div class="card">
         <div class="card__head">
@@ -181,7 +190,9 @@
           Your current total challenge point count is listed below. You can get
           these by completing challenges
         </p>
-        <span class="card__value">{data.cpEntry.value}</span>
+        <span class="card__value"
+          >{data.cpEntry !== null ? data.cpEntry.value : "Not yet ranked"}</span
+        >
       </div>
     </div>
   {/if}

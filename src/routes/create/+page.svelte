@@ -139,7 +139,7 @@
         rgba(0, 0, 0, 0.9),
         rgba(0, 0, 0, 0.7)
       ),
-      url("/login-background.webp") center no-repeat;
+      url("/assets/login-background.webp") center no-repeat;
     background-size: cover;
   }
 

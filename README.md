@@ -1,20 +1,31 @@
-# create-svelte
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+# Pocket Relay Dashboard
 
-## Creating a project
+This is the dashboard that is embedded into **Pocket Relay** servers
 
-If you're seeing this, you've probably already done this step. Congrats!
+> Mass Effect is a registered trademark of Bioware/EA International (Studio and Publishing), Ltd in the U.S. and/or other countries. All Mass Effect art, images, and lore are the sole property of Bioware/EA International (Studio and Publishing), Ltd and have been reproduced here in an effort to assist the Mass Effect player community. All other trademarks are the property of their respective owners.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Features
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- User management
+- Account creation, editing, and deletion
+- Leaderboards
+- Player data importing, exporting, clearing, and editing
+- Server log management
 
-## Developing
+## 📸 Screenshots
+
+![Home](./github-assets/home.png)
+![Leaderboard](./github-assets/leaderboard.png)
+![Inventory](./github-assets/inventory.png)
+![Classes](./github-assets/classes.png)
+![Games](./github-assets/games.png)
+![Players](./github-assets/players.png)
+![Players Editor](./github-assets/players-editor.png)
+![Server Logs](./github-assets/server-logs.png)
+![Settings](./github-assets/settings.png)
+
+## ⚒ Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
@@ -25,7 +36,7 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+## 🚀 Building
 
 To create a production version of your app:
 
@@ -35,4 +46,26 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## 🧾 License
+
+MIT License
+
+Copyright (c) 2023 Jacobtread
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

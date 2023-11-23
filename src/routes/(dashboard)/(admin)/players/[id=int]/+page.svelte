@@ -23,6 +23,7 @@
   import Delete from "svelte-material-icons/Delete.svelte";
   import AccountCog from "svelte-material-icons/AccountCog.svelte";
   import { acceptUpload, startDownload } from "$lib/tools/files";
+  import { base } from "$app/paths";
 
   // Basic form state extended by the other forms
   interface FormState {
@@ -201,7 +202,7 @@
 
       // Account was deleted update all associated state and redirect to login
 
-      await goto("/players");
+      await goto(`${base}/players`);
     } catch (e) {
       let err = e as Error;
       deleteState.error = err.message;

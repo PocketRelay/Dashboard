@@ -13,6 +13,7 @@
   import Account from "svelte-material-icons/Account.svelte";
   import Key from "svelte-material-icons/Key.svelte";
   import Delete from "svelte-material-icons/Delete.svelte";
+  import { base } from "$app/paths";
 
   // Basic form state extended by the other forms
   interface FormState {
@@ -125,7 +126,7 @@
 
       // Account was deleted update all associated state and redirect to login
       clearToken();
-      await goto("/login");
+      await goto(`${base}/login`);
     } catch (e) {
       let err = e as Error;
       deleteState.error = err.message;

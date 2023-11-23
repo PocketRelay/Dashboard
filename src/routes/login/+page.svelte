@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { base } from "$app/paths";
   import { setToken } from "$lib/api/api";
   import { doLogin } from "$lib/api/auth";
   import Loader from "$lib/components/Loader.svelte";
@@ -27,7 +28,7 @@
       // Assign the token
       setToken(token);
 
-      await goto("/");
+      await goto(base);
     } catch (e) {
       let err = e as Error;
       console.error(err);
@@ -120,7 +121,8 @@
     justify-content: center;
     align-items: center;
 
-    background: linear-gradient(
+    background:
+      linear-gradient(
         rgba(0, 0, 0, 0.7),
         rgba(0, 0, 0, 0.9),
         rgba(0, 0, 0, 0.7)

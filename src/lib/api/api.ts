@@ -1,9 +1,10 @@
 import { dev } from "$app/environment";
 import { writable, type Writable } from "svelte/store";
 import { getSelf, PlayerRole, type PlayerAccount } from "../api/players";
+import { base } from "$app/paths";
 
 // Base url segment based on whether in development mode or not
-const BASE_URL = dev ? "http://localhost/api/" : "/api/";
+const BASE_URL = dev ? "http://localhost/api/" : `${base}/api/`;
 
 // The API token used to authenticate with the server 
 let token: string | null = null;

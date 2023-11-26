@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from "$app/paths";
   import { isPlayerEditable, player } from "$lib/api/api";
   import { getPlayers, type PlayerAccount } from "$lib/api/players";
   import DashboardPage from "$lib/components/DashboardPage.svelte";
@@ -83,7 +84,7 @@
           <td>{entry.role}</td>
           <td>
             {#if isPlayerEditable($player, entry)}
-              <a class="button" href={`/players/${entry.id}`}> View </a>
+              <a class="button" href={`${base}/players/${entry.id}`}> View </a>
             {/if}
           </td>
         </tr>

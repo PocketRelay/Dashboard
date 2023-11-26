@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from "$app/paths";
   import { page } from "$app/stores";
   import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Inventory from "$lib/components/Inventory.svelte";
@@ -12,6 +13,8 @@
   text="Click an inventory category to view its contents"
 >
   <Inventory {playerId}>
-    <a href={`/players/${playerId}`} class="button button--alt"> Back </a>
+    <a href={`${base}/players/${playerId}`} class="button button--alt">
+      Back
+    </a>
   </Inventory>
 </DashboardPage>

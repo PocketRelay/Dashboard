@@ -378,11 +378,17 @@
   >
     <svelte:fragment slot="heading">
       <nav class="button-group">
-        <a href="/players" class="button button--dark">Back</a>
-        <a href={`/players/${playerId}/inventory`} class="button button--dark">
+        <a href="{base}/players" class="button button--dark">Back</a>
+        <a
+          href={`${base}/players/${playerId}/inventory`}
+          class="button button--dark"
+        >
           Edit Inventory
         </a>
-        <a href={`/players/${playerId}/classes`} class="button button--dark">
+        <a
+          href={`${base}/players/${playerId}/classes`}
+          class="button button--dark"
+        >
           Edit Classes
         </a>
       </nav>

@@ -24,7 +24,7 @@
   <nav class="sidebar__group">
     <a
       class="sidebar-button"
-      href="/"
+      href="{base}/"
       class:sidebar-button--selected={$page.route.id == "/(dashboard)"}
     >
       <Home class="sidebar-button__icon" />
@@ -32,7 +32,7 @@
     </a>
     <a
       class="sidebar-button"
-      href="/leaderboard"
+      href="{base}/leaderboard"
       class:sidebar-button--selected={$page.route.id ==
         "/(dashboard)/leaderboard"}
     >
@@ -41,7 +41,7 @@
     </a>
     <a
       class="sidebar-button"
-      href="/inventory"
+      href="{base}/inventory"
       class:sidebar-button--selected={$page.route.id ==
         "/(dashboard)/inventory"}
     >
@@ -50,7 +50,7 @@
     </a>
     <a
       class="sidebar-button"
-      href="/classes"
+      href="{base}/classes"
       class:sidebar-button--selected={$page.route.id == "/(dashboard)/classes"}
     >
       <Classes class="sidebar-button__icon" />
@@ -58,7 +58,7 @@
     </a>
     <a
       class="sidebar-button"
-      href="/games"
+      href="{base}/games"
       class:sidebar-button--selected={$page.route.id == "/(dashboard)/games"}
     >
       <Games class="sidebar-button__icon" />
@@ -68,7 +68,7 @@
     {#if $player.role == PlayerRole.Admin || $player.role == PlayerRole.SuperAdmin}
       <a
         class="sidebar-button"
-        href="/players"
+        href="{base}/players"
         class:sidebar-button--selected={$page.route.id ==
           "/(dashboard)/(admin)/players"}
       >
@@ -82,7 +82,7 @@
     {#if $player.role == PlayerRole.SuperAdmin}
       <a
         class="sidebar-button"
-        href="/logs"
+        href="{base}/logs"
         class:sidebar-button--selected={$page.route.id ==
           "/(dashboard)/(admin)/logs"}
       >
@@ -92,7 +92,7 @@
     {/if}
     <a
       class="sidebar-button"
-      href="/settings"
+      href="{base}/settings"
       class:sidebar-button--selected={$page.route.id == "/(dashboard)/settings"}
     >
       <Settings class="sidebar-button__icon" />

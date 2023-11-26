@@ -77,7 +77,7 @@
     <button type="submit" class="button">Login</button>
 
     {#if !$disableAccountCreation}
-      <a href="/create" class="annot">Create an account</a>
+      <a href="{base}/create" class="annot">Create an account</a>
     {/if}
 
     <div class="info">

@@ -92,7 +92,7 @@
 
     <button type="submit" class="button">Create</button>
 
-    <a href="/login" class="annot">Login to an account</a>
+    <a href="{base}/login" class="annot">Login to an account</a>
 
     <div class="info">
       <a

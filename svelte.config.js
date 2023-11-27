@@ -15,7 +15,8 @@ const config = {
       entries: [],
     },
     paths: {
-      base: "/test",
+      // Uncomment the next line to use a custom base path:
+      // base: "/test",
     },
   },
 };

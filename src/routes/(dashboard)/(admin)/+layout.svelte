@@ -5,7 +5,7 @@
 
   $: {
     if (!isAdmin($player)) {
-      goto(base);
+      goto(`${base}/`);
     }
   }
 </script>

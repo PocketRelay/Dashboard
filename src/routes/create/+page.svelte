@@ -29,7 +29,7 @@
       // Assign the token
       setToken(token);
 
-      await goto(base);
+      await goto(`${base}/`);
     } catch (e) {
       let err = e as Error;
       console.error(err);

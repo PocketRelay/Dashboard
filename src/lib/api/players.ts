@@ -100,8 +100,8 @@ export function setPlayerData(
   player_id: number,
   key: string,
   value: string
-): Promise<void> {
-  return request({
+): Promise<string> {
+  return requestText({
     method: HttpMethod.PUT,
     route: `players/${player_id}/data/${key}`,
     body: {

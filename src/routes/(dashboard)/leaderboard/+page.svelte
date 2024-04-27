@@ -1,65 +1,32 @@
 <script lang="ts">
-  import {
-    getLeaderboard,
-    LeaderboardName,
-    type LeaderboardEntry,
-  } from "$lib/api/leaderboard";
+  import { getLeaderboard, LeaderboardName } from "$lib/api/leaderboard";
   import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import QueryPagination from "$lib/components/QueryPagination.svelte";
   import { getNumberWithOrdinal } from "$lib/tools/numbers";
-
-  let loading: boolean = true;
-  let error: string | null = null;
-
-  // The current entries list
-  let entries: LeaderboardEntry[] = [];
-  // Whether there are more entries at the next offset
-  let more: boolean = false;
+  import { createQuery } from "@tanstack/svelte-query";
+  import { writable, type Writable, derived } from "svelte/store";
 
   // The selected leaderboard name
-  let selected: LeaderboardName = LeaderboardName.N7Rating;
+  let selected: Writable<LeaderboardName> = writable(LeaderboardName.N7Rating);
 
   // Query parameters
-  let count: number = 20;
-  let offset: number = 0;
+  let perPage: Writable<number> = writable(20);
+  let page: Writable<number> = writable(1);
 
-  /**
-   * Loads the leaderboard for the provided name at the provided
-   * offset and loads the provided number of entries
-   *
-   * Handles errors and loading state
-   *
-   * @param name   The name of the leaderboard to query
-   * @param offset The offset to query
-   * @param count  The number of entries to query for
-   */
-  async function load(name: LeaderboardName, offset: number, count: number) {
-    loading = true;
-    error = null;
+  const query = createQuery(
+    derived([selected, page, perPage], ([$selected, $page, $perPage]) => ({
+      queryKey: ["leaderboard", $selected, $page, $perPage],
+      queryFn: () => getLeaderboard($selected, $page - 1, $perPage),
+    }))
+  );
 
-    try {
-      let response = await getLeaderboard(name, offset, count);
-      entries = response.entries;
-      more = response.more;
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-      error = err.message;
-    } finally {
-      loading = false;
-    }
+  function onSelectCategory(name: LeaderboardName) {
+    return () => {
+      $selected = name;
+      $page = 1;
+    };
   }
-
-  /**
-   * Refreshes the current leaderboard query to get the
-   * up-to-date rankings
-   */
-  function refresh() {
-    load(selected, offset, count);
-  }
-
-  $: load(selected, offset, count);
 </script>
 
 <DashboardPage
@@ -70,8 +37,8 @@
     <div class="names">
       <button
         class="name card"
-        class:name--selected={selected == LeaderboardName.N7Rating}
-        on:click={() => (selected = LeaderboardName.N7Rating)}
+        class:name--selected={$selected == LeaderboardName.N7Rating}
+        on:click={onSelectCategory(LeaderboardName.N7Rating)}
       >
         <h2 class="name__title">N7 Rating</h2>
         <p class="text text--wrapped">
@@ -82,8 +49,8 @@
 
       <button
         class="name card"
-        class:name--selected={selected == LeaderboardName.ChallengePoints}
-        on:click={() => (selected = LeaderboardName.ChallengePoints)}
+        class:name--selected={$selected == LeaderboardName.ChallengePoints}
+        on:click={onSelectCategory(LeaderboardName.ChallengePoints)}
       >
         <h2 class="name__title">Challenge Points</h2>
         <p class="text text--wrapped">
@@ -94,19 +61,19 @@
     </div>
 
     <QueryPagination
-      bind:perPage={count}
-      bind:page={offset}
-      {more}
-      on:refresh={refresh}
+      count={$query.data?.total ?? 0}
+      bind:perPage={$perPage}
+      bind:page={$page}
+      on:refresh={() => $query.refetch()}
     />
 
-    {#if error}
-      <p class="error">{error}</p>
+    {#if $query.error}
+      <p class="error">{$query.error}</p>
     {/if}
   </svelte:fragment>
 
   <table class="table">
-    {#if loading}
+    {#if $query.isLoading}
       <Loader />
     {/if}
     <thead class="table__head">
@@ -117,13 +84,15 @@
       </tr>
     </thead>
     <tbody class="table__body">
-      {#each entries as entry}
-        <tr class="table__entry">
-          <td class="annot">{getNumberWithOrdinal(entry.rank)}</td>
-          <td>{entry.player_name}</td>
-          <td class="annot">{entry.value}</td>
-        </tr>
-      {/each}
+      {#if $query.data}
+        {#each $query.data.entries as entry}
+          <tr class="table__entry">
+            <td class="annot">{getNumberWithOrdinal(entry.rank)}</td>
+            <td>{entry.player_name}</td>
+            <td class="annot">{entry.value}</td>
+          </tr>
+        {/each}
+      {/if}
     </tbody>
   </table>
 </DashboardPage>

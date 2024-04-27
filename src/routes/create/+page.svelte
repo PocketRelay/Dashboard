@@ -5,56 +5,43 @@
   import { doCreate } from "$lib/api/auth";
   import Loader from "$lib/components/Loader.svelte";
   import { disableAccountCreation } from "$lib/dashboard.state";
+  import { createMutation } from "@tanstack/svelte-query";
 
   // Form fields
   let username: string = "";
   let email: string = "";
   let password: string = "";
 
-  // State
-  let loading: boolean = false;
-  let error: string | null = null;
-
-  /**
-   * Handles attempting to create on the backend server
-   * using the provided credentials
-   */
-  async function createAccount() {
-    error = null;
-    loading = true;
-
-    try {
+  const createAccountMutation = createMutation({
+    mutationFn: async () => {
       const { token } = await doCreate(username, email, password);
 
       // Assign the token
       setToken(token);
 
       await goto(`${base}/`);
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-      error = err.message;
-    } finally {
-      loading = false;
-    }
-  }
+    },
+  });
 
   $: if ($disableAccountCreation) {
     goto(`${base}/login`);
   }
 </script>
 
-{#if loading}
+{#if $createAccountMutation.isPending}
   <Loader />
 {/if}
 
 <main class="background">
-  <form class="form card" on:submit|preventDefault={createAccount}>
+  <form
+    class="form card"
+    on:submit|preventDefault={() => $createAccountMutation.mutate()}
+  >
     <h1>Create</h1>
     <span class="ident">POCKET RELAY MANAGER</span>
     <p class="text">Create an account to login to the server.</p>
-    {#if error}
-      <p class="error">{error}</p>
+    {#if $createAccountMutation.isError}
+      <p class="error">{$createAccountMutation.error}</p>
     {/if}
 
     <label class="input">

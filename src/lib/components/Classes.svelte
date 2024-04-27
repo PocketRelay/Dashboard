@@ -10,11 +10,17 @@
     setPlayerData,
     type PlayerData,
   } from "$lib/api/players";
-  import { onMount } from "svelte";
   import PlayerClassComponent from "./classes/PlayerClass.svelte";
   import Loader from "./Loader.svelte";
+  import {
+    createMutation,
+    createQuery,
+    useQueryClient,
+  } from "@tanstack/svelte-query";
 
   export let playerId: number;
+
+  const client = useQueryClient();
 
   // Type representing a class loaded from key values
   interface StoredClass {
@@ -26,94 +32,74 @@
 
   // The loaded stored classes
   let stored: StoredClass[] = [];
-  // Loading state
-  let loading: boolean = true;
 
-  /**
-   * Loader function for loading the player classes by loading
-   * the player data and parsing the class data
-   */
-  async function load(): Promise<void> {
-    loading = true;
-    console.debug("Loading classes");
+  const playerData = createQuery({
+    queryKey: ["player-data-all", playerId],
+    queryFn: () => getAllPlayerData(playerId),
+  });
 
-    // Load the player data
-    let response: Record<string, string>;
-    try {
-      response = await getAllPlayerData(playerId);
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-      loading = false;
-      return;
+  $: {
+    const data = $playerData.data;
+    if (data !== undefined) {
+      setStoredClasses(data);
     }
+  }
 
+  function setStoredClasses(input: Record<string, string>) {
     // Filter the class keys
     let classFilter = (key: string) => key.startsWith("class");
-    let keys = Object.keys(response).filter(classFilter);
+    let keys = Object.keys(input).filter(classFilter);
 
-    // Clear the existing stored data
-    stored = [];
+    const newStored = [];
 
     for (const key of keys) {
       let index = parseInt(key.substring(5));
-      let value = parsePlayerClass(response[key]);
+      let value = parsePlayerClass(input[key]);
       // Skip invalid classes
       if (Number.isNaN(index) || value == null) continue;
-      stored.push({
+      newStored.push({
         index,
         value,
       });
     }
 
-    loading = false;
+    stored = newStored;
   }
 
-  /**
-   * Handles saving all the classes in their encoded format
-   * and sending them to the server
-   */
-  async function save() {
-    loading = true;
-    console.debug("Saving classes");
+  const saveMutation = createMutation({
+    mutationFn: async () => {
+      // Encoded player data to save to the server
+      const data: PlayerData[] = [];
 
-    // Encoded player data to save to the server
-    const data: PlayerData[] = [];
+      for (const clazz of stored) {
+        const key = "class" + clazz.index;
+        const value = encodePlayerClass(clazz.value);
+        data.push({ key, value });
+      }
 
-    for (const clazz of stored) {
-      const key = "class" + clazz.index;
-      const value = encodePlayerClass(clazz.value);
-      data.push({ key, value });
-    }
+      // Collection of promises for data to be saved
+      const promises: Promise<any>[] = data.map((data) => {
+        return setPlayerData(playerId, data.key, data.value);
+      });
 
-    // Collection of promises for data to be saved
-    const promises: Promise<any>[] = data.map((data) => {
-      return setPlayerData(playerId, data.key, data.value);
-    });
-
-    try {
       await Promise.all(promises);
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-    } finally {
-      loading = false;
-    }
-  }
-
-  // Load classes on mount
-  onMount(load);
+    },
+    onSuccess: () =>
+      client.invalidateQueries({ queryKey: ["player-data-all", playerId] }),
+  });
 </script>
 
-{#if loading}
+{#if $playerData.isLoading}
   <Loader />
+{:else if $playerData.isError}
+  <p class="error">Failed to load classes: {$playerData.error}</p>
 {:else}
   <div class="tabs">
     <slot />
     {#if isAdmin($player) && stored.length != 0}
       <button
         class="button button--alt"
-        on:click={save}
+        on:click={() => $saveMutation.mutate()}
         title="Saves any changes made to the classes"
       >
         Save

@@ -8,12 +8,7 @@
     PLAYER_BASE_KEY,
     type PlayerBase,
   } from "$lib/api/parser";
-  import {
-    getPlayerData,
-    setPlayerData,
-    type PlayerData,
-  } from "$lib/api/players";
-  import { onMount } from "svelte";
+  import { getPlayerData, setPlayerData } from "$lib/api/players";
   import InventoryCharacters from "./inventory/InventoryCharacters.svelte";
   import InventoryConsumables from "./inventory/InventoryConsumables.svelte";
   import InventoryGear from "./inventory/InventoryGear.svelte";
@@ -21,62 +16,55 @@
   import InventoryWeaponMods from "./inventory/InventoryWeaponMods.svelte";
   import InventoryWeapons from "./inventory/InventoryWeapons.svelte";
   import Loader from "./Loader.svelte";
+  import {
+    createMutation,
+    createQuery,
+    useQueryClient,
+  } from "@tanstack/svelte-query";
 
   export let playerId: number;
-
-  let initialLoading: boolean = false;
-  let loading: boolean = false;
 
   let playerBase: PlayerBase | null = null;
   let inventory: number[] = [];
   let credits: number = 0;
 
-  async function load() {
-    initialLoading = true;
-    console.debug("Loading inventory");
+  const client = useQueryClient();
 
-    let response: PlayerData;
-    try {
-      response = await getPlayerData(playerId, PLAYER_BASE_KEY);
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-      initialLoading = false;
-      return;
+  const playerDataBase = createQuery({
+    queryKey: ["player-data-base", playerId],
+    queryFn: () => getPlayerData(playerId, PLAYER_BASE_KEY),
+  });
+
+  $: {
+    const data = $playerDataBase.data;
+    if (data !== undefined) {
+      playerBase = parsePlayerBase(data.value);
+      if (playerBase !== null) {
+        credits = playerBase.credits;
+        inventory = parseInventory(playerBase.inventory);
+      }
     }
-    playerBase = parsePlayerBase(response.value);
-    if (playerBase == null) return;
-    credits = playerBase.credits;
-    inventory = parseInventory(playerBase.inventory);
-    initialLoading = false;
   }
 
-  async function save() {
-    if (!playerBase) return;
-    loading = true;
-    console.debug("Saving inventory");
+  const saveMutation = createMutation({
+    mutationFn: async () => {
+      if (!playerBase) return;
+      let encodedInventory = encodeInventory(inventory);
+      let newBase: PlayerBase = {
+        ...playerBase,
+        credits,
+        inventory: encodedInventory,
+      };
 
-    let encodedInventory = encodeInventory(inventory);
-    let newBase: PlayerBase = {
-      ...playerBase,
-      credits,
-      inventory: encodedInventory,
-    };
-
-    let encodedBase = encodePlayerBase(newBase);
-    try {
+      let encodedBase = encodePlayerBase(newBase);
       await setPlayerData(playerId, PLAYER_BASE_KEY, encodedBase);
-      playerBase = newBase;
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-    } finally {
-      loading = false;
-    }
-  }
+    },
+    onSuccess: () =>
+      client.invalidateQueries({ queryKey: ["player-data-base", playerId] }),
+  });
 
   /**
-   * Reset the contents of the inventory by reparsing the
+   * Reset the contents of the inventory by re-parsing the
    * stored inventory
    */
   function reset() {
@@ -94,8 +82,6 @@
   ];
 
   let tab: string = TABS[0];
-
-  onMount(load);
 </script>
 
 <div class="wrapper">
@@ -106,7 +92,7 @@
       {#if isAdmin($player)}
         <button
           class="button button--alt"
-          on:click={save}
+          on:click={() => $saveMutation.mutate()}
           title="Saves any changes made to the inventory"
         >
           Save
@@ -122,7 +108,7 @@
   </div>
 
   <div class="contents">
-    {#if initialLoading}
+    {#if $playerDataBase.isLoading}
       <Loader />
     {:else if inventory.length == 0}
       <h2 class="title">Inventory not initialized</h2>
@@ -162,7 +148,7 @@
       <InventoryOther bind:credits />
     {/if}
 
-    {#if loading}
+    {#if $saveMutation.isPending}
       <Loader />
     {/if}
   </div>

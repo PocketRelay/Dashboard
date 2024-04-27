@@ -10,10 +10,10 @@
   import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Dialog from "$lib/components/Dialog.svelte";
   import Loader from "$lib/components/Loader.svelte";
-  import Account from "svelte-material-icons/Account.svelte";
-  import Key from "svelte-material-icons/Key.svelte";
-  import Delete from "svelte-material-icons/Delete.svelte";
+  import Account from "~icons/ph/user-fill";
+  import Delete from "~icons/ph/trash-fill";
   import { base } from "$app/paths";
+  import Key from "~icons/ph/key-fill";
 
   // Basic form state extended by the other forms
   interface FormState {
@@ -178,7 +178,7 @@
   <div class="forms">
     <form class="form card" on:submit|preventDefault={updateBasic}>
       <h2 class="form__title">
-        <Account class="form__icon" />Basic Information
+        <Account class="form__icon" /> Basic Information
       </h2>
       <p class="text">Here you can modify your basic account information</p>
       {#if basic.error}

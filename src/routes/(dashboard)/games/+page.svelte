@@ -59,7 +59,12 @@
   text="Below is a list of games that are currently running"
 >
   <svelte:fragment slot="heading">
-    <QueryPagination bind:count bind:offset {more} on:refresh={refresh} />
+    <QueryPagination
+      bind:perPage={count}
+      bind:page={offset}
+      {more}
+      on:refresh={refresh}
+    />
 
     {#if error}
       <p class="error">{error}</p>

@@ -1,13 +1,14 @@
 <script lang="ts">
-  import Home from "svelte-material-icons/Home.svelte";
-  import Settings from "svelte-material-icons/Cog.svelte";
-  import List from "svelte-material-icons/FormatListNumbered.svelte";
-  import Inventory from "svelte-material-icons/Cube.svelte";
-  import Classes from "svelte-material-icons/AccountGroup.svelte";
-  import AccountMultiple from "svelte-material-icons/AccountMultiple.svelte";
-  import Games from "svelte-material-icons/Controller.svelte";
-  import Logs from "svelte-material-icons/TextBoxMultiple.svelte";
-  import Logout from "svelte-material-icons/LogoutVariant.svelte";
+  import Home from "~icons/ph/house-line-fill";
+  import Settings from "~icons/ph/gear-fill";
+  import List from "~icons/ph/list-numbers-bold";
+  import Inventory from "~icons/ph/backpack-fill";
+  import AccountMultiple from "~icons/ph/users-three-fill";
+  import Classes from "~icons/ph/users-four-fill";
+  import Games from "~icons/ph/game-controller-fill";
+  import Logs from "~icons/ph/terminal-fill";
+  import Logout from "~icons/ph/sign-out-bold";
+
   import { clearToken, player } from "$lib/api/api";
   import { PlayerRole } from "$lib/api/players";
   import { page } from "$app/stores";

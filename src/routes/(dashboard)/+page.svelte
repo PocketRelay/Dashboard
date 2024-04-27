@@ -13,10 +13,10 @@
   import Loader from "$lib/components/Loader.svelte";
   import { serverVersion } from "$lib/dashboard.state";
   import { getNumberWithOrdinal } from "$lib/tools/numbers";
-  import Account from "svelte-material-icons/Account.svelte";
-  import AccountMultiple from "svelte-material-icons/AccountMultiple.svelte";
-  import List from "svelte-material-icons/FormatListNumbered.svelte";
-  import Sync from "svelte-material-icons/Sync.svelte";
+  import AccountMultiple from "~icons/ph/users-three-fill";
+  import List from "~icons/ph/list-numbers-bold";
+  import Sync from "~icons/ph/arrow-clockwise-bold";
+  import Account from "~icons/ph/user-fill";
   import semver from "semver-lite";
 
   interface Data {

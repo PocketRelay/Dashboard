@@ -157,12 +157,9 @@ export async function setPlayerPassword(
   });
 }
 
-// Roles that are allowed to be set
-export type AllowedSetRoles = PlayerRole.Default | PlayerRole.Admin;
-
 export async function setPlayerRole(
   id: number,
-  role: AllowedSetRoles
+  role: PlayerRole
 ): Promise<void> {
   await requestText({
     method: HttpMethod.PUT,

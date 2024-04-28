@@ -5,7 +5,6 @@
   import Inventory from "$lib/components/inventory/Inventory.svelte";
 
   const playerId = parseInt($page.params.id);
-  if (Number.isNaN(playerId)) throw "NaN Player ID";
 </script>
 
 <DashboardPage

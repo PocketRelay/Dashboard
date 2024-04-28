@@ -1,12 +1,12 @@
 <script lang="ts">
   import { player } from "$lib/api/api";
-  import DashboardPage from "$lib/components/DashboardPage.svelte";
+  import PageHeading from "$lib/components/PageHeading.svelte";
   import Inventory from "$lib/components/inventory/Inventory.svelte";
 </script>
 
-<DashboardPage
+<PageHeading
   title="Inventory"
   text="Click an inventory category to view its contents"
->
-  <Inventory playerId={$player.id} />
-</DashboardPage>
+/>
+
+<Inventory playerId={$player.id} />

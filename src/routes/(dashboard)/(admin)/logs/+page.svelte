@@ -1,6 +1,5 @@
 <script lang="ts">
   import { clearServerLog, getServerLog } from "$lib/api/server";
-  import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import Refresh from "~icons/ph/arrow-clockwise-bold";
   import Delete from "~icons/ph/trash-fill";
@@ -11,6 +10,7 @@
     createQuery,
     useQueryClient,
   } from "@tanstack/svelte-query";
+  import PageHeading from "$lib/components/PageHeading.svelte";
 
   let confirmClear: boolean = false;
 
@@ -52,42 +52,51 @@
   }
 </script>
 
-<DashboardPage title="Server Logs">
-  <svelte:fragment slot="heading">
-    <div class="button-group">
-      {#if $query.data !== undefined}
-        <button class="button button--alt" on:click={download($query.data)}>
-          <Download width={24} height={24} />
-        </button>
-      {/if}
+<PageHeading title="Server Logs" />
 
-      <button class="button button--dark" on:click={() => $query.refetch()}>
-        <Refresh width={24} height={24} />
-      </button>
-      <button
-        class="button button--dark"
-        title="Clear Logs"
-        on:click={() => (confirmClear = true)}
-      >
-        <Delete width={24} height={24} />
-      </button>
-    </div>
-  </svelte:fragment>
+<div class="button-group">
+  {#if $query.data !== undefined}
+    <button class="button button--alt" on:click={download($query.data)}>
+      <Download width={24} height={24} />
+    </button>
+  {/if}
 
-  <div class="card log">
-    {#if $query.isLoading || $query.isRefetching || $clearMutation.isPending}
-      <Loader />
-    {:else if $query.data !== undefined}
-      <pre>{$query.data}</pre>
+  <button class="button button--dark" on:click={() => $query.refetch()}>
+    <Refresh
+      width={24}
+      height={24}
+      class={$query.isRefetching ? "refresh-rotate" : ""}
+    />
+  </button>
+  <button
+    class="button button--danger"
+    title="Clear Logs"
+    on:click={() => (confirmClear = true)}
+  >
+    <Delete width={24} height={24} />
+  </button>
+</div>
+
+<div class="card log">
+  {#if $query.isLoading || $query.isRefetching || $clearMutation.isPending}
+    <Loader />
+  {:else if $query.isError}
+    <p class="error">Failed to load log file: {$query.error}</p>
+  {:else if $query.data}
+    {#if $query.data.length > 0}
+      <pre class="log-text">{$query.data}</pre>
+    {:else}
+      <p>Log file is empty</p>
     {/if}
-  </div>
-</DashboardPage>
+  {/if}
+</div>
+
 <!-- Log Delete Confirmation -->
 <Dialog visible={confirmClear}>
   <h3>Confirm Log Clear</h3>
   <p class="text">
     <span class="danger">WARNING:</span> Clearing your logs is
-    <b>perminent</b> and cannot be reversed are you sure you want to clear them
+    <b>permanent</b> and cannot be reversed are you sure you want to clear them
   </p>
 
   <div class="button-group">
@@ -108,6 +117,10 @@
     flex: auto;
     overflow: auto;
     padding: 1rem;
-    color: #999;
+  }
+
+  .log-text {
+    font-family: "Courier New", Courier, monospace;
+    color: #fff;
   }
 </style>

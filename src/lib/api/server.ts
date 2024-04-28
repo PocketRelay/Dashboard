@@ -1,50 +1,47 @@
 import { HttpMethod, request, requestText } from "./api";
 
-
 export interface ServerDetails {
-    ident: string;
-    version: string;
+  ident: string;
+  version: string;
 }
-
 
 /**
  * Makes a request to get the server details
- * 
+ *
  * @returns Promise that can resolve to a TokenResponse
  */
 export function getServerDetails(): Promise<ServerDetails> {
-    return request({
-        method: HttpMethod.GET,
-        route: "server",
-    })
+  return request({
+    method: HttpMethod.GET,
+    route: "server",
+  });
 }
 
 export interface LogsResponse {
-    files: string[];
+  files: string[];
 }
 
 export function getServerLog(): Promise<string> {
-    return requestText({
-        method: HttpMethod.GET,
-        route: "server/log",
-    })
+  return requestText({
+    method: HttpMethod.GET,
+    route: "server/log",
+  });
 }
 
-
 export function clearServerLog(): Promise<string> {
-    return requestText({
-        method: HttpMethod.DELETE,
-        route: "server/log",
-    })
+  return requestText({
+    method: HttpMethod.DELETE,
+    route: "server/log",
+  });
 }
 
 export interface DashboardDetails {
-    disable_registration: boolean;
+  disable_registration: boolean;
 }
 
 export function getDashboardDetails(): Promise<DashboardDetails> {
-    return request({
-        method: HttpMethod.GET,
-        route: "server/dashboard",
-    })
+  return request({
+    method: HttpMethod.GET,
+    route: "server/dashboard",
+  });
 }

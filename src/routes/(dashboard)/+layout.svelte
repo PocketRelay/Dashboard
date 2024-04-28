@@ -24,10 +24,8 @@
     width: 100%;
     height: 100%;
 
-    padding: 2rem;
-
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
   }
 
   .main {
@@ -35,5 +33,6 @@
     height: 100%;
     overflow: auto;
     position: relative;
+    padding-right: 1rem;
   }
 </style>

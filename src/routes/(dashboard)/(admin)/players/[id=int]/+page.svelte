@@ -2,7 +2,6 @@
   import { page } from "$app/stores";
   import { getPlayer, PlayerRole } from "$lib/api/players";
   import { player as selfPlayer } from "$lib/api/api";
-  import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import { base } from "$app/paths";
   import BasicInformationForm from "$lib/components/admin/player/BasicInformationForm.svelte";
@@ -11,6 +10,7 @@
   import PlayerDataForm from "$lib/components/admin/player/PlayerDataForm.svelte";
   import DeleteAccountForm from "$lib/components/admin/player/DeleteAccountForm.svelte";
   import { createQuery } from "@tanstack/svelte-query";
+  import PageHeading from "$lib/components/PageHeading.svelte";
 
   const playerId = parseInt($page.params.id);
 
@@ -29,41 +29,36 @@
   <h1>Failed to load player</h1>
   <p class="error">{$playerQuery.error}</p>
 {:else if player}
-  <DashboardPage
+  <PageHeading
     title={`Viewing ${player.email}`}
     text="Edit the settings for this account below"
-  >
-    <svelte:fragment slot="heading">
-      <nav class="button-group">
-        <a href="{base}/players" class="button button--dark">Back</a>
-        <a
-          href={`${base}/players/${playerId}/inventory`}
-          class="button button--dark"
-        >
-          Edit Inventory
-        </a>
-        <a
-          href={`${base}/players/${playerId}/classes`}
-          class="button button--dark"
-        >
-          Edit Classes
-        </a>
-      </nav>
-    </svelte:fragment>
+  />
 
-    <div class="forms">
-      <BasicInformationForm {player} />
-      <ChangePasswordForm {player} />
+  <nav class="button-group">
+    <a href="{base}/players" class="button button--dark">Back</a>
+    <a
+      href={`${base}/players/${playerId}/inventory`}
+      class="button button--dark"
+    >
+      Edit Inventory
+    </a>
+    <a href={`${base}/players/${playerId}/classes`} class="button button--dark">
+      Edit Classes
+    </a>
+  </nav>
 
-      {#if $selfPlayer.role == PlayerRole.SuperAdmin && $selfPlayer.id !== playerId}
-        <ChangeRoleForm {player} />
-      {/if}
+  <div class="forms">
+    <BasicInformationForm {player} />
+    <ChangePasswordForm {player} />
 
-      <PlayerDataForm {player} />
+    {#if $selfPlayer.role == PlayerRole.SuperAdmin && $selfPlayer.id !== playerId}
+      <ChangeRoleForm {player} />
+    {/if}
 
-      {#if $selfPlayer.id !== playerId}
-        <DeleteAccountForm {player} />
-      {/if}
-    </div>
-  </DashboardPage>
+    <PlayerDataForm {player} />
+
+    {#if $selfPlayer.id !== playerId}
+      <DeleteAccountForm {player} />
+    {/if}
+  </div>
 {/if}

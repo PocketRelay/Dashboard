@@ -44,6 +44,16 @@
       </label>
     {/if}
   </div>
+
+  <div>
+    {#each playerCharacter.character.powers as power}
+      <div class="power-icon rank-1">
+        <img src={`/assets/powers/${power.iconSet}.png`} />
+      </div>
+
+      <p>{power.evolutions[0].name}</p>
+    {/each}
+  </div>
 </div>
 
 <style lang="scss">

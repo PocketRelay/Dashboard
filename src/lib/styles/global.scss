@@ -33,6 +33,7 @@ p {
 *::-webkit-scrollbar {
   background-color: #0f0f0f;
   width: 12px;
+  height: 12px;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -330,4 +331,32 @@ p {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-play-state: running;
+}
+
+.rank-1 {
+  background-position: 0 0;
+}
+.rank-2 {
+  background-position: -64px 0;
+}
+.rank-3 {
+  background-position: -128px 0;
+}
+.rank-4A {
+  background-position: -192px 0;
+}
+.rank-4B {
+  background-position: -192px -64px;
+}
+.rank-5A {
+  background-position: -256px 0;
+}
+.rank-5B {
+  background-position: -256px -64px;
+}
+.rank-6A {
+  background-position: -320px 0;
+}
+.rank-6B {
+  background-position: -320px -64px;
 }

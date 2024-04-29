@@ -120,9 +120,9 @@ export function deletePlayerData(
   });
 }
 
-export function getAllPlayerData(
-  player_id: number
-): Promise<Record<string, string>> {
+export type PlayerDataMap = Partial<Record<string, string>>;
+
+export function getAllPlayerData(player_id: number): Promise<PlayerDataMap> {
   return request({
     method: HttpMethod.GET,
     route: `players/${player_id}/data`,

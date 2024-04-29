@@ -25,6 +25,7 @@
     createQuery,
     useQueryClient,
   } from "@tanstack/svelte-query";
+  import deepCopy from "$lib/tools/copy";
 
   export let playerId: number;
 
@@ -49,21 +50,18 @@
     const data = $playerDataBase.data;
     if (data !== undefined) {
       playerBase = parsePlayerBase(data.value);
-      if (playerBase !== null) {
-        credits = playerBase.credits;
-        inventory = parseInventory(playerBase.inventory);
-      }
+      credits = playerBase.credits;
+      inventory = deepCopy(playerBase.inventory);
     }
   }
 
   const saveMutation = createMutation({
     mutationFn: async () => {
       if (!playerBase) return;
-      let encodedInventory = encodeInventory(inventory);
       let newBase: PlayerBase = {
         ...playerBase,
         credits,
-        inventory: encodedInventory,
+        inventory,
       };
 
       let encodedBase = encodePlayerBase(newBase);
@@ -79,7 +77,7 @@
    */
   function reset() {
     if (!playerBase) return;
-    inventory = parseInventory(playerBase.inventory);
+    inventory = playerBase.inventory;
   }
 
   const TABS: string[] = [

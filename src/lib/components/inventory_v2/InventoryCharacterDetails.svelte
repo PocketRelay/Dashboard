@@ -10,6 +10,7 @@
   import { Tabs } from "bits-ui";
   import InventoryClassDetails from "./InventoryClassDetails.svelte";
   import LevelInput from "$lib/components/inventory/LevelInput.svelte";
+  import InventoryCharacterPowerLevel from "./InventoryCharacterPowerLevel.svelte";
 
   export let playerData: PlayerData;
   export let playerCharacter: PlayerCharacter;
@@ -20,43 +21,58 @@
 </script>
 
 <div class="character">
-  <img
-    class="character__icon"
-    src={`/assets/characters/${playerCharacter.character.image}`}
-    alt={playerCharacter.character.name}
-    width={140}
-    height={280}
-  />
-  <div class="character__details">
-    <h2>Level {characterLevel}</h2>
-    <p>{playerCharacter.character.name} - {playerCharacter.characterName}</p>
+  <div class="character__head">
+    <div class="character__left">
+      <img
+        class="character__icon"
+        src={`/assets/characters/${playerCharacter.character.image}`}
+        alt={playerCharacter.character.name}
+        width={140}
+        height={280}
+      />
+      <div class="character__details">
+        <h2>Level {characterLevel}</h2>
+        <p>
+          {playerCharacter.character.name} - {playerCharacter.characterName}
+        </p>
 
-    {#if isAdmin($player)}
-      <label class="input">
-        <span class="input__label">Level</span>
-        <LevelInput
-          bind:value={playerData.base.inventory[
-            playerCharacter.character.index
-          ]}
-          min={0}
-          max={MAX_CHARACTER_LEVEL}
-        />
-      </label>
-    {/if}
-  </div>
-
-  <div>
-    {#each playerCharacter.character.powers as power}
-      <div class="power-icon rank-1">
-        <img src={`/assets/powers/${power.iconSet}.png`} />
+        {#if isAdmin($player)}
+          <label class="input">
+            <span class="input__label">Level</span>
+            <LevelInput
+              bind:value={playerData.base.inventory[
+                playerCharacter.character.index
+              ]}
+              min={0}
+              max={MAX_CHARACTER_LEVEL}
+            />
+          </label>
+        {/if}
       </div>
+    </div>
 
-      <p>{power.evolutions[0].name}</p>
-    {/each}
+    <div class="character__power-levels">
+      {#each playerCharacter.powers as power}
+        {#if power.power !== undefined}
+          <InventoryCharacterPowerLevel {playerData} powerData={power} />
+        {/if}
+      {/each}
+    </div>
   </div>
 </div>
 
 <style lang="scss">
+  .character__head {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .character__left {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
   .character {
     display: flex;
     gap: 1rem;

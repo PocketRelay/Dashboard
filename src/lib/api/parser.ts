@@ -638,7 +638,7 @@ export function getPlayerCharacters(
   let nextIndex = 1;
 
   // Parse all the character data
-  for (const entry in Object.entries(playerData)) {
+  for (const entry of Object.entries(playerData)) {
     const [key, data] = entry;
 
     if (key.startsWith("char")) {
@@ -778,7 +778,7 @@ export function getPlayerClasses(
   let nextIndex = 1;
 
   // Parse all the classes data
-  for (const entry in Object.entries(playerData)) {
+  for (const entry of Object.entries(playerData)) {
     const [key, data] = entry;
 
     if (key.startsWith("class")) {

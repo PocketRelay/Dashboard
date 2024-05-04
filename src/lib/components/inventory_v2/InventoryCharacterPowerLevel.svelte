@@ -11,7 +11,10 @@
 <div class="power-level">
   <div>
     <div class="power-icon rank-1">
-      <img src={`/assets/powers/${power.iconSet}.png`} />
+      <img
+        src={`/assets/powers/${power.iconSet}.png`}
+        alt={power.evolutions[0].name}
+      />
     </div>
     <p class="power-level-name">{power.evolutions[0].name}</p>
   </div>

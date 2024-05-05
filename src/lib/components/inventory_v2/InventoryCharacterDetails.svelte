@@ -1,16 +1,10 @@
 <script lang="ts">
-  import {
-    getPlayerCharacters,
-    type PlayerCharacter,
-    type PlayerClass,
-    type PlayerData,
-  } from "$lib/api/parser";
+  import { type PlayerCharacter, type PlayerData } from "$lib/api/parser";
   import { isAdmin, player } from "$lib/api/api";
   import { MAX_CHARACTER_LEVEL } from "$lib/data/inventory";
-  import { Tabs } from "bits-ui";
-  import InventoryClassDetails from "./InventoryClassDetails.svelte";
   import LevelInput from "$lib/components/inventory/LevelInput.svelte";
-  import InventoryCharacterPowerLevel from "./InventoryCharacterPowerLevel.svelte";
+  import InventoryCharacterPowerLevel from "./PowerLevelDisplay.svelte";
+  import InventoryCharacterPowerEditor from "./PowerEditor.svelte";
 
   export let playerData: PlayerData;
   export let playerCharacter: PlayerCharacter;
@@ -37,7 +31,7 @@
         </p>
 
         {#if isAdmin($player)}
-          <label class="input">
+          <div class="input">
             <span class="input__label">Level</span>
             <LevelInput
               bind:value={playerData.base.inventory[
@@ -46,7 +40,7 @@
               min={0}
               max={MAX_CHARACTER_LEVEL}
             />
-          </label>
+          </div>
         {/if}
       </div>
     </div>
@@ -54,11 +48,19 @@
     <div class="character__power-levels">
       {#each playerCharacter.powers as power}
         {#if power.power !== undefined}
-          <InventoryCharacterPowerLevel {playerData} powerData={power} />
+          <InventoryCharacterPowerLevel powerData={power} />
         {/if}
       {/each}
     </div>
   </div>
+</div>
+
+<div>
+  {#each playerCharacter.powers as power}
+    {#if power.power !== undefined}
+      <InventoryCharacterPowerEditor bind:powerData={power} />
+    {/if}
+  {/each}
 </div>
 
 <style lang="scss">

@@ -312,6 +312,18 @@ p {
   }
 }
 
+[data-tooltip-content] {
+  background-color: #333;
+  border: 1px solid #444;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+[data-tooltip-trigger] {
+  border: none;
+  background-color: transparent;
+}
+
 .pagination-pages {
   display: flex;
 }

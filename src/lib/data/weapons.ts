@@ -52,6 +52,10 @@ export interface Weapon {
   upfront?: number;
 }
 
+export function getWeaponWeight(weapon: Weapon, level: number): number {
+  return weapon.weight_L + ((weapon.weight_H - weapon.weight_L) / 9) * level;
+}
+
 export const SNIPER_RIFLES: Weapon[] = [
   {
     level_index: 136,

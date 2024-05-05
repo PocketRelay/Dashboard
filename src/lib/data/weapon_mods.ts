@@ -13,6 +13,18 @@ export interface WeaponMod {
   image: string;
 }
 
+export function getWeaponModByIndex(index: number): WeaponMod | undefined {
+  for (const category of WEAPON_MODS) {
+    for (const weaponMod of category.values) {
+      if (weaponMod.level_index === index) {
+        return weaponMod;
+      }
+    }
+  }
+
+  return undefined;
+}
+
 export const ASSAULT_RIFLE_MODS: WeaponMod[] = [
   {
     level_index: 31,

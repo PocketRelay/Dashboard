@@ -6,13 +6,13 @@
   } from "$lib/api/parser";
 
   import { Tabs } from "bits-ui";
-  import InventoryClassDetails from "./InventoryClassDetails.svelte";
-  import InventoryCharacterDetails from "./InventoryCharacterDetails.svelte";
+  import InventoryCharacterDetails from "./CharacterEditor.svelte";
   import PhCaretRightBold from "~icons/ph/caret-right-bold";
   import PhCaretLeftBold from "~icons/ph/caret-left-bold";
 
   export let playerData: PlayerData;
   export let playerClass: PlayerClass;
+  export let editable: boolean;
 
   const filteredCharacters = playerData.characters.filter(
     (char) => char.character.className === playerClass.name
@@ -21,7 +21,6 @@
   let tabsContainer: HTMLDivElement | undefined;
 
   function doScrollLeft() {
-    console.log("Trigger scroll");
     tabsContainer?.scrollBy({ left: -300, behavior: "smooth" });
   }
 
@@ -67,6 +66,7 @@
       <InventoryCharacterDetails
         bind:playerData
         bind:playerCharacter={character}
+        {editable}
       />
     </Tabs.Content>
   {/each}

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { isAdmin, player } from "$lib/api/api";
-  import { MAX_WEAPON_LEVEL, WEAPON_CATEGORIES } from "$lib/data/inventory";
+  import { MAX_WEAPON_LEVEL, WEAPON_CATEGORIES } from "$lib/data/weapons";
   import InventoryList from "./InventoryList.svelte";
   import LevelInput from "./LevelInput.svelte";
 

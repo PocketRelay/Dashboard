@@ -1,8 +1,9 @@
+import { type Weapon } from "$lib/data/weapons";
 import {
   CHARACTERS,
   getCharacterByKitName,
   type Character,
-} from "$lib/data/inventory";
+} from "$lib/data/characters";
 import {
   INTERNAL_POWERS,
   POWERS,
@@ -288,6 +289,11 @@ export interface CharacterNames {
 }
 
 // Singularity 179 1.0000 0 0 0 0 0 0 0 True,Warp 185 0.0000 0 0 0 0 0 0 0 True,Shockwave 177 0.0000 0 0 0 0 0 0 0 True,MPPassive 206 0.0000 0 0 0 0 0 0 0 True,MPMeleePassive 200 0.0000 0 0 0 0 0 0 0 True,Consumable_Rocket 88 0.0000 0 0 0 0 0 0 0 False,Consumable_Revive 87 0.0000 0 0 0 0 0 0 0 False,Consumable_Shield 89 0.0000 0 0 0 0 0 0 0 False,Consumable_Ammo 86 0.0000 0 0 0 0 0 0 0 False
+
+export interface PlayerCharacterWeapon {
+  weaponID: number;
+  weapon: Weapon | undefined;
+}
 
 export interface PlayerCharacterPower {
   powerName: string;

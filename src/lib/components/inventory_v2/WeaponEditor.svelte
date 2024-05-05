@@ -26,11 +26,13 @@
 <div class="weapon-slots">
   <WeaponSlotEditor
     weapon={playerCharacter.weapons[0]}
+    otherWeapon={playerCharacter.weapons[1]}
     onChangeWeapon={(weapon) => onChangeWeapon(0, weapon)}
     {editable}
   />
   <WeaponSlotEditor
     weapon={playerCharacter.weapons[1]}
+    otherWeapon={playerCharacter.weapons[0]}
     onChangeWeapon={(weapon) => onChangeWeapon(1, weapon)}
     {editable}
   />

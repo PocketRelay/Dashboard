@@ -52,6 +52,19 @@ export interface Weapon {
   upfront?: number;
 }
 
+export function getWeaponCategory(
+  weapon: Weapon
+): Category<Weapon> | undefined {
+  for (const category of WEAPON_CATEGORIES) {
+    if (
+      category.values.find((value) => value.level_index === weapon.level_index)
+    ) {
+      return category;
+    }
+  }
+  return undefined;
+}
+
 export function getWeaponWeight(weapon: Weapon, level: number): number {
   return weapon.weight_L + ((weapon.weight_H - weapon.weight_L) / 9) * level;
 }

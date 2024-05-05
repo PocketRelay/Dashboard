@@ -1,9 +1,23 @@
 <script lang="ts">
   import { type PlayerCharacterWeapon } from "$lib/api/parser";
   import { Select, type Selected } from "bits-ui";
-  import { WEAPON_CATEGORIES, type Weapon } from "$lib/data/weapons";
+  import {
+    WEAPON_CATEGORIES,
+    getWeaponCategory,
+    type Weapon,
+  } from "$lib/data/weapons";
 
+  // Other selected weapon (To prevent selecting two of the same type)
+  export let otherWeapon: PlayerCharacterWeapon | undefined;
+
+  // The selected weapon in the slot
   export let weapon: PlayerCharacterWeapon | undefined = undefined;
+
+  $: otherWeaponCategory =
+    otherWeapon !== undefined && otherWeapon.weapon !== undefined
+      ? getWeaponCategory(otherWeapon.weapon)
+      : undefined;
+
   export let editable: boolean;
 
   const selected: Selected<Weapon> | undefined =
@@ -63,26 +77,28 @@
   </Select.Trigger>
   <Select.Content sameWidth={false}>
     {#each WEAPON_CATEGORIES as category}
-      <Select.Group>
-        <Select.Label>{category.name}</Select.Label>
-        {#each category.values as weapon}
-          <Select.Item value={weapon}>
-            <Select.ItemIndicator />
+      {#if category !== otherWeaponCategory}
+        <Select.Group>
+          <Select.Label>{category.name}</Select.Label>
+          {#each category.values as weapon}
+            <Select.Item value={weapon}>
+              <Select.ItemIndicator />
 
-            <div class="weapon-select">
-              <img
-                class="weapon-select__image"
-                src={`/assets/weapons/${weapon.image}`}
-                alt={weapon.name}
-                width={160}
-                height={120}
-              />
+              <div class="weapon-select">
+                <img
+                  class="weapon-select__image"
+                  src={`/assets/weapons/${weapon.image}`}
+                  alt={weapon.name}
+                  width={160}
+                  height={120}
+                />
 
-              <span class="weapon-select__name">{weapon.name}</span>
-            </div>
-          </Select.Item>
-        {/each}
-      </Select.Group>
+                <span class="weapon-select__name">{weapon.name}</span>
+              </div>
+            </Select.Item>
+          {/each}
+        </Select.Group>
+      {/if}
     {/each}
     <Select.Arrow />
   </Select.Content>

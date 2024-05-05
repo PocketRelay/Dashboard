@@ -1,4 +1,5 @@
 import type { Category } from "./inventory";
+import { WeaponType } from "./weapons";
 
 // Maximum normal level for weapon mods
 export const MAX_WEAPON_MOD_LEVEL: number = 5;
@@ -149,10 +150,39 @@ export const SUB_MACHINE_GUN_MODS: WeaponMod[] = [
   },
 ];
 
-export const WEAPON_MODS: Category<WeaponMod>[] = [
-  { name: "Assault Rifle", values: ASSAULT_RIFLE_MODS },
-  { name: "Sniper Rifle", values: SNIPER_RIFLE_MODS },
-  { name: "Shotugn", values: SHOTGUN_MODS },
-  { name: "Pistol", values: PISTOL_MODS },
-  { name: "SMG", values: SUB_MACHINE_GUN_MODS },
+export type WeaponModCategory = Category<WeaponMod> & {
+  weaponType: WeaponType;
+};
+
+export function getModsForWeaponType(
+  weaponType: WeaponType | undefined
+): WeaponMod[] {
+  if (weaponType === undefined) return [];
+
+  for (const category of WEAPON_MODS) {
+    if (category.weaponType === weaponType) {
+      return category.values;
+    }
+  }
+  return [];
+}
+
+export const WEAPON_MODS: WeaponModCategory[] = [
+  {
+    name: "Assault Rifle",
+    values: ASSAULT_RIFLE_MODS,
+    weaponType: WeaponType.ASSAULT_RIFLE,
+  },
+  {
+    name: "Sniper Rifle",
+    values: SNIPER_RIFLE_MODS,
+    weaponType: WeaponType.SNIPER_RIFLE,
+  },
+  { name: "Shotugn", values: SHOTGUN_MODS, weaponType: WeaponType.SHOTGUN },
+  { name: "Pistol", values: PISTOL_MODS, weaponType: WeaponType.PISTOL },
+  {
+    name: "SMG",
+    values: SUB_MACHINE_GUN_MODS,
+    weaponType: WeaponType.SUB_MACHINE_GUN,
+  },
 ];

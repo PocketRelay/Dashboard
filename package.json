@@ -27,6 +27,7 @@
 		"@fontsource/inter": "^4.5.15",
 		"@tanstack/svelte-query": "^5.32.0",
 		"bits-ui": "^0.21.5",
+		"lodash": "^4.17.21",
 		"semver-lite": "^0.0.6"
 	}
 }

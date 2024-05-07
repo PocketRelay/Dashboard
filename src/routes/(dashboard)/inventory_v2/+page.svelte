@@ -18,7 +18,7 @@
   let localPlayerData: Writable<PlayerData | undefined> = writable();
 
   // Admins can edit player inventories
-  const editable = isAdmin($player) && false;
+  const editable = isAdmin($player);
 
   const client = useQueryClient();
 

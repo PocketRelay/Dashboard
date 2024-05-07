@@ -19,7 +19,7 @@
   </Tabs.List>
   {#each playerData.classes as playerClass}
     <Tabs.Content value={playerClass.name}>
-      <InventoryClassDetails bind:playerClass />
+      <InventoryClassDetails bind:playerClass {editable} />
       <InventoryCharacters {playerClass} bind:playerData {editable} />
     </Tabs.Content>
   {/each}

@@ -31,9 +31,7 @@
             allowUnsafe
           />
         {/if}
-        <span class="tier__level"
-          >{tierLevel > 0 ? formatRomanNumeral(tierLevel) : "Locked"}</span
-        >
+        <span class="tier__level">{tierLevel}</span>
       </div>
     </div>
   </Tooltip.Trigger>

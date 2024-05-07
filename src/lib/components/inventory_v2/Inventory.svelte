@@ -4,6 +4,10 @@
   import { Tabs } from "bits-ui";
   import InventoryCharacters from "./InventoryClasses.svelte";
   import InventoryWeapons from "./weapons/InventoryWeapons.svelte";
+  import InventoryWeaponMods from "./weapon_mods/InventoryWeaponMods.svelte";
+  import InventoryConsumables from "./consumables/InventoryConsumables.svelte";
+  import InventoryGear from "./gear/InventoryGear.svelte";
+  import InventoryOther from "./other/InventoryOther.svelte";
 
   export let playerData: PlayerData;
   export let editable: boolean;
@@ -30,6 +34,18 @@
   </Tabs.Content>
   <Tabs.Content value="weapons">
     <InventoryWeapons bind:playerData {editable} />
+  </Tabs.Content>
+  <Tabs.Content value="weapon-mods">
+    <InventoryWeaponMods bind:playerData {editable} />
+  </Tabs.Content>
+  <Tabs.Content value="consumables">
+    <InventoryConsumables bind:playerData {editable} />
+  </Tabs.Content>
+  <Tabs.Content value="gear">
+    <InventoryGear bind:playerData {editable} />
+  </Tabs.Content>
+  <Tabs.Content value="other">
+    <InventoryOther bind:playerData {editable} />
   </Tabs.Content>
 </Tabs.Root>
 

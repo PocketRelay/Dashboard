@@ -11,10 +11,9 @@
   } from "$lib/api/parser";
   import Loader from "$lib/components/Loader.svelte";
   import Inventory from "$lib/components/inventory_v2/Inventory.svelte";
-  import deepCopy from "$lib/tools/copy";
   import { createMutation, useQueryClient } from "@tanstack/svelte-query";
 
-  import { isEqual, cloneDeep } from "lodash";
+  import _ from "lodash";
 
   // Local editable copy of the player data
   let localPlayerData: Writable<PlayerData | undefined> = writable();
@@ -38,11 +37,11 @@
   $: {
     // Local data uses a copy so it can be restored
     localPlayerData.set(
-      $playerData.data === undefined ? undefined : cloneDeep($playerData.data)
+      $playerData.data === undefined ? undefined : _.cloneDeep($playerData.data)
     );
   }
 
-  $: isDirty = !isEqual($localPlayerData, $playerData.data);
+  $: isDirty = !_.isEqual($localPlayerData, $playerData.data);
 
   const saveMutation = createMutation(
     derived([player, localPlayerData], ([$player, $localPlayerData]) => ({
@@ -71,7 +70,7 @@
    * on the server
    */
   function reset() {
-    localPlayerData.set(deepCopy($playerData.data));
+    localPlayerData.set(_.cloneDeep($playerData.data));
   }
 </script>
 

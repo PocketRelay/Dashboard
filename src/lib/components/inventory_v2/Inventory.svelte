@@ -19,12 +19,12 @@
       >Characters</Tabs.Trigger
     >
     <Tabs.Trigger value="weapons" class="inventory-tab">Weapons</Tabs.Trigger>
-    <Tabs.Trigger value="weapon-mods" class="inventory-tab"
-      >Weapon Mods</Tabs.Trigger
-    >
-    <Tabs.Trigger value="consumables" class="inventory-tab"
-      >Consumables</Tabs.Trigger
-    >
+    <Tabs.Trigger value="weapon-mods" class="inventory-tab">
+      Weapon Mods
+    </Tabs.Trigger>
+    <Tabs.Trigger value="consumables" class="inventory-tab">
+      Consumables
+    </Tabs.Trigger>
     <Tabs.Trigger value="gear" class="inventory-tab">Gear</Tabs.Trigger>
     <Tabs.Trigger value="other" class="inventory-tab">Other</Tabs.Trigger>
   </Tabs.List>

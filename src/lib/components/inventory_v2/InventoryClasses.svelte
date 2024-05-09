@@ -9,7 +9,7 @@
   export let editable: boolean;
 </script>
 
-<Tabs.Root>
+<Tabs.Root let:value>
   <Tabs.List class="class-tabs">
     {#each playerData.classes as playerClass}
       <Tabs.Trigger value={playerClass.name} class="class-tab">
@@ -18,10 +18,12 @@
     {/each}
   </Tabs.List>
   {#each playerData.classes as playerClass}
-    <Tabs.Content value={playerClass.name}>
-      <InventoryClassDetails bind:playerClass {editable} />
-      <InventoryCharacters {playerClass} bind:playerData {editable} />
-    </Tabs.Content>
+    {#if value === playerClass.name}
+      <Tabs.Content value={playerClass.name}>
+        <InventoryClassDetails bind:playerClass {editable} />
+        <InventoryCharacters {playerClass} bind:playerData {editable} />
+      </Tabs.Content>
+    {/if}
   {/each}
 </Tabs.Root>
 

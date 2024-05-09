@@ -13,7 +13,7 @@
   export let editable: boolean;
 </script>
 
-<Tabs.Root>
+<Tabs.Root let:value>
   <Tabs.List class="inventory-tabs">
     <Tabs.Trigger value="characters" class="inventory-tab"
       >Characters</Tabs.Trigger
@@ -29,24 +29,36 @@
     <Tabs.Trigger value="other" class="inventory-tab">Other</Tabs.Trigger>
   </Tabs.List>
 
-  <Tabs.Content value="characters">
-    <InventoryCharacters bind:playerData {editable} />
-  </Tabs.Content>
-  <Tabs.Content value="weapons">
-    <InventoryWeapons bind:playerData {editable} />
-  </Tabs.Content>
-  <Tabs.Content value="weapon-mods">
-    <InventoryWeaponMods bind:playerData {editable} />
-  </Tabs.Content>
-  <Tabs.Content value="consumables">
-    <InventoryConsumables bind:playerData {editable} />
-  </Tabs.Content>
-  <Tabs.Content value="gear">
-    <InventoryGear bind:playerData {editable} />
-  </Tabs.Content>
-  <Tabs.Content value="other">
-    <InventoryOther bind:playerData {editable} />
-  </Tabs.Content>
+  {#if value === "characters"}
+    <Tabs.Content value="characters">
+      <InventoryCharacters bind:playerData {editable} />
+    </Tabs.Content>
+  {/if}
+  {#if value === "weapons"}
+    <Tabs.Content value="weapons">
+      <InventoryWeapons bind:playerData {editable} />
+    </Tabs.Content>
+  {/if}
+  {#if value === "weapon-mods"}
+    <Tabs.Content value="weapon-mods">
+      <InventoryWeaponMods bind:playerData {editable} />
+    </Tabs.Content>
+  {/if}
+  {#if value === "consumables"}
+    <Tabs.Content value="consumables">
+      <InventoryConsumables bind:playerData {editable} />
+    </Tabs.Content>
+  {/if}
+  {#if value === "gear"}
+    <Tabs.Content value="gear">
+      <InventoryGear bind:playerData {editable} />
+    </Tabs.Content>
+  {/if}
+  {#if value === "other"}
+    <Tabs.Content value="other">
+      <InventoryOther bind:playerData {editable} />
+    </Tabs.Content>
+  {/if}
 </Tabs.Root>
 
 <style lang="scss">

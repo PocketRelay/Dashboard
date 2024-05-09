@@ -18,12 +18,12 @@
     {/each}
   </Tabs.List>
   {#each playerData.classes as playerClass}
-    {#if value === playerClass.name}
-      <Tabs.Content value={playerClass.name}>
+    <Tabs.Content value={playerClass.name}>
+      {#if value === playerClass.name}
         <InventoryClassDetails bind:playerClass {editable} />
         <InventoryCharacters {playerClass} bind:playerData {editable} />
-      </Tabs.Content>
-    {/if}
+      {/if}
+    </Tabs.Content>
   {/each}
 </Tabs.Root>
 

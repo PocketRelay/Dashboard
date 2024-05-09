@@ -29,36 +29,36 @@
     <Tabs.Trigger value="other" class="inventory-tab">Other</Tabs.Trigger>
   </Tabs.List>
 
-  {#if value === "characters"}
-    <Tabs.Content value="characters">
+  <Tabs.Content value="characters">
+    {#if value === "characters"}
       <InventoryCharacters bind:playerData {editable} />
-    </Tabs.Content>
-  {/if}
-  {#if value === "weapons"}
-    <Tabs.Content value="weapons">
+    {/if}
+  </Tabs.Content>
+  <Tabs.Content value="weapons">
+    {#if value === "weapons"}
       <InventoryWeapons bind:playerData {editable} />
-    </Tabs.Content>
-  {/if}
-  {#if value === "weapon-mods"}
-    <Tabs.Content value="weapon-mods">
+    {/if}
+  </Tabs.Content>
+  <Tabs.Content value="weapon-mods">
+    {#if value === "weapon-mods"}
       <InventoryWeaponMods bind:playerData {editable} />
-    </Tabs.Content>
-  {/if}
-  {#if value === "consumables"}
-    <Tabs.Content value="consumables">
+    {/if}
+  </Tabs.Content>
+  <Tabs.Content value="consumables">
+    {#if value === "consumables"}
       <InventoryConsumables bind:playerData {editable} />
-    </Tabs.Content>
-  {/if}
-  {#if value === "gear"}
-    <Tabs.Content value="gear">
+    {/if}
+  </Tabs.Content>
+  <Tabs.Content value="gear">
+    {#if value === "gear"}
       <InventoryGear bind:playerData {editable} />
-    </Tabs.Content>
-  {/if}
-  {#if value === "other"}
-    <Tabs.Content value="other">
+    {/if}
+  </Tabs.Content>
+  <Tabs.Content value="other">
+    {#if value === "other"}
       <InventoryOther bind:playerData {editable} />
-    </Tabs.Content>
-  {/if}
+    {/if}
+  </Tabs.Content>
 </Tabs.Root>
 
 <style lang="scss">

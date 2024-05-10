@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type PlayerCharacterWeaponMod } from "$lib/api/parser";
+  import { type PlayerCharacterWeaponMod } from "$lib/data/parser";
   import type { Weapon } from "$lib/data/weapons";
   import WeaponModSlotEditor from "./WeaponModSlotEditor.svelte";
 

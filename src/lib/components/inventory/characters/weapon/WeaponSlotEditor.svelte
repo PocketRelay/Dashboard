@@ -2,7 +2,7 @@
   import {
     type PlayerCharacterWeapon,
     type PlayerCharacterWeaponMod,
-  } from "$lib/api/parser";
+  } from "$lib/data/parser";
   import { Select, type Selected } from "bits-ui";
   import {
     WEAPON_CATEGORIES,

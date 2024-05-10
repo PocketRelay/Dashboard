@@ -4,7 +4,7 @@
     PlayerCharacterWeapon,
     PlayerCharacterWeaponMod,
     PlayerCharacterWeaponMods,
-  } from "$lib/api/parser";
+  } from "$lib/data/parser";
   import WeaponSlotEditor from "./WeaponSlotEditor.svelte";
 
   export let playerCharacter: PlayerCharacter;

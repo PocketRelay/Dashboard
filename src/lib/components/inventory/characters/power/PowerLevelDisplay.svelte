@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type PlayerCharacterPower } from "$lib/api/parser";
+  import { type PlayerCharacterPower } from "$lib/data/parser";
   import type { Power } from "$lib/data/powers";
 
   export let powerData: PlayerCharacterPower;

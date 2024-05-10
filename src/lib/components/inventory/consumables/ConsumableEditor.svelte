@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type PlayerData } from "$lib/api/parser";
+  import { type PlayerData } from "$lib/data/parser";
   import { Tooltip } from "bits-ui";
   import type { TieredConsumable } from "$lib/data/consumables";
   import ConsumableTierEditor from "./ConsumableTierEditor.svelte";

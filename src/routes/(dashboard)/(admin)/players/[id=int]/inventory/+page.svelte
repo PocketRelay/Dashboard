@@ -8,7 +8,7 @@
     decodePlayerData,
     encodePlayerData,
     type PlayerData,
-  } from "$lib/api/parser";
+  } from "$lib/data/parser";
   import Loader from "$lib/components/Loader.svelte";
   import Inventory from "$lib/components/inventory/Inventory.svelte";
   import { createMutation, useQueryClient } from "@tanstack/svelte-query";

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type PlayerCharacter, type PlayerData } from "$lib/api/parser";
+  import { type PlayerCharacter, type PlayerData } from "$lib/data/parser";
   import { MAX_CHARACTER_LEVEL } from "$lib/data/inventory";
   import LevelInput from "$lib/components/inventory/LevelInput.svelte";
   import InventoryCharacterPowerLevel from "./power/PowerLevelDisplay.svelte";

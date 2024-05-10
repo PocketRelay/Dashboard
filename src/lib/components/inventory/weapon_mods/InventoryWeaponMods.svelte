@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type PlayerData } from "$lib/api/parser";
+  import { type PlayerData } from "$lib/data/parser";
 
   import { Tabs } from "bits-ui";
   import WeaponModEditor from "./WeaponModEditor.svelte";

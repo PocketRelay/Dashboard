@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type PlayerData } from "$lib/api/parser";
+  import { type PlayerData } from "$lib/data/parser";
   import LevelInput from "$lib/components/inventory/LevelInput.svelte";
   import { Tooltip } from "bits-ui";
   import { MAX_GEAR_LEVEL, type CoreConsumable } from "$lib/data/consumables";

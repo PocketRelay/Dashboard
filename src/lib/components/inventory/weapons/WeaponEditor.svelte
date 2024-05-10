@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type PlayerData } from "$lib/api/parser";
+  import { type PlayerData } from "$lib/data/parser";
   import { MAX_CHARACTER_LEVEL } from "$lib/data/inventory";
   import LevelInput from "$lib/components/inventory/LevelInput.svelte";
   import { type Weapon } from "$lib/data/weapons";

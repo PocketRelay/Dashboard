@@ -2,7 +2,7 @@
   import { goto } from "$app/navigation";
   import { base } from "$app/paths";
   import { setToken } from "$lib/api/api";
-  import { doCreate } from "$lib/api/auth";
+  import { createRequest } from "$lib/api/auth";
   import Loader from "$lib/components/Loader.svelte";
   import { disableAccountCreation } from "$lib/dashboard.state";
   import { createMutation } from "@tanstack/svelte-query";
@@ -13,13 +13,12 @@
   let password: string = "";
 
   const createAccountMutation = createMutation({
-    mutationFn: async () => {
-      const { token } = await doCreate(username, email, password);
-
+    mutationFn: createRequest,
+    onSuccess: (data) => {
       // Assign the token
-      setToken(token);
+      setToken(data.token);
 
-      await goto(`${base}/`);
+      goto(`${base}/`);
     },
   });
 
@@ -34,7 +33,13 @@
 
 <form
   class="form"
-  on:submit|preventDefault={() => $createAccountMutation.mutate()}
+  on:submit|preventDefault={() => {
+    $createAccountMutation.mutate({
+      username,
+      email,
+      password,
+    });
+  }}
 >
   <h1>Create</h1>
   <span class="ident">POCKET RELAY MANAGER</span>

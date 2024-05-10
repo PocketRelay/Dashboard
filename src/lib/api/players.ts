@@ -29,15 +29,16 @@ export function getSelf(): Promise<PlayerAccount> {
   });
 }
 
-export function deleteSelf(password: string): Promise<any> {
-  return requestText({
+export interface DeleteSelfRequest {
+  password: string;
+}
+
+export const deleteSelfRequest = (body: DeleteSelfRequest) =>
+  requestText({
     method: HttpMethod.DELETE,
     route: "players/self",
-    body: {
-      password,
-    },
+    body,
   });
-}
 
 export function getPlayer(id: number): Promise<PlayerAccount> {
   return request({
@@ -46,40 +47,35 @@ export function getPlayer(id: number): Promise<PlayerAccount> {
   });
 }
 
-export function deletePlayer(id: number): Promise<any> {
-  return requestText({
+export const deletePlayerRequest = (id: number) =>
+  requestText({
     method: HttpMethod.DELETE,
     route: `players/${id}`,
   });
+
+export interface SetSelfDetailsRequest {
+  username: string;
+  email: string;
 }
 
-export async function setSelfDetails(
-  username: string,
-  email: string
-): Promise<any> {
-  return requestText({
+export const setSelfDetailsRequest = (body: SetSelfDetailsRequest) =>
+  requestText({
     method: HttpMethod.PUT,
     route: "players/self/details",
-    body: {
-      username,
-      email,
-    },
+    body,
   });
+
+export interface SetSelfPasswordRequest {
+  current_password: string;
+  new_password: string;
 }
 
-export async function setSelfPassword(
-  current_password: string,
-  new_password: string
-): Promise<void> {
-  await requestText({
+export const setSelfPasswordRequest = (body: SetSelfPasswordRequest) =>
+  requestText({
     method: HttpMethod.PUT,
     route: "players/self/password",
-    body: {
-      current_password,
-      new_password,
-    },
+    body,
   });
-}
 
 export interface PlayerData {
   key: string;

@@ -3,8 +3,7 @@
   import { base } from "$app/paths";
   import {
     PlayerRole,
-    deletePlayer,
-    setPlayerDetails,
+    deletePlayerRequest,
     type PlayerAccount,
   } from "$lib/api/players";
   import Dialog from "$lib/components/Dialog.svelte";
@@ -21,14 +20,14 @@
 
   // Mutation to update the player details
   const deleteAccountMutation = createMutation({
-    mutationFn: async () => {
-      await deletePlayer(player.id);
-      await goto(`${base}/players`);
-    },
+    mutationFn: deletePlayerRequest,
     // Invalidate the current player details
     onSuccess: () => {
       // Invalidate query for the player
       client.invalidateQueries({ queryKey: ["player", player.id] });
+
+      // Redirect to players list
+      goto(`${base}/players`);
 
       // TODO: Invalid players list queries?
     },
@@ -69,7 +68,7 @@
   <div class="button-group">
     <button
       class="button button--danger"
-      on:click={() => $deleteAccountMutation.mutate()}
+      on:click={() => $deleteAccountMutation.mutate(player.id)}
     >
       Confirm
     </button>

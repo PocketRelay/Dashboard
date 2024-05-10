@@ -59,7 +59,7 @@
       <span class="sidebar-button__text">Games</span>
     </a>
 
-    {#if $player.role == PlayerRole.Admin || $player.role == PlayerRole.SuperAdmin}
+    {#if $player?.role == PlayerRole.Admin || $player?.role == PlayerRole.SuperAdmin}
       <a
         class="sidebar-button"
         href="{base}/players"
@@ -73,7 +73,7 @@
   </nav>
 
   <div class="sidebar__group">
-    {#if $player.role == PlayerRole.SuperAdmin}
+    {#if $player?.role == PlayerRole.SuperAdmin}
       <a
         class="sidebar-button"
         href="{base}/logs"

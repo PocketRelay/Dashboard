@@ -56,14 +56,17 @@
   }
 
   // Load the player data
-  $: load($player.id);
-
+  $: {
+    if ($player !== null) {
+      load($player.id);
+    }
+  }
   async function updateCheck(
-    player: PlayerAccount,
+    player: PlayerAccount | null,
     currentVersion: string | null
   ) {
     // Only check for updates on the super admin account
-    if (player.role !== PlayerRole.SuperAdmin) {
+    if (player === null || player.role !== PlayerRole.SuperAdmin) {
       return;
     }
 
@@ -105,10 +108,10 @@
       </div>
       <p>
         Welcome to your dashboard you are the <span class="annot"
-          >{getNumberWithOrdinal($player.id)}</span
+          >{getNumberWithOrdinal($player ? $player.id : 0)}</span
         > player to join this server
       </p>
-      <span class="card__value">{$player.display_name}</span>
+      <span class="card__value">{$player?.display_name}</span>
     </div>
     <div class="card">
       <div class="card__head">

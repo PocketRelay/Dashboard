@@ -27,8 +27,10 @@
   // Query to load all the player data
   const playerData = createQuery(
     derived(player, ($player) => ({
-      queryKey: ["player-data-all", $player.id],
+      queryKey: ["player-data-all", $player?.id],
       queryFn: async () => {
+        if ($player === null) throw new Error("Not authenticated");
+
         const response = await getAllPlayerData($player.id);
         return decodePlayerData(response);
       },
@@ -48,6 +50,7 @@
     derived([player, localPlayerData], ([$player, $localPlayerData]) => ({
       mutationFn: async () => {
         if ($localPlayerData === undefined) return;
+        if ($player === null) return;
 
         // Encode the player data
         const playerDataMap = encodePlayerData($localPlayerData);
@@ -61,7 +64,9 @@
         await Promise.all(promises);
       },
       onSuccess: () => {
-        client.invalidateQueries({ queryKey: ["player-data-all", $player.id] });
+        client.invalidateQueries({
+          queryKey: ["player-data-all", $player?.id],
+        });
       },
     }))
   );

@@ -13,14 +13,20 @@
     onSuccess: (_, request) => {
       // Update the local stored player state
       player.update((value) => {
-        value.email = request.email;
-        value.display_name = request.username;
-        return value;
+        if (value === null) return null;
+
+        return {
+          ...value,
+          email: request.email,
+          display_name: request.username,
+        };
       });
     },
   });
 
-  function setDefaults(account: PlayerAccount) {
+  function setDefaults(account: PlayerAccount | null) {
+    if (account === null) return;
+
     username = account.display_name;
     email = account.email;
   }

@@ -36,7 +36,7 @@
 
 <form
   class="form card"
-  class:form--wide={$selfPlayer.role !== PlayerRole.SuperAdmin}
+  class:form--wide={$selfPlayer?.role !== PlayerRole.SuperAdmin}
   on:submit|preventDefault={() => (confirmDelete = true)}
 >
   <h2 class="form__title">

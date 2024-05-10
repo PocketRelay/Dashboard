@@ -1,11 +1,3 @@
-<script lang="ts" context="module">
-  // Path chosen when upgrading the power
-  export enum Path {
-    A = 0,
-    B = 1,
-  }
-</script>
-
 <script lang="ts">
   import {
     replaceTemplates,

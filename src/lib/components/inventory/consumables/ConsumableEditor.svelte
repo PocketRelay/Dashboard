@@ -53,13 +53,6 @@
     color: white;
     text-align: left;
 
-    &__level {
-      border: 1px solid #444;
-      font-size: 0.8rem;
-      padding: 0.5rem 0.75rem;
-      border-radius: 0.25rem;
-    }
-
     &__icon {
       width: auto;
       height: 120px;

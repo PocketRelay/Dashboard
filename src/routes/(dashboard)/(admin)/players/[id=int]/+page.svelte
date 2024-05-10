@@ -32,20 +32,17 @@
   <PageHeading
     title={`Viewing ${player.email}`}
     text="Edit the settings for this account below"
-  />
-
-  <nav class="button-group">
-    <a href="{base}/players" class="button button--dark">Back</a>
-    <a
-      href={`${base}/players/${playerId}/inventory`}
-      class="button button--dark"
-    >
-      Edit Inventory
-    </a>
-    <a href={`${base}/players/${playerId}/classes`} class="button button--dark">
-      Edit Classes
-    </a>
-  </nav>
+    backURL="{base}/players"
+  >
+    <nav class="button-group" slot="actions">
+      <a
+        href={`${base}/players/${playerId}/inventory`}
+        class="button button--dark"
+      >
+        Edit Inventory
+      </a>
+    </nav>
+  </PageHeading>
 
   <div class="forms">
     <BasicInformationForm {player} />

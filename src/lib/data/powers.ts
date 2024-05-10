@@ -15401,8 +15401,10 @@ export const POWERS = createPowers({
 
 export function getPowerByID(id: number): Power | undefined {
   for (const powerKey in POWERS) {
-    const power: Power | undefined = POWERS[powerKey] as Power | undefined;
-    if (power.id === id) {
+    const power: Power | undefined = (POWERS as Partial<Record<string, Power>>)[
+      powerKey
+    ] as any;
+    if (power !== undefined && power.id === id) {
       return power;
     }
   }

@@ -22,9 +22,8 @@
   const clearDataMutation = createMutation({
     mutationFn: async () => {
       // Load all the player data keys
-      const playerData: Record<string, string> = await getAllPlayerData(
-        player.id
-      );
+      const playerData: Partial<Record<string, string>> =
+        await getAllPlayerData(player.id);
 
       // Clear all the player data
       const promises = Object.keys(playerData).map((key) =>
@@ -94,9 +93,8 @@
   // Mutation to update the player details
   const exportDataMutation = createMutation({
     mutationFn: async () => {
-      const playerData: Record<string, string> = await getAllPlayerData(
-        player.id
-      );
+      const playerData: Partial<Record<string, string>> =
+        await getAllPlayerData(player.id);
 
       const dataBlob = new Blob([JSON.stringify(playerData)], {
         type: "application/json",

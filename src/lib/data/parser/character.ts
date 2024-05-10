@@ -401,12 +401,7 @@ export function parsePlayerCharacterPowers(
       (charPow) => charPow.powerID === power.id
     );
     if (parsedPower === undefined) {
-      const matchingName = characterPowers.find(
-        (charPOw) => charPOw.powerName === power.internalName
-      );
-
-      console.error("Missing power", character.kitName, power, matchingName);
-      // TODO: Create default power data
+      characterPowers.push(createDefaultPlayerCharacterPower(power));
     }
   }
 

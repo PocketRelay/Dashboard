@@ -1,10 +1,9 @@
 <script lang="ts">
   import { type PlayerCharacterPower } from "$lib/data/parser";
-  import type { Power } from "$lib/data/powers";
 
   export let powerData: PlayerCharacterPower;
 
-  const power: Power = powerData.power!;
+  $: power = powerData.power!;
 </script>
 
 <div class="power-level">

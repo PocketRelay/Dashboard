@@ -10,7 +10,7 @@
   export let playerClass: PlayerClass;
   export let editable: boolean;
 
-  const filteredCharacters = playerData.characters.filter(
+  $: filteredCharacters = playerData.characters.filter(
     (char) => char.character.className === playerClass.name
   );
 

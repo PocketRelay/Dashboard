@@ -36,6 +36,7 @@
   .weapon-mods {
     display: flex;
     flex-flow: row;
+    flex: auto;
     gap: 1rem;
     align-items: stretch;
   }

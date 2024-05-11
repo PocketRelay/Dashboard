@@ -12,7 +12,7 @@
   export let powerData: PlayerCharacterPower;
   export let editable: boolean;
 
-  const power: Power = powerData.power!;
+  $: power = powerData.power! as Power;
 
   enum Path {
     A,
@@ -154,7 +154,8 @@
   .evolutions-wrapper {
     display: flex;
     flex-flow: column;
-    gap: 1rem;
+    gap: 2rem;
+    align-items: flex-start;
   }
 
   .evolution-group {

@@ -16,8 +16,8 @@
 <Tabs.Root let:value>
   <Tabs.List class="inventory-tabs">
     <Tabs.Trigger value="characters" class="inventory-tab"
-      >Characters</Tabs.Trigger
-    >
+      >Characters
+    </Tabs.Trigger>
     <Tabs.Trigger value="weapons" class="inventory-tab">Weapons</Tabs.Trigger>
     <Tabs.Trigger value="weapon-mods" class="inventory-tab">
       Weapon Mods
@@ -66,7 +66,7 @@
     position: relative;
 
     display: flex;
-    padding: 1rem 0;
+    padding-bottom: 1rem;
     border-bottom: 1px solid #333;
     margin-bottom: 1rem;
   }

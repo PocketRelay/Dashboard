@@ -54,7 +54,9 @@
     <Loader />
   {/if}
 
-  <button type="submit" class="button button--danger">Delete Account</button>
+  <button type="submit" class="button button--danger align-start"
+    >Delete Account</button
+  >
 </form>
 
 <!-- Account deletion confirmation -->
@@ -72,10 +74,7 @@
     >
       Confirm
     </button>
-    <button
-      class="button button--dark"
-      on:click={() => (confirmDelete = false)}
-    >
+    <button class="button" on:click={() => (confirmDelete = false)}>
       Cancel
     </button>
   </div>

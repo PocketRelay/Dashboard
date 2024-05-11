@@ -121,25 +121,27 @@
   {#if $clearDataMutation.isPending}
     <Loader />
   {/if}
-  <button
-    type="button"
-    class="button"
-    on:click={() => $exportDataMutation.mutate()}>Export Data</button
-  >
-  <button
-    type="button"
-    class="button"
-    on:click={() => (confirmImportData = true)}
-  >
-    Import Data
-  </button>
-  <button
-    type="button"
-    class="button button--danger"
-    on:click={() => (confirmClearData = true)}
-  >
-    Clear Data
-  </button>
+  <div class="button-group">
+    <button
+      type="button"
+      class="button"
+      on:click={() => $exportDataMutation.mutate()}>Export Data</button
+    >
+    <button
+      type="button"
+      class="button"
+      on:click={() => (confirmImportData = true)}
+    >
+      Import Data
+    </button>
+    <button
+      type="button"
+      class="button button--danger"
+      on:click={() => (confirmClearData = true)}
+    >
+      Clear Data
+    </button>
+  </div>
 </div>
 
 <!-- Clear data confirmation -->
@@ -158,10 +160,7 @@
     >
       Confirm
     </button>
-    <button
-      class="button button--dark"
-      on:click={() => (confirmClearData = false)}
-    >
+    <button class="button" on:click={() => (confirmClearData = false)}>
       Cancel
     </button>
   </div>
@@ -183,10 +182,7 @@
     >
       Confirm
     </button>
-    <button
-      class="button button--dark"
-      on:click={() => (confirmImportData = false)}
-    >
+    <button class="button" on:click={() => (confirmImportData = false)}>
       Cancel
     </button>
   </div>

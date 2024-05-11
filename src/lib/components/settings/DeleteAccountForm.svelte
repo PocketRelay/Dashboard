@@ -42,7 +42,9 @@
     <Loader />
   {/if}
 
-  <button type="submit" class="button button--danger">Delete Account</button>
+  <button type="submit" class="button button--danger align-start"
+    >Delete Account</button
+  >
 </form>
 
 <!-- Account deletion confirmation -->

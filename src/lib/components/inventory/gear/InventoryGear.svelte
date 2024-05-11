@@ -16,10 +16,10 @@
 </script>
 
 <Tabs.Root>
-  <Tabs.List class="weapon-tabs">
-    <Tabs.Trigger value="gear" class="weapon-tab">Gear</Tabs.Trigger>
-    <Tabs.Trigger value="core" class="weapon-tab">Core</Tabs.Trigger>
-    <Tabs.Trigger value="other" class="weapon-tab">Other</Tabs.Trigger>
+  <Tabs.List class="tabs">
+    <Tabs.Trigger value="gear" class="tab">Gear</Tabs.Trigger>
+    <Tabs.Trigger value="core" class="tab">Core</Tabs.Trigger>
+    <Tabs.Trigger value="other" class="tab">Other</Tabs.Trigger>
   </Tabs.List>
   <Tabs.Content value="gear">
     <div class="weapons-grid">
@@ -68,33 +68,5 @@
     .weapons-grid {
       grid-template-columns: 1fr;
     }
-  }
-
-  :global(.weapon-tabs) {
-    position: relative;
-
-    display: flex;
-    padding: 1rem 0;
-    border-bottom: 1px solid #333;
-    margin-bottom: 1rem;
-  }
-
-  :global(.weapon-tab) {
-    display: flex;
-    flex-flow: column;
-    border: none;
-    background-color: transparent;
-    text-align: center;
-    color: white;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    border: 1px solid transparent;
-  }
-
-  :global(.weapon-tab[data-state="active"]) {
-    background-color: #222;
-    border: 1px solid #333;
-    border-radius: 0.25rem;
   }
 </style>

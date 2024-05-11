@@ -12,37 +12,31 @@
   let showConfirm: boolean = false;
   let error: string | undefined = undefined;
 
+  let confirmPasswordInput: HTMLInputElement | undefined;
+
   const updatePasswordMutation = createMutation({
     mutationFn: setSelfPasswordRequest,
+    onSuccess: () => {
+      showConfirm = false;
+    },
   });
 
-  /**
-   * Toggles the confirm password screen if the provided
-   * password values are valid
-   */
-  function promptConfirmChange() {
+  $: {
     // Fail if the passwords don't match
     if (passwordNew !== passwordConfirm) {
-      error = "Passwords don't match";
-      return;
+      confirmPasswordInput?.setCustomValidity("Password does not match.");
+    } else {
+      confirmPasswordInput?.setCustomValidity("");
     }
-
-    // Don't allow empty password fields
-    if (
-      passwordNew.length <= 0 ||
-      passwordConfirm.length <= 0 ||
-      passwordCurrent.length <= 0
-    ) {
-      error = "Passwords cannot be empty";
-      return;
-    }
-
-    // Display the confirm dialog
-    showConfirm = true;
   }
 </script>
 
-<form class="form card" on:submit|preventDefault={promptConfirmChange}>
+<form
+  class="form card"
+  on:submit|preventDefault={() => {
+    showConfirm = true;
+  }}
+>
   <h2 class="form__title">
     <Key class="form__icon" />
     Password
@@ -90,9 +84,10 @@
       bind:value={passwordConfirm}
       required
       autocomplete="off"
+      bind:this={confirmPasswordInput}
     />
   </label>
-  <button type="submit" class="button">Change Password</button>
+  <button type="submit" class="button align-start">Change Password</button>
 </form>
 
 <!-- Password change confirmation -->
@@ -102,7 +97,7 @@
 
   <div class="button-group">
     <button
-      class="button button--alt"
+      class="button button--danger"
       on:click={() => {
         $updatePasswordMutation.mutate({
           current_password: passwordCurrent,
@@ -112,7 +107,7 @@
     >
       Confirm
     </button>
-    <button class="button button--alt" on:click={() => (showConfirm = false)}>
+    <button class="button" on:click={() => (showConfirm = false)}>
       Cancel
     </button>
   </div>

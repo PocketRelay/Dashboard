@@ -61,7 +61,7 @@
     </button>
   {/if}
 
-  <button class="button button--dark" on:click={() => $query.refetch()}>
+  <button class="button" on:click={() => $query.refetch()}>
     <Refresh
       width={24}
       height={24}

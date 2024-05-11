@@ -44,7 +44,7 @@
           </div>
         {/if}
 
-        <WeaponEditor bind:playerCharacter {editable} />
+        <WeaponEditor bind:playerData bind:playerCharacter {editable} />
       </div>
     </div>
 
@@ -61,7 +61,11 @@
 <div>
   {#each playerCharacter.powers as power}
     {#if power.power !== undefined}
-      <InventoryCharacterPowerEditor bind:powerData={power} {editable} />
+      <InventoryCharacterPowerEditor
+        bind:powerData={power}
+        bind:playerData
+        {editable}
+      />
     {/if}
   {/each}
 </div>

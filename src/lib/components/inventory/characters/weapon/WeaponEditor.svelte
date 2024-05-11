@@ -4,9 +4,11 @@
     PlayerCharacterWeapon,
     PlayerCharacterWeaponMod,
     PlayerCharacterWeaponMods,
+    PlayerData,
   } from "$lib/data/parser";
   import WeaponSlotEditor from "./WeaponSlotEditor.svelte";
 
+  export let playerData: PlayerData;
   export let playerCharacter: PlayerCharacter;
   export let editable: boolean;
 
@@ -27,6 +29,7 @@
     }
 
     playerCharacter.weapons = playerCharacter.weapons;
+    playerData = playerData;
   };
 
   function getWeaponMods(
@@ -73,6 +76,7 @@
     }
 
     playerCharacter.weaponMods = playerCharacter.weaponMods;
+    playerData = playerData;
   };
 </script>
 

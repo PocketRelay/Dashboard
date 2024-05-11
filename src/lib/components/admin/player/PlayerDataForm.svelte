@@ -69,7 +69,13 @@
         throw new Error("Uploaded file was invalid format");
       }
 
-      const promises = Object.keys(parsed).map((key) => {
+      const keys = Object.keys(parsed);
+
+      if (keys.length > 255) {
+        throw Error("Uploaded file has too many keys to be player data");
+      }
+
+      const promises = keys.map((key) => {
         const value = parsed[key];
         if (typeof value !== "string") {
           console.error("Skipping non string value from import", key, value);

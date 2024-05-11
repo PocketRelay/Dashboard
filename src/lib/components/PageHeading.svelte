@@ -55,9 +55,10 @@
 
   .title {
     font-size: 1.25rem;
+    margin-bottom: 0.25rem;
   }
 
   .text {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 </style>

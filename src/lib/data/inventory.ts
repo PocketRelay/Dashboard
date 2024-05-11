@@ -54,4 +54,4 @@ export interface Flag {
   name: string;
 }
 
-export const FLAGS: Flag[] = [{ index: 270, name: "Wecome screen" }];
+export const FLAGS: Flag[] = [{ index: 270, name: "Welcome screen" }];

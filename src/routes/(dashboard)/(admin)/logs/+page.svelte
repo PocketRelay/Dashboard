@@ -117,6 +117,9 @@
     flex: auto;
     overflow: auto;
     padding: 1rem;
+    margin: 1rem 0;
+    flex: auto;
+    height: 100%;
   }
 
   .log-text {

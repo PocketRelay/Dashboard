@@ -4,7 +4,6 @@
   import List from "~icons/ph/list-numbers-bold";
   import Inventory from "~icons/ph/backpack-fill";
   import AccountMultiple from "~icons/ph/users-three-fill";
-  import Classes from "~icons/ph/users-four-fill";
   import Games from "~icons/ph/game-controller-fill";
   import Logs from "~icons/ph/terminal-fill";
   import Logout from "~icons/ph/sign-out-bold";

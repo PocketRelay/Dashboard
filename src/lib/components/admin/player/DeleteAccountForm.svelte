@@ -44,7 +44,7 @@
     Delete Account
   </h2>
   <p class="text">
-    <span class="danger">DANGER ZONE</span> Warning deleting an account is perminent
+    <span class="danger">DANGER ZONE</span> Warning deleting an account is permanent
     and cannot be reversed
   </p>
   {#if $deleteAccountMutation.isError}

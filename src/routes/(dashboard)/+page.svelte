@@ -8,7 +8,6 @@
     type LeaderboardEntry,
   } from "$lib/api/leaderboard";
   import { PlayerRole, type PlayerAccount } from "$lib/api/players";
-  import { getServerDetails } from "$lib/api/server";
   import PageHeading from "$lib/components/PageHeading.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import { serverVersion } from "$lib/dashboard.state";
@@ -79,11 +78,11 @@
       const release = await getLatestRelease();
       if (semver.gt(currentVersion, release.tag_name)) {
         console.debug(
-          `Server is running future relase version ${currentVersion} (Latest: ${release.tag_name})`
+          `Server is running future release version ${currentVersion} (Latest: ${release.tag_name})`
         );
       } else if (semver.lt(currentVersion, release.tag_name)) {
         console.debug(
-          `Server is running outdated relase version ${currentVersion} (Latest: ${release.tag_name})`
+          `Server is running outdated release version ${currentVersion} (Latest: ${release.tag_name})`
         );
         newerRelease = release;
       }

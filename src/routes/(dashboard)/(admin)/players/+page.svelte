@@ -7,7 +7,6 @@
   import Pagination from "$lib/components/Pagination.svelte";
   import { createQuery } from "@tanstack/svelte-query";
   import { writable, type Writable, derived } from "svelte/store";
-  import Refresh from "~icons/ph/arrow-clockwise-bold";
   import ArrowSquareUpRight from "~icons/ph/arrow-square-up-right-fill";
 
   // Query parameters

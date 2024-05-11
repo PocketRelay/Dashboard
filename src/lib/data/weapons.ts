@@ -1,4 +1,4 @@
-import type { Category, Rarity, Races } from "./inventory";
+import type { Category, Rarity } from "./inventory";
 
 // Maximum normal level for weapons
 export const MAX_WEAPON_LEVEL: number = 10;

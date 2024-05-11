@@ -34,7 +34,7 @@ export interface PlayerBase {
  * editable format
  *
  * Format:
- * 20;4;CREDITS;UNKNOWN;UKNOWN;CREDITS_SPENT;UKNOWN;GAMES_PLAYED;SECONDS_PLAYED;UKNOWN;INVENTORY
+ * 20;4;CREDITS;UNKNOWN;UNKNOWN;CREDITS_SPENT;UNKNOWN;GAMES_PLAYED;SECONDS_PLAYED;UNKNOWN;INVENTORY
  *
  * @param value The raw encoded player base value
  * @returns

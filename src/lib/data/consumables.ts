@@ -392,6 +392,12 @@ export const GEAR_CONSUMABLES: GearConsumable[] = [
     text: "Batarian gauntlet that turns your heavy melee into a slow, heavy-hitting attack.",
     image: "Gear_BatarianGauntlet.webp",
   },
+  {
+    index: 336,
+    name: "Vibration Damper",
+    text: "Decrease weapon kickback and improve firing stability by upgrading auto-targeting electronics.",
+    image: "Gear_WeaponStability.webp",
+  },
 ];
 
 export const CORE_CONSUMABLES: CoreConsumable[] = [

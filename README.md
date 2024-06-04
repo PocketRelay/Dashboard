@@ -40,6 +40,12 @@ npm run dev
 npm run dev -- --open
 ```
 
+Make sure to create a `.env.development` file with the `VITE_SERVER_URL` set to the local server for developing against:
+
+```env
+VITE_SERVER_URL=http://localhost/api/
+```
+
 ## 🚀 Building
 
 To create a production version of your app:

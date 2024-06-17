@@ -1,10 +1,10 @@
 <script lang="ts">
-  import CreateAccountForm from "$lib/components/auth/CreateAccountForm.svelte";
+  import ExchangeLoginCodeForm from "$lib/components/auth/ExchangeLoginCodeForm.svelte";
 </script>
 
 <main class="background">
   <div class="card">
-    <CreateAccountForm />
+    <ExchangeLoginCodeForm />
   </div>
 </main>
 

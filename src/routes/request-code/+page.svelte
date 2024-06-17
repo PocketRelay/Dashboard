@@ -1,10 +1,10 @@
 <script lang="ts">
-  import CreateAccountForm from "$lib/components/auth/CreateAccountForm.svelte";
+  import RequestLoginCodeForm from "$lib/components/auth/RequestLoginCodeForm.svelte";
 </script>
 
 <main class="background">
   <div class="card">
-    <CreateAccountForm />
+    <RequestLoginCodeForm />
   </div>
 </main>
 

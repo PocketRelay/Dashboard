@@ -28,4 +28,9 @@
       url("/assets/login-background.webp") center no-repeat;
     background-size: cover;
   }
+
+  .card {
+    width: 100%;
+    max-width: 450px;
+  }
 </style>

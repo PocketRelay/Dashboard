@@ -1,63 +1,43 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { base } from "$app/paths";
-  import { setToken } from "$lib/api/api";
-  import { createRequest } from "$lib/api/auth";
+  import { requestLoginCode } from "$lib/api/auth";
   import Loader from "$lib/components/Loader.svelte";
-  import { disableAccountCreation } from "$lib/dashboard.state";
   import { createMutation } from "@tanstack/svelte-query";
 
   // Form fields
-  let username: string = "";
   let email: string = "";
-  let password: string = "";
 
-  const createAccountMutation = createMutation({
-    mutationFn: createRequest,
-    onSuccess: (data) => {
-      // Assign the token
-      setToken(data.token);
-
-      goto(`${base}/`);
+  const loginMutation = createMutation({
+    mutationFn: requestLoginCode,
+    onSuccess: () => {
+      // Go to the exchange code page on success
+      goto(`${base}/exchange-code`);
     },
   });
-
-  $: if ($disableAccountCreation) {
-    goto(`${base}/login`);
-  }
 </script>
 
-{#if $createAccountMutation.isPending}
+{#if $loginMutation.isPending}
   <Loader />
 {/if}
 
 <form
   class="form"
   on:submit|preventDefault={() => {
-    $createAccountMutation.mutate({
-      username,
+    $loginMutation.mutate({
       email,
-      password,
     });
   }}
 >
-  <h1>Create</h1>
+  <h1>Login Code</h1>
   <span class="ident">POCKET RELAY MANAGER</span>
-  <p class="text">Create an account to login to the server.</p>
-  {#if $createAccountMutation.isError}
-    <p class="error">{$createAccountMutation.error}</p>
+  <p class="text">
+    Request an in-game login code. You must be connected to this server and be
+    on the game main-menu to receive a code
+  </p>
+  {#if $loginMutation.isError}
+    <p class="error">{$loginMutation.error}</p>
   {/if}
-
-  <label class="input">
-    <span class="input__label">Username</span>
-    <input
-      class="input__value"
-      type="text"
-      bind:value={username}
-      required
-      autocomplete="username"
-    />
-  </label>
 
   <label class="input">
     <span class="input__label">Email</span>
@@ -70,20 +50,9 @@
     />
   </label>
 
-  <label class="input">
-    <span class="input__label">Password</span>
-    <input
-      class="input__value"
-      type="password"
-      bind:value={password}
-      required
-      autocomplete="current-password"
-    />
-  </label>
+  <button type="submit" class="button">Request code</button>
 
-  <button type="submit" class="button">Create</button>
-
-  <a href="{base}/login" class="annot">Login to an account</a>
+  <a href="{base}/login" class="annot">Back to Login</a>
 
   <div class="info">
     <a
@@ -118,7 +87,7 @@
   .form {
     flex: none;
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
   }
 
   .button {

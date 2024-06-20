@@ -13,6 +13,7 @@ This is the dashboard that is embedded into **Pocket Relay** servers
 - Player data editing
 - Player data importing, exporting, clearing, and editing
 - Server log management
+- Sending in-game login codes (Requires users on plugin client)
 
 ## 📸 Screenshots
 

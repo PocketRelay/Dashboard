@@ -24,6 +24,18 @@
   text="Below is a list of games that are currently running"
 />
 
+{#if $query.data}
+  <div>
+    <div class="total">
+      {#if $query.data.total_items == 0}
+        No games are running
+      {:else}
+        There is {$query.data.total_items} games running
+      {/if}
+    </div>
+  </div>
+{/if}
+
 <Pagination
   count={$query.data?.total_items ?? 1}
   bind:perPage={$perPage}
@@ -54,9 +66,24 @@
     flex-flow: row wrap;
     align-items: flex-start;
     gap: 1rem;
+    margin-top: 1rem;
   }
 
   .no-games {
     margin: 1rem 0;
+  }
+
+  .total {
+    display: inline-block;
+    margin-bottom: 1rem;
+
+    border: 1px solid #444;
+    align-items: center;
+    justify-content: center;
+    background-color: #222;
+    color: #ffffff;
+    padding: 0.75rem;
+
+    border-radius: 0.25rem;
   }
 </style>

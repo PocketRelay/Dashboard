@@ -514,7 +514,7 @@ function decodePlayerCharacterWeaponMods(
 
     const weapon = getWeaponByIndex(weaponIndex);
 
-    const rawIndexes = parts.slice(1);
+    const rawIndexes = weaponModParts.slice(1);
 
     const weaponMods: PlayerCharacterWeaponMod[] = [];
     for (const rawIndex of rawIndexes) {

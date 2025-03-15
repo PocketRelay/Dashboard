@@ -3,6 +3,7 @@
   import { base } from "$app/paths";
   import { requestLoginCode } from "$lib/api/auth";
   import Loader from "$lib/components/Loader.svelte";
+  import { CLIENT_DOWNLOAD_LINK, WEBSITE_LINK } from "$lib/data/pocket-relay";
   import { createMutation } from "@tanstack/svelte-query";
 
   // Form fields
@@ -57,7 +58,7 @@
   <div class="info">
     <a
       class="annot"
-      href="https://github.com/PocketRelay/Client/releases/latest/download/pocket-relay-client.exe"
+      href={CLIENT_DOWNLOAD_LINK}
       rel="noreferrer"
       target="_blank"
       title="Download the latest client version">Download Client</a
@@ -65,7 +66,7 @@
 
     <a
       class="annot"
-      href="https://pocket-relay.pages.dev/"
+      href={WEBSITE_LINK}
       rel="noreferrer"
       target="_blank"
       title="View the website for the Pocket Relay project"

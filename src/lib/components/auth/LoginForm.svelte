@@ -77,7 +77,7 @@
   <div class="info">
     <a
       class="annot"
-      href="https://github.com/PocketRelay/Client/releases/latest/download/pocket-relay-client.exe"
+      href="https://github.com/PocketRelay/PocketRelayPluginInstaller/releases/latest/download/pocket-relay-plugin-installer.exe"
       rel="noreferrer"
       target="_blank"
       title="Download the latest client version">Download Client</a

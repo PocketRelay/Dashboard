@@ -604,7 +604,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 500,
     Ra: 4.5,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
-    powers: [POWERS.Pc, POWERS.fb, POWERS.Fb, POWERS.ab, POWERS.Za],
+    powers: [POWERS.Pc, POWERS.fb, POWERS.Fb, POWERS.ab, POWERS.Za6],
   },
   {
     index: 247,
@@ -620,7 +620,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 500,
     Ra: 4.5,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
-    powers: [POWERS.Pc, POWERS.fb, POWERS.Fb, POWERS.ab, POWERS.Za],
+    powers: [POWERS.Pc, POWERS.fb, POWERS.Fb, POWERS.ab, POWERS.Za6],
   },
   {
     index: 217,
@@ -667,7 +667,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 500,
     Ra: 4.5,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
-    powers: [POWERS.ke, POWERS.sv, POWERS.Mc, POWERS.Zu, POWERS.Ga],
+    powers: [POWERS.ke, POWERS.sv, POWERS.Mc2, POWERS.Zu, POWERS.Ga6],
   },
   {
     index: 282,
@@ -683,7 +683,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 350,
     Ra: 6,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
-    powers: [POWERS.Pc, POWERS.Pd, POWERS.hc, POWERS.zh, POWERS.Ga],
+    powers: [POWERS.Pc, POWERS.Pd, POWERS.hc, POWERS.zh, POWERS.Ga7],
   },
   {
     index: 373,
@@ -699,7 +699,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 350,
     Ra: 6,
     heavy_melee_modifiers: { health: 1, armor: 1, barrier: 1.5, shield: 1.5 },
-    powers: [POWERS.bd, POWERS.yc, POWERS.nc, POWERS.fv, POWERS.Ga],
+    powers: [POWERS.bd, POWERS.yc2, POWERS.nc2, POWERS.fv, POWERS.Ga8],
   },
   {
     index: 500,
@@ -714,7 +714,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 0,
     heavy_melee_base_dmg: 150,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Qc, POWERS.ed, POWERS.Eb, POWERS.Jd, POWERS.Ga],
+    powers: [POWERS.Qc, POWERS.ed, POWERS.Eb, POWERS.Jd, POWERS.Ga5],
   },
   {
     index: 514,
@@ -744,7 +744,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 190,
     heavy_melee_base_dmg: 1e3,
     heavy_melee_modifiers: l,
-    powers: [POWERS.hc, POWERS.fb, POWERS.Yb, POWERS.Id, POWERS.ac],
+    powers: [POWERS.hc2, POWERS.fb, POWERS.Yb, POWERS.Id2, POWERS.ac4],
   },
   {
     index: 577,
@@ -761,7 +761,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 300,
     heavy_melee_modifiers: { health: 1, armor: 1, barrier: 1, shield: 1 },
     race: Races.Collector,
-    powers: [POWERS.re, POWERS.nf, POWERS.yc, POWERS.lv, POWERS.Bo],
+    powers: [POWERS.nf, POWERS.re, POWERS.lv, POWERS.Bo, POWERS.yc],
   },
   {
     index: 256,
@@ -852,7 +852,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 190,
     heavy_melee_base_dmg: 1e3,
     heavy_melee_modifiers: l,
-    powers: [POWERS.fe, POWERS.tc, POWERS.td, POWERS.Id, POWERS.ac],
+    powers: [POWERS.fe, POWERS.tc, POWERS.td2, POWERS.Id, POWERS.ac3],
   },
   {
     index: 278,
@@ -915,7 +915,7 @@ export const CHARACTERS: Character[] = [
     Ra: 5,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
     race: Races.Geth,
-    powers: [POWERS.Bc, POWERS.ld, POWERS.Hc, POWERS.df, POWERS.Ce],
+    powers: [POWERS.Bc2, POWERS.ld, POWERS.Hc, POWERS.df, POWERS.Ce],
   },
   {
     index: 512,
@@ -930,7 +930,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.yd, POWERS.Sc, POWERS.Nc, POWERS.jv, POWERS.bc],
+    powers: [POWERS.yd, POWERS.Sc, POWERS.Nc, POWERS.jv, POWERS.bc2],
   },
   {
     index: 576,
@@ -961,7 +961,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.vc, POWERS.tb, POWERS.Rb, POWERS.ab, POWERS.Za],
+    powers: [POWERS.vc, POWERS.tb, POWERS.Rb, POWERS.ab, POWERS.Za2],
   },
   {
     index: 249,
@@ -976,7 +976,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.vc, POWERS.tb, POWERS.Rb, POWERS.ab, POWERS.Za],
+    powers: [POWERS.vc, POWERS.tb, POWERS.Rb, POWERS.ab, POWERS.Za2],
   },
   {
     index: 219,
@@ -991,7 +991,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Md, POWERS.tb, POWERS.Zb, POWERS.Ah, POWERS.Ga],
+    powers: [POWERS.Md, POWERS.tb, POWERS.Zb, POWERS.Ah, POWERS.Ga2],
   },
   {
     index: 220,
@@ -1006,7 +1006,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Ac, POWERS.jd, POWERS.tb, POWERS.Ch, POWERS.Ga],
+    powers: [POWERS.Ac, POWERS.jd, POWERS.tb, POWERS.Ch, POWERS.Ga3],
   },
   {
     index: 238,
@@ -1023,7 +1023,7 @@ export const CHARACTERS: Character[] = [
     Ra: 5,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
     race: Races.Geth,
-    powers: [POWERS.od, POWERS.Hc, POWERS.Rb, POWERS.df, POWERS.Ce],
+    powers: [POWERS.od2, POWERS.Hc3, POWERS.Rb2, POWERS.df2, POWERS.Ce2],
   },
   {
     index: 280,
@@ -1038,7 +1038,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Sc, POWERS.tb, POWERS.Of, POWERS.Bh, POWERS.bc],
+    powers: [POWERS.Sc2, POWERS.tb, POWERS.Of, POWERS.Bh, POWERS.bc3],
   },
   {
     index: 374,
@@ -1053,7 +1053,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 300,
     heavy_melee_base_dmg: 550,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
-    powers: [POWERS.tf, POWERS.uj, POWERS.Gc, POWERS.dv, POWERS.Ga],
+    powers: [POWERS.tf, POWERS.uj, POWERS.Gc, POWERS.dv, POWERS.Ga4],
   },
   {
     index: 501,
@@ -1068,7 +1068,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 0,
     heavy_melee_base_dmg: 150,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Kd, POWERS.lc, POWERS.Eb, POWERS.Jd, POWERS.Ga],
+    powers: [POWERS.Kd, POWERS.lc, POWERS.Eb, POWERS.Jd, POWERS.Ga5],
   },
   {
     index: 503,
@@ -1083,7 +1083,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 200,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Md, POWERS.Nc, POWERS.Gc, POWERS.bf, POWERS.De],
+    powers: [POWERS.Md, POWERS.Nc, POWERS.Gc2, POWERS.bf, POWERS.De],
   },
   {
     index: 509,
@@ -1098,7 +1098,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 250,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Sd, POWERS.tb, POWERS.uc, POWERS.gf, POWERS.bc],
+    powers: [POWERS.Sd, POWERS.tb, POWERS.uc2, POWERS.gf2, POWERS.bc4],
   },
   {
     index: 584,
@@ -1130,7 +1130,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Gb, POWERS.fb, POWERS.nc, POWERS.ab, POWERS.Za],
+    powers: [POWERS.Gb, POWERS.fb, POWERS.nc, POWERS.ab, POWERS.Za3],
   },
   {
     index: 253,
@@ -1145,7 +1145,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Gb, POWERS.fb, POWERS.nc, POWERS.ab, POWERS.Za],
+    powers: [POWERS.Gb, POWERS.fb, POWERS.nc, POWERS.ab, POWERS.Za3],
   },
   {
     index: 223,
@@ -1160,7 +1160,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 200,
     heavy_melee_base_dmg: 675,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Gb, POWERS.fb, POWERS.Rb, POWERS.ff, POWERS.ac],
+    powers: [POWERS.Gb2, POWERS.fb, POWERS.Rb, POWERS.ff, POWERS.ac],
   },
   {
     index: 224,
@@ -1175,7 +1175,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 300,
     heavy_melee_base_dmg: 700,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Gb, POWERS.tb, POWERS.wd, POWERS.ef, POWERS.kd],
+    powers: [POWERS.Gb3, POWERS.tb, POWERS.wd, POWERS.ef, POWERS.kd],
   },
   {
     index: 267,
@@ -1190,7 +1190,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 190,
     heavy_melee_base_dmg: 1e3,
     heavy_melee_modifiers: l,
-    powers: [POWERS.tc, POWERS.Fb, POWERS.Sd, POWERS.Id, POWERS.ac],
+    powers: [POWERS.tc, POWERS.Fb2, POWERS.Sd2, POWERS.Id, POWERS.ac3],
   },
   {
     index: 279,
@@ -1236,7 +1236,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 0,
     heavy_melee_base_dmg: 150,
     heavy_melee_modifiers: l,
-    powers: [POWERS.jd, POWERS.vc, POWERS.Eb, POWERS.Jd, POWERS.Ga],
+    powers: [POWERS.jd2, POWERS.vc, POWERS.Eb, POWERS.Jd, POWERS.Ga5],
   },
   {
     index: 511,
@@ -1252,7 +1252,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 500,
     Ra: 4.5,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
-    powers: [POWERS.Gb, POWERS.fb, POWERS.bd, POWERS.Hd, POWERS.Ga],
+    powers: [POWERS.Gb, POWERS.fb, POWERS.bd2, POWERS.Hd2, POWERS.Ga],
   },
   {
     index: 583,
@@ -1267,7 +1267,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 360,
     heavy_melee_base_dmg: 675,
     heavy_melee_modifiers: { health: 1, armor: 1, barrier: 1, shield: 1 },
-    powers: [POWERS.Gb, POWERS.ie, POWERS.ze, POWERS.cv, POWERS.Eo],
+    powers: [POWERS.Gb4, POWERS.ie, POWERS.ze, POWERS.cv, POWERS.Eo],
     mutually_exclusive: [1, 2],
   },
   {
@@ -1283,7 +1283,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.bb, POWERS.Zb, POWERS.Rc, POWERS.ab, POWERS.Za],
+    powers: [POWERS.bb, POWERS.Zb, POWERS.Rc, POWERS.ab, POWERS.Za4],
   },
   {
     index: 251,
@@ -1298,7 +1298,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.bb, POWERS.Zb, POWERS.Rc, POWERS.ab, POWERS.Za],
+    powers: [POWERS.bb, POWERS.Zb, POWERS.Rc, POWERS.ab, POWERS.Za4],
   },
   {
     index: 221,
@@ -1313,7 +1313,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.bb, POWERS.lc, POWERS.Ac, POWERS.Ch, POWERS.Ga],
+    powers: [POWERS.bb, POWERS.lc, POWERS.Ac, POWERS.Ch, POWERS.Ga3],
   },
   {
     index: 222,
@@ -1328,7 +1328,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.bb, POWERS.Rc, POWERS.Nc, POWERS.Ah, POWERS.Ga],
+    powers: [POWERS.bb, POWERS.Rc, POWERS.Nc, POWERS.Ah, POWERS.Ga2],
   },
   {
     index: 239,
@@ -1345,7 +1345,7 @@ export const CHARACTERS: Character[] = [
     Ra: 5,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
     race: Races.Geth,
-    powers: [POWERS.bb, POWERS.lc, POWERS.Hc, POWERS.df, POWERS.Ce],
+    powers: [POWERS.bb2, POWERS.lc2, POWERS.Hc3, POWERS.df2, POWERS.Ce2],
   },
   {
     index: 281,
@@ -1360,7 +1360,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.bb, POWERS.Sc, POWERS.Of, POWERS.Bh, POWERS.bc],
+    powers: [POWERS.bb, POWERS.Sc2, POWERS.Of, POWERS.Bh, POWERS.bc3],
   },
   {
     index: 377,
@@ -1376,7 +1376,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 700,
     Ra: 2,
     heavy_melee_modifiers: { health: 1, armor: 1, barrier: 1, shield: 1 },
-    powers: [POWERS.bb, POWERS.xe, POWERS.of, POWERS.hv, POWERS.Ho],
+    powers: [POWERS.bb3, POWERS.xe, POWERS.of, POWERS.hv, POWERS.Ho],
   },
   {
     index: 481,
@@ -1406,7 +1406,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 225,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.bb, POWERS.Gc, POWERS.Kd, POWERS.cf, POWERS.Be],
+    powers: [POWERS.bb, POWERS.Gc2, POWERS.Kd, POWERS.cf, POWERS.Be],
   },
   {
     index: 510,
@@ -1422,7 +1422,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 500,
     Ra: 4.5,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
-    powers: [POWERS.Uz, POWERS.yc, POWERS.fb, POWERS.Hd, POWERS.Ga],
+    powers: [POWERS.Uz, POWERS.yc3, POWERS.fb, POWERS.Hd3, POWERS.Ga],
   },
   {
     index: 602,
@@ -1437,7 +1437,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 350,
     heavy_melee_base_dmg: 650,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Sz, POWERS.Qd, POWERS.kf, POWERS.kv, POWERS.Co],
+    powers: [POWERS.Sz, POWERS.Qd1, POWERS.kf, POWERS.kv, POWERS.Co],
   },
   {
     index: 290,
@@ -1452,7 +1452,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 600,
     heavy_melee_modifiers: l,
-    powers: [POWERS.bb, POWERS.tb, POWERS.Rc, POWERS.ab, POWERS.Za],
+    powers: [POWERS.bb, POWERS.tb, POWERS.Rc, POWERS.ab, POWERS.Za4],
   },
   {
     index: 258,
@@ -1467,7 +1467,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 500,
     heavy_melee_modifiers: l,
-    powers: [POWERS.lb, POWERS.Fb, POWERS.Bd, POWERS.ab, POWERS.Za],
+    powers: [POWERS.lb, POWERS.Fb, POWERS.Bd, POWERS.ab, POWERS.Za5],
   },
   {
     index: 257,
@@ -1482,7 +1482,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 150,
     heavy_melee_base_dmg: 500,
     heavy_melee_modifiers: l,
-    powers: [POWERS.lb, POWERS.Fb, POWERS.Bd, POWERS.ab, POWERS.Za],
+    powers: [POWERS.lb, POWERS.Fb, POWERS.Bd, POWERS.ab, POWERS.Za5],
   },
   {
     index: 227,
@@ -1528,7 +1528,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 300,
     heavy_melee_base_dmg: 700,
     heavy_melee_modifiers: l,
-    powers: [POWERS.Kk, POWERS.Xb, POWERS.rb, POWERS.bv, POWERS.kd],
+    powers: [POWERS.Kk, POWERS.Xb2, POWERS.rb2, POWERS.bv, POWERS.kd2],
   },
   {
     index: 283,
@@ -1544,7 +1544,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 350,
     Ra: 6,
     heavy_melee_modifiers: { health: 1, armor: 1.5, barrier: 1.5, shield: 1.5 },
-    powers: [POWERS.lb, POWERS.Pd, POWERS.hc, POWERS.zh, POWERS.Ga],
+    powers: [POWERS.lb, POWERS.Pd, POWERS.hc, POWERS.zh, POWERS.Ga7],
   },
   {
     index: 376,
@@ -1560,7 +1560,7 @@ export const CHARACTERS: Character[] = [
     heavy_melee_base_dmg: 700,
     Ra: 2.5,
     heavy_melee_modifiers: { health: 1, armor: 1, barrier: 1, shield: 1 },
-    powers: [POWERS.lb, POWERS.We, POWERS.je, POWERS.iv, POWERS.Ga],
+    powers: [POWERS.lb, POWERS.We, POWERS.je, POWERS.iv, POWERS.Ga9],
   },
   {
     index: 507,
@@ -1575,7 +1575,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 0,
     heavy_melee_base_dmg: 150,
     heavy_melee_modifiers: l,
-    powers: [POWERS.lb, POWERS.Eb, POWERS.ed, POWERS.Jd, POWERS.Ga],
+    powers: [POWERS.lb, POWERS.Eb, POWERS.ed, POWERS.Jd, POWERS.Ga5],
   },
   {
     index: 513,
@@ -1590,7 +1590,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 190,
     heavy_melee_base_dmg: 1e3,
     heavy_melee_modifiers: l,
-    powers: [POWERS.lb, POWERS.hc, POWERS.tc, POWERS.Id, POWERS.ac],
+    powers: [POWERS.lb, POWERS.hc2, POWERS.tc2, POWERS.Id2, POWERS.ac4],
   },
   {
     index: 592,
@@ -1605,7 +1605,7 @@ export const CHARACTERS: Character[] = [
     light_melee_base_dmg: 250,
     heavy_melee_base_dmg: 700,
     heavy_melee_modifiers: { health: 1, armor: 1, barrier: 1, shield: 1 },
-    powers: [POWERS.Ye, POWERS.Ue, POWERS.he, POWERS.ff, POWERS.Jo],
+    powers: [POWERS.Ye, POWERS.Ue, POWERS.he, POWERS.ff2, POWERS.Jo],
   },
 ];
 

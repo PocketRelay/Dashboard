@@ -1,4 +1,15 @@
-import { CHARACTERS, type Character } from "$lib/data/inventory";
+import {
+  CHARACTERS,
+  getCharacterByKitName,
+  type Character,
+} from "$lib/data/inventory";
+import {
+  INTERNAL_POWERS,
+  POWERS,
+  getPowerByID,
+  type InternalPower,
+  type Power,
+} from "$lib/data/powers";
 import type { PlayerDataMap } from "./players";
 
 const VERSION_NUMBER = 20;
@@ -11,7 +22,10 @@ const DEV_VERSION_NUMBER = 4;
  * @param values
  * @returns
  */
-function serializeValues(values: (string | number | boolean)[]): string {
+function serializeValues(
+  values: (string | number | boolean)[],
+  separator: string = ";"
+): string {
   return values
     .map((value) => {
       if (typeof value === "boolean") {
@@ -27,7 +41,7 @@ function serializeValues(values: (string | number | boolean)[]): string {
         return value.toString();
       }
     })
-    .join(";");
+    .join(separator);
 }
 
 export interface PlayerData {
@@ -127,6 +141,15 @@ function parseIntWithDefault(
   defaultValue: number = 0
 ): number {
   const value: number = parseInt(rawValue);
+  if (Number.isNaN(value)) return defaultValue;
+  return value;
+}
+
+function parseFloatWithDefault(
+  rawValue: string,
+  defaultValue: number = 0.0
+): number {
+  const value: number = parseFloat(rawValue);
   if (Number.isNaN(value)) return defaultValue;
   return value;
 }
@@ -298,7 +321,187 @@ export interface CharacterNames {
   characterName: string;
 }
 
+// Singularity 179 1.0000 0 0 0 0 0 0 0 True,Warp 185 0.0000 0 0 0 0 0 0 0 True,Shockwave 177 0.0000 0 0 0 0 0 0 0 True,MPPassive 206 0.0000 0 0 0 0 0 0 0 True,MPMeleePassive 200 0.0000 0 0 0 0 0 0 0 True,Consumable_Rocket 88 0.0000 0 0 0 0 0 0 0 False,Consumable_Revive 87 0.0000 0 0 0 0 0 0 0 False,Consumable_Shield 89 0.0000 0 0 0 0 0 0 0 False,Consumable_Ammo 86 0.0000 0 0 0 0 0 0 0 False
+
+export interface PlayerCharacterPower {
+  powerName: string;
+  powerID: number;
+  powerProgress: number;
+  rank1: number;
+  rank2: number;
+  rank3: number;
+  rank4: number;
+  rank5: number;
+  rank6: number;
+  // Actual name not known but only set to false on the internal game ones like the Rockets
+  charPower: boolean;
+
+  // Internal power data
+  power: Power | undefined;
+}
+
+export function encodePlayerCharacterPower(
+  power: PlayerCharacterPower
+): string {
+  return serializeValues(
+    [
+      power.powerName,
+      power.powerID,
+      power.powerProgress.toFixed(4),
+      power.rank1,
+      power.rank2,
+      power.rank3,
+      power.rank4,
+      power.rank5,
+      power.rank6,
+      power.charPower,
+    ],
+    " "
+  );
+}
+export function encodePlayerCharacterPowers(
+  powers: PlayerCharacterPower[]
+): string {
+  return serializeValues(powers.map(encodePlayerCharacterPower), ",");
+}
+
+export function createDefaultPlayerCharacterPowers(
+  powers: Power[]
+): PlayerCharacterPower[] {
+  const out = [];
+  for (const power of powers) {
+    out.push(createDefaultPlayerCharacterPower(power));
+  }
+
+  for (const internalPower of INTERNAL_POWERS) {
+    out.push(createDefaultPlayerCharacterPowerInternal(internalPower));
+  }
+
+  return out;
+}
+
+export function createDefaultPlayerCharacterPower(
+  power: Power
+): PlayerCharacterPower {
+  return {
+    powerName: power.internalName,
+    powerID: power.id,
+    powerProgress: 0.0,
+    rank1: 0,
+    rank2: 0,
+    rank3: 0,
+    rank4: 0,
+    rank5: 0,
+    rank6: 0,
+    charPower: true,
+    power,
+  };
+}
+
+export function createDefaultPlayerCharacterPowerInternal(
+  power: InternalPower
+) {
+  return {
+    powerName: power.name,
+    powerID: power.id,
+    powerProgress: 1.0,
+    rank1: 0,
+    rank2: 0,
+    rank3: 0,
+    rank4: 0,
+    rank5: 0,
+    rank6: 0,
+    charPower: false,
+    power: undefined,
+  };
+}
+
+export function parsePlayerCharacterPowers(
+  character: Character,
+  input: string,
+  powers: Power[]
+): PlayerCharacterPower[] {
+  const parts = input.split(",");
+
+  const characterPowers = [];
+  for (const part of parts) {
+    if (part.length < 1) continue;
+    const parsed = parsePlayerCharacterPower(part);
+    if (parsed !== null) {
+      if (parsed.power === undefined) {
+        const isInternal =
+          INTERNAL_POWERS.find((intern) => intern.id == parsed.powerID) !==
+          undefined;
+
+        if (!isInternal) {
+          console.error("UNKNOWN POWER", parsed);
+        }
+      }
+
+      characterPowers.push(parsed);
+    } else {
+      console.error("Failed to parse character power", part);
+    }
+  }
+
+  for (const power of powers) {
+    const parsedPower = characterPowers.find(
+      (charPow) => charPow.powerID === power.id
+    );
+    if (parsedPower === undefined) {
+      const matchingName = characterPowers.find(
+        (charPOw) => charPOw.powerName === power.internalName
+      );
+
+      console.error("Missing power", character.kitName, power, matchingName);
+      // TODO: Create default power data
+    }
+  }
+
+  return characterPowers;
+}
+
+export function parsePlayerCharacterPower(
+  input: string
+): PlayerCharacterPower | null {
+  const parts = input.split(" ");
+
+  if (parts.length < 10) return null;
+
+  const powerName = parts[0];
+  const powerID = parseIntWithDefault(parts[1], -1);
+  if (powerID === -1) {
+    return null;
+  }
+
+  const powerProgress = parseFloatWithDefault(parts[2]);
+  const rank1 = parseIntWithDefault(parts[3]);
+  const rank2 = parseIntWithDefault(parts[4]);
+  const rank3 = parseIntWithDefault(parts[5]);
+  const rank4 = parseIntWithDefault(parts[6]);
+  const rank5 = parseIntWithDefault(parts[7]);
+  const rank6 = parseIntWithDefault(parts[8]);
+  const gamePower = parts[9] === "True";
+
+  const power = getPowerByID(powerID);
+
+  return {
+    powerName,
+    powerID,
+    powerProgress,
+    rank1,
+    rank2,
+    rank3,
+    rank4,
+    rank5,
+    rank6,
+    charPower: gamePower,
+    power,
+  };
+}
+
 export interface PlayerCharacter {
+  index: number;
   // Internal name for the character
   kitName: string;
   // Player given name for the character
@@ -315,7 +518,7 @@ export interface PlayerCharacter {
   timestampMonth: number;
   timestampDay: number;
   timestampSeconds: number;
-  powers: string;
+  powers: PlayerCharacterPower[];
   hotkeys: string;
   weapons: string;
   weaponMods: string;
@@ -329,9 +532,11 @@ export interface PlayerCharacter {
 }
 
 export function createDefaultPlayerCharacter(
+  index: number,
   character: Character
 ): PlayerCharacter {
   return {
+    index,
     kitName: character.kitName,
     characterName: character.characterName,
     tint1ID: 0,
@@ -346,7 +551,7 @@ export function createDefaultPlayerCharacter(
     timestampMonth: 0,
     timestampDay: 0,
     timestampSeconds: 0,
-    powers: "",
+    powers: createDefaultPlayerCharacterPowers(character.powers),
     hotkeys: "",
     weapons: "",
     weaponMods: "",
@@ -367,8 +572,8 @@ export function createDefaultPlayerCharacter(
  * @returns
  */
 export function parsePlayerCharacter(
-  value: string,
-  character: Character
+  index: number,
+  value: string
 ): PlayerCharacter | null {
   const parts: string[] = value.split(";");
 
@@ -376,27 +581,38 @@ export function parsePlayerCharacter(
   if (parts.length < 22) return null;
 
   const kitName: string = parts[2];
+  const character = getCharacterByKitName(kitName);
+  if (character === undefined) {
+    console.error("Unknown character kitName", kitName);
+    return null;
+  }
+
   const characterName: string = parts[3];
   const tint1ID: number = parseIntWithDefault(parts[4]);
-  const tint2ID: number = parseIntWithDefault(parts[4], 45);
-  const patternID: number = parseIntWithDefault(parts[4]);
-  const patternColorID: number = parseIntWithDefault(parts[4], 47);
-  const phongID: number = parseIntWithDefault(parts[4], 45);
-  const emissiveID: number = parseIntWithDefault(parts[4], 9);
-  const skinToneID: number = parseIntWithDefault(parts[4], 9);
-  const secondsPlayed: number = parseIntWithDefault(parts[4]);
-  const timestampYear: number = parseIntWithDefault(parts[4]);
-  const timestampMonth: number = parseIntWithDefault(parts[4]);
-  const timestampDay: number = parseIntWithDefault(parts[4]);
-  const timestampSeconds: number = parseIntWithDefault(parts[4]);
-  const powers: string = parts[4];
-  const hotkeys: string = parts[4];
-  const weapons: string = parts[4];
-  const weaponMods: string = parts[4];
-  const deployed: boolean = parts[4] === "True";
-  const leveledUp: boolean = parts[4] === "True";
+  const tint2ID: number = parseIntWithDefault(parts[5], 45);
+  const patternID: number = parseIntWithDefault(parts[6]);
+  const patternColorID: number = parseIntWithDefault(parts[7], 47);
+  const phongID: number = parseIntWithDefault(parts[8], 45);
+  const emissiveID: number = parseIntWithDefault(parts[9], 9);
+  const skinToneID: number = parseIntWithDefault(parts[10], 9);
+  const secondsPlayed: number = parseIntWithDefault(parts[11]);
+  const timestampYear: number = parseIntWithDefault(parts[12]);
+  const timestampMonth: number = parseIntWithDefault(parts[13]);
+  const timestampDay: number = parseIntWithDefault(parts[14]);
+  const timestampSeconds: number = parseIntWithDefault(parts[15]);
+  const powers: PlayerCharacterPower[] = parsePlayerCharacterPowers(
+    character,
+    parts[16],
+    character.powers
+  );
+  const hotkeys: string = parts[17];
+  const weapons: string = parts[18];
+  const weaponMods: string = parts[19];
+  const deployed: boolean = parts[20] === "True";
+  const leveledUp: boolean = parts[21] === "True";
 
   return {
+    index,
     kitName,
     characterName,
     tint1ID,
@@ -439,7 +655,7 @@ export function encodePlayerCharacter(value: PlayerCharacter): string {
     value.timestampMonth,
     value.timestampDay,
     value.timestampSeconds,
-    value.powers,
+    encodePlayerCharacterPowers(value.powers),
     value.hotkeys,
     value.weapons,
     value.weaponMods,
@@ -453,25 +669,40 @@ export function getPlayerCharacters(
 ): PlayerCharacter[] {
   const characters: PlayerCharacter[] = [];
 
+  let nextIndex = 1;
+
+  // Parse all the character data
+  for (const entry of Object.entries(playerData)) {
+    const [key, data] = entry;
+
+    if (key.startsWith("char")) {
+      const index = parseIntWithDefault(key.substring(4), -1);
+      if (index === -1) {
+        continue;
+      }
+
+      if (index > nextIndex) nextIndex = index;
+
+      const parsedChar = parsePlayerCharacter(index, data);
+      if (parsedChar !== null) {
+        characters.push(parsedChar);
+      } else {
+        console.error("Failed to parse character", data);
+      }
+    }
+  }
+
+  // Find missing characters and create them
   for (let i = 0; i < CHARACTERS.length; i++) {
     const localChar = CHARACTERS[i];
-    const key = `class${i + 1}`;
-    const data = playerData[key];
+    const parsedChar = characters.find(
+      (parsedChar) => parsedChar.kitName === localChar.kitName
+    );
 
-    if (data === undefined) {
-      // Create a default value if one isn't present
-      characters.push(createDefaultPlayerCharacter(localChar));
-      continue;
+    if (parsedChar === undefined) {
+      nextIndex++;
+      characters.push(createDefaultPlayerCharacter(nextIndex, localChar));
     }
-
-    const parsedChar = parsePlayerCharacter(data, localChar);
-    if (parsedChar === null) {
-      // Create a default value if the existing one is not able to be parsed
-      characters.push(createDefaultPlayerCharacter(localChar));
-      continue;
-    }
-
-    characters.push(parsedChar);
   }
 
   return characters;
@@ -483,12 +714,7 @@ export function encodePlayerCharacters(
   let output: Record<string, string> = {};
 
   for (const character of characters) {
-    const classNameIndex = CHARACTERS.findIndex(
-      (entry) => entry.kitName == character.kitName
-    );
-    if (classNameIndex === -1) continue;
-
-    const key = `char${classNameIndex + 1}`;
+    const key = `char${character.index}`;
     output[key] = encodePlayerCharacter(character);
   }
 
@@ -497,6 +723,7 @@ export function encodePlayerCharacters(
 
 // Decoded format of a player class
 export interface PlayerClass {
+  index: number;
   // The name of the class (e.g Adept)
   name: string;
   // The level of the class
@@ -516,7 +743,10 @@ export interface PlayerClass {
  * @param value The raw player class value
  * @returns The decoded format or null for invalid values
  */
-export function parsePlayerClass(value: string): PlayerClass | null {
+export function parsePlayerClass(
+  index: number,
+  value: string
+): PlayerClass | null {
   const parts: string[] = value.split(";");
   if (parts.length < 6) return null;
 
@@ -525,7 +755,7 @@ export function parsePlayerClass(value: string): PlayerClass | null {
   const exp: string = parts[4];
   const promotions: number = parseIntWithDefault(parts[5]);
 
-  return { name, level, exp, promotions };
+  return { index, name, level, exp, promotions };
 }
 
 /**
@@ -556,8 +786,9 @@ export const LOCAL_CLASS_NAMES: string[] = [
   "Vanguard",
 ];
 
-function createDefaultClass(name: string): PlayerClass {
+function createDefaultClass(index: number, name: string): PlayerClass {
   return {
+    index,
     name: name,
     level: 1,
     exp: "0.0000",
@@ -578,27 +809,39 @@ export function getPlayerClasses(
 ): PlayerClass[] {
   const classes: PlayerClass[] = [];
 
-  for (let i = 0; i < LOCAL_CLASS_NAMES.length; i++) {
-    const localClassName = LOCAL_CLASS_NAMES[i];
-    const key = `class${i + 1}`;
-    const data = playerData[key];
+  let nextIndex = 1;
 
-    if (data === undefined) {
-      // Create a default value if one isn't present
-      classes.push(createDefaultClass(localClassName));
-      continue;
+  // Parse all the classes data
+  for (const entry of Object.entries(playerData)) {
+    const [key, data] = entry;
+
+    if (key.startsWith("class")) {
+      const index = parseIntWithDefault(key.substring(5), -1);
+      if (index === -1) {
+        continue;
+      }
+
+      if (index > nextIndex) nextIndex = index;
+
+      const parsedClass = parsePlayerClass(index, data);
+      if (parsedClass !== null) {
+        classes.push(parsedClass);
+      } else {
+        console.error("Failed to parse character", data);
+      }
     }
+  }
 
-    const parsedClass = parsePlayerClass(data);
-    if (parsedClass === null) {
-      // Create a default value if the existing one is not able to be parsed
-      classes.push(createDefaultClass(localClassName));
-      continue;
+  // Find missing classes and create them
+  for (const localClassName of LOCAL_CLASS_NAMES) {
+    const parsedClass = classes.find(
+      (parsedClass) => parsedClass.name === localClassName
+    );
+
+    if (parsedClass === undefined) {
+      nextIndex++;
+      classes.push(createDefaultClass(nextIndex, localClassName));
     }
-
-    // Force update the name to match (It should already anyway)
-    parsedClass.name = localClassName;
-    classes.push(parsedClass);
   }
 
   return classes;
@@ -610,10 +853,7 @@ export function encodePlayerClasses(
   let output: Record<string, string> = {};
 
   for (const playerClass of classes) {
-    const classNameIndex = LOCAL_CLASS_NAMES.indexOf(playerClass.name);
-    if (classNameIndex === -1) continue;
-
-    const key = `class${classNameIndex + 1}`;
+    const key = `class${playerClass.index}`;
     output[key] = encodePlayerClass(playerClass);
   }
 

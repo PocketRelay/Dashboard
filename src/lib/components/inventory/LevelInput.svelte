@@ -16,6 +16,7 @@
   $: {
     // Prevent the input from changing the value to above the unsafe max
     if (value > UNSAFE_MAX) value = UNSAFE_MAX;
+    if (!allowUnsafe && value > max) value = max;
     if (value == null) value = min;
   }
 </script>
@@ -86,31 +87,5 @@
   .level-input {
     display: flex;
     flex-flow: row;
-  }
-
-  .wrapper--slim {
-    flex-flow: row;
-  }
-
-  .wrapper--slim .input__value {
-    max-width: 4rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-  }
-
-  .actions {
-    display: flex;
-    flex-flow: row;
-    gap: 0.5rem;
-  }
-
-  .action {
-    padding: 0.5rem;
-    flex: auto;
-    background-color: #272727;
-  }
-
-  .action:hover {
-    background-color: #3f3f3f;
   }
 </style>

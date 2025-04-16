@@ -1,16 +1,10 @@
 <script lang="ts">
-  import {
-    type PlayerCharacter,
-    type PlayerCharacterWeapon,
-    type PlayerData,
-  } from "$lib/api/parser";
-  import { isAdmin, player } from "$lib/api/api";
+  import { type PlayerCharacter, type PlayerData } from "$lib/api/parser";
   import { MAX_CHARACTER_LEVEL } from "$lib/data/inventory";
   import LevelInput from "$lib/components/inventory/LevelInput.svelte";
-  import InventoryCharacterPowerLevel from "./PowerLevelDisplay.svelte";
-  import InventoryCharacterPowerEditor from "./PowerEditor.svelte";
-  import WeaponEditor from "./WeaponEditor.svelte";
-  import { getWeaponWeight } from "$lib/data/weapons";
+  import InventoryCharacterPowerLevel from "./power/PowerLevelDisplay.svelte";
+  import InventoryCharacterPowerEditor from "./power/PowerEditor.svelte";
+  import WeaponEditor from "./weapon/WeaponEditor.svelte";
 
   export let playerData: PlayerData;
   export let playerCharacter: PlayerCharacter;

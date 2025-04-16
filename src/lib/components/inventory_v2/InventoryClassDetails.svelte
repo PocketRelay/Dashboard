@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { isAdmin, player } from "$lib/api/api";
   import type { PlayerClass } from "$lib/api/parser";
   import LevelInput from "../inventory/LevelInput.svelte";
 
   export let playerClass: PlayerClass;
+  export let editable: boolean;
 </script>
 
 <div class="class-details">
@@ -20,7 +20,7 @@
     <p><b>Promotions</b>: {playerClass.promotions}</p>
   </div>
 
-  {#if isAdmin($player)}
+  {#if editable}
     <div class="input">
       <span class="input__label">Level</span>
       <LevelInput bind:value={playerClass.level} min={1} max={20} />

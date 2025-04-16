@@ -14,6 +14,8 @@
   import deepCopy from "$lib/tools/copy";
   import { createMutation, useQueryClient } from "@tanstack/svelte-query";
 
+  import { isEqual, cloneDeep } from "lodash";
+
   // Local editable copy of the player data
   let localPlayerData: Writable<PlayerData | undefined> = writable();
 
@@ -36,9 +38,11 @@
   $: {
     // Local data uses a copy so it can be restored
     localPlayerData.set(
-      $playerData.data === undefined ? undefined : deepCopy($playerData.data)
+      $playerData.data === undefined ? undefined : cloneDeep($playerData.data)
     );
   }
+
+  $: isDirty = !isEqual($localPlayerData, $playerData.data);
 
   const saveMutation = createMutation(
     derived([player, localPlayerData], ([$player, $localPlayerData]) => ({
@@ -72,22 +76,58 @@
 </script>
 
 {#if $playerData.isLoading}
-  <Loader />
+  <Loader message="Loading player data" />
+{:else if $saveMutation.isPending}
+  <Loader message="Saving player data" />
 {:else if $playerData.isError}
   <p class="error">{$playerData.error}</p>
 {:else if $localPlayerData}
-  <div class="button-group">
-    {#if editable}
-      <button
-        class="button button--alt"
-        on:click={() => $saveMutation.mutate()}
-        title="Saves any changes made to the inventory"
-      >
-        Save
-      </button>
-      <button class="button button--alt" on:click={reset}> Reset </button>
-    {/if}
-  </div>
-
   <Inventory bind:playerData={$localPlayerData} {editable} />
+
+  {#if isDirty}
+    <div class="unsaved">
+      <p>You have unsaved changes</p>
+      {#if editable}
+        <div class="unsaved__buttons">
+          <button
+            on:click={() => $saveMutation.mutate()}
+            title="Saves any changes made to the inventory"
+          >
+            Save
+          </button>
+          <button on:click={reset}> Reset </button>
+        </div>
+      {/if}
+    </div>
+  {/if}
 {/if}
+
+<style lang="scss">
+  .unsaved {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1rem;
+    border: 1px solid #444;
+    background-color: #111;
+    border-radius: 0.25rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .unsaved__buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .unsaved button {
+    border: 1px solid #444;
+    padding: 0.5rem;
+    color: #fff;
+    border-radius: 0.25rem;
+    background-color: #111;
+  }
+</style>

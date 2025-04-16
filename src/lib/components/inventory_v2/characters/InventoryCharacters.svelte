@@ -1,14 +1,10 @@
 <script lang="ts">
-  import {
-    getPlayerCharacters,
-    type PlayerClass,
-    type PlayerData,
-  } from "$lib/api/parser";
+  import { type PlayerClass, type PlayerData } from "$lib/api/parser";
 
   import { Tabs } from "bits-ui";
-  import InventoryCharacterDetails from "./CharacterEditor.svelte";
-  import PhCaretRightBold from "~icons/ph/caret-right-bold";
-  import PhCaretLeftBold from "~icons/ph/caret-left-bold";
+  import CharacterEditor from "./CharacterEditor.svelte";
+  import CaretRight from "~icons/ph/caret-right-bold";
+  import CaretLeft from "~icons/ph/caret-left-bold";
 
   export let playerData: PlayerData;
   export let playerClass: PlayerClass;
@@ -36,7 +32,7 @@
       class="scroll-btn scroll-btn--left"
       on:click={doScrollLeft}
     >
-      <PhCaretLeftBold width="1em" height="1em" />
+      <CaretLeft width="1em" height="1em" />
     </button>
     <Tabs.List class="character-tabs" bind:el={tabsContainer}>
       {#each filteredCharacters as character}
@@ -57,13 +53,13 @@
       class="scroll-btn scroll-btn--right"
       on:click={doScrollRight}
     >
-      <PhCaretRightBold width="1em" height="1em" />
+      <CaretRight width="1em" height="1em" />
     </button>
   </div>
 
   {#each filteredCharacters as character}
     <Tabs.Content value={character.kitName}>
-      <InventoryCharacterDetails
+      <CharacterEditor
         bind:playerData
         bind:playerCharacter={character}
         {editable}

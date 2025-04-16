@@ -18,10 +18,10 @@
   import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Dialog from "$lib/components/Dialog.svelte";
   import Loader from "$lib/components/Loader.svelte";
-  import Account from "svelte-material-icons/Account.svelte";
-  import Key from "svelte-material-icons/Key.svelte";
-  import Delete from "svelte-material-icons/Delete.svelte";
-  import AccountCog from "svelte-material-icons/AccountCog.svelte";
+  import Account from "~icons/ph/user-fill";
+  import Key from "~icons/ph/key-fill";
+  import Delete from "~icons/ph/trash-fill";
+  import AccountCog from "~icons/ph/user-gear-fill";
   import { acceptUpload, startDownload } from "$lib/tools/files";
   import { base } from "$app/paths";
 

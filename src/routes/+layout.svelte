@@ -1,7 +1,11 @@
 <script lang="ts">
-  import "../app.pcss";
+  import { QueryClient, QueryClientProvider } from "@tanstack/svelte-query";
   import "$lib/styles/global.scss";
   import "@fontsource/inter";
+
+  const queryClient = new QueryClient();
 </script>
 
-<slot></slot>
+<QueryClientProvider client={queryClient}>
+  <slot />
+</QueryClientProvider>

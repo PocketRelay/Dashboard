@@ -3,10 +3,10 @@
   import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import { onMount } from "svelte";
-  import Download from "svelte-material-icons/Download.svelte";
-  import Refresh from "svelte-material-icons/Refresh.svelte";
-  import Delete from "svelte-material-icons/Delete.svelte";
+  import Refresh from "~icons/ph/arrow-clockwise-bold";
+  import Delete from "~icons/ph/trash-fill";
   import Dialog from "$lib/components/Dialog.svelte";
+  import Download from "~icons/ph/download-simple-bold";
 
   let loading = false;
   let error: string | null = null;

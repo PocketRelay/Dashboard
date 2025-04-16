@@ -5,51 +5,38 @@
   import { doLogin } from "$lib/api/auth";
   import Loader from "$lib/components/Loader.svelte";
   import { disableAccountCreation } from "$lib/dashboard.state";
+  import { createMutation } from "@tanstack/svelte-query";
 
   // Form fields
   let email: string = "";
   let password: string = "";
 
-  // State
-  let loading: boolean = false;
-  let error: string | null = null;
-
-  /**
-   * Handles attempting to login to the backend server
-   * using the provided credentials
-   */
-  async function login() {
-    error = null;
-    loading = true;
-
-    try {
+  const loginMutation = createMutation({
+    mutationFn: async () => {
       const { token } = await doLogin(email, password);
 
       // Assign the token
       setToken(token);
 
       await goto(`${base}/`);
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-      error = err.message;
-    } finally {
-      loading = false;
-    }
-  }
+    },
+  });
 </script>
 
-{#if loading}
+{#if $loginMutation.isPending}
   <Loader />
 {/if}
 
 <main class="background">
-  <form class="form card" on:submit|preventDefault={login}>
+  <form
+    class="form card"
+    on:submit|preventDefault={() => $loginMutation.mutate()}
+  >
     <h1>Login</h1>
     <span class="ident">POCKET RELAY MANAGER</span>
     <p class="text">Login to an existing account on the server</p>
-    {#if error}
-      <p class="error">{error}</p>
+    {#if $loginMutation.isError}
+      <p class="error">{$loginMutation.error}</p>
     {/if}
 
     <label class="input">

@@ -18,14 +18,6 @@
       queryFn: () => getPlayers($page - 1, $perPage),
     }))
   );
-
-  /**
-   * Refreshes the current players query to get the
-   * up-to-date players list
-   */
-  function refresh() {
-    $query.refetch();
-  }
 </script>
 
 <DashboardPage
@@ -37,7 +29,7 @@
       count={$query.data?.total_items ?? 0}
       bind:perPage={$perPage}
       bind:page={$page}
-      on:refresh={refresh}
+      on:refresh={() => $query.refetch()}
     />
   </svelte:fragment>
 

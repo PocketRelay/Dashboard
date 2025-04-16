@@ -1,57 +1,30 @@
 <script lang="ts">
-  import { getGames, type Game } from "$lib/api/games";
+  import { getGames } from "$lib/api/games";
   import DashboardPage from "$lib/components/DashboardPage.svelte";
   import GameComponent from "$lib/components/GameComponent.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import QueryPagination from "$lib/components/QueryPagination.svelte";
-
-  let loading: boolean = true;
-  let error: string | null = null;
-
-  // The current games list
-  let games: Game[] = [];
-  // Whether there are more entries at the next offset
-  let more: boolean = false;
+  import { createQuery } from "@tanstack/svelte-query";
+  import { writable, type Writable, derived } from "svelte/store";
 
   // Query parameters
-  let count: number = 10;
-  let offset: number = 0;
+  let perPage: Writable<number> = writable(20);
+  let page: Writable<number> = writable(1);
 
-  /**
-   * Loads the games list for at the provided
-   * offset and loads the provided number of entries
-   *
-   * Handles errors and loading state
-   *
-   * @param offset The offset to query
-   * @param count  The number of entries to query for
-   */
-  async function load(offset: number, count: number) {
-    loading = true;
-    error = null;
-
-    try {
-      let response = await getGames(offset, count);
-      games = response.games;
-      more = response.more;
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-      error = err.message;
-    } finally {
-      loading = false;
-    }
-  }
+  const query = createQuery(
+    derived([page, perPage], ([$page, $perPage]) => ({
+      queryKey: ["games", $page, $perPage],
+      queryFn: () => getGames($page - 1, $perPage),
+    }))
+  );
 
   /**
    * Refreshes the current games query to get the
    * up-to-date games list
    */
   function refresh() {
-    load(offset, count);
+    $query.refetch();
   }
-
-  $: load(offset, count);
 </script>
 
 <DashboardPage
@@ -60,23 +33,27 @@
 >
   <svelte:fragment slot="heading">
     <QueryPagination
-      bind:perPage={count}
-      bind:page={offset}
-      {more}
+      count={$query.data?.total_items ?? 1}
+      bind:perPage={$perPage}
+      bind:page={$page}
       on:refresh={refresh}
     />
 
-    {#if error}
-      <p class="error">{error}</p>
+    {#if $query.error}
+      <p class="error">{$query.error}</p>
     {/if}
   </svelte:fragment>
   <div class="games">
-    {#if loading}
+    {#if $query.isLoading}
       <Loader />
-    {:else}
-      {#each games as game}
-        <GameComponent {game} />
-      {/each}
+    {:else if $query.data}
+      {#if $query.data.games.length > 0}
+        {#each $query.data.games as game}
+          <GameComponent {game} />
+        {/each}
+      {:else}
+        <p>No games found</p>
+      {/if}
     {/if}
   </div>
 </DashboardPage>

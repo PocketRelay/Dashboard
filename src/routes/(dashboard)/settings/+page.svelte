@@ -14,14 +14,7 @@
   import Delete from "~icons/ph/trash-fill";
   import { base } from "$app/paths";
   import Key from "~icons/ph/key-fill";
-
-  // Basic form state extended by the other forms
-  interface FormState {
-    // Form loading state
-    loading: boolean;
-    // Form error state
-    error: string | null;
-  }
+  import { createMutation } from "@tanstack/svelte-query";
 
   // Basic state adding username and email fields to the form
   type BasicState = {
@@ -29,7 +22,7 @@
     username: string;
     // The new account email
     email: string;
-  } & FormState;
+  };
 
   // Password state adding password fields to the form
   type PasswordState = {
@@ -41,7 +34,9 @@
     confirm: string;
     // Show the confirmation screen
     showConfirm: boolean;
-  } & FormState;
+    // Error
+    error: string | undefined;
+  };
 
   // Delete state for account deletion
   type DeleteState = {
@@ -49,14 +44,11 @@
     password: string;
     // Whether the confirm screen is shown
     showConfirm: boolean;
-  } & FormState;
+  };
 
   const basic: BasicState = {
     username: "",
     email: "",
-    // Form state
-    loading: false,
-    error: null,
   };
 
   const password: PasswordState = {
@@ -64,25 +56,16 @@
     new: "",
     confirm: "",
     showConfirm: false,
-    // Form state
-    loading: false,
-    error: null,
+    error: undefined,
   };
 
   const deleteState: DeleteState = {
     password: "",
     showConfirm: false,
-    // Form state
-    loading: false,
-    error: null,
   };
 
-  async function updateBasic() {
-    // Prepare the state
-    basic.error = null;
-    basic.loading = true;
-
-    try {
+  const updateBasicMutation = createMutation({
+    mutationFn: async () => {
       await setSelfDetails(basic.username, basic.email);
       // Update the local stored player state
       player.update((value) => {
@@ -90,51 +73,26 @@
         value.display_name = basic.username;
         return value;
       });
-    } catch (e) {
-      let err = e as Error;
-      basic.error = err.message;
-      console.error(e);
-    } finally {
-      basic.loading = false;
-    }
-  }
+    },
+  });
 
-  async function updatePassword() {
-    // Prepare the state
-    password.showConfirm = false;
-    password.error = null;
-    password.loading = true;
-
-    try {
+  const updatePasswordMutation = createMutation({
+    mutationFn: async () => {
       await setSelfPassword(password.current, password.new);
-    } catch (e) {
-      let err = e as Error;
-      password.error = err.message;
-      console.error(err);
-    } finally {
-      password.loading = false;
-    }
-  }
+    },
+  });
 
-  async function doDelete() {
-    deleteState.showConfirm = false;
-    deleteState.error = null;
-    deleteState.loading = true;
+  const deleteMutation = createMutation({
+    mutationFn: async () => {
+      deleteState.showConfirm = false;
 
-    try {
       await deleteSelf(deleteState.password);
 
       // Account was deleted update all associated state and redirect to login
       clearToken();
       await goto(`${base}/login`);
-    } catch (e) {
-      let err = e as Error;
-      deleteState.error = err.message;
-      console.error(err);
-    } finally {
-      deleteState.loading = false;
-    }
-  }
+    },
+  });
 
   /**
    * Toggles the confirm password screen if the provided
@@ -176,15 +134,18 @@
 
 <DashboardPage title="Settings" text="Edit the settings for your account below">
   <div class="forms">
-    <form class="form card" on:submit|preventDefault={updateBasic}>
+    <form
+      class="form card"
+      on:submit|preventDefault={() => $updateBasicMutation.mutate()}
+    >
       <h2 class="form__title">
         <Account class="form__icon" /> Basic Information
       </h2>
       <p class="text">Here you can modify your basic account information</p>
-      {#if basic.error}
-        <p class="error">{basic.error}</p>
+      {#if $updateBasicMutation.isError}
+        <p class="error">{$updateBasicMutation.error}</p>
       {/if}
-      {#if basic.loading}
+      {#if $updateBasicMutation.isPending}
         <Loader />
       {/if}
       <label class="input">
@@ -218,9 +179,15 @@
       {#if password.error}
         <p class="error">{password.error}</p>
       {/if}
-      {#if password.loading}
+
+      {#if $updatePasswordMutation.isError}
+        <p class="error">{$updatePasswordMutation.error}</p>
+      {/if}
+
+      {#if $updatePasswordMutation.isPending}
         <Loader />
       {/if}
+
       <label class="input">
         <span class="input__label">Current Password</span>
         <input
@@ -260,12 +227,12 @@
       </h2>
       <p class="text">
         <span class="danger">DANGER ZONE</span> Warning deleting your account is
-        perminent and cannot be reversed
+        permanent and cannot be reversed
       </p>
-      {#if deleteState.error}
-        <p class="error">{deleteState.error}</p>
+      {#if $updatePasswordMutation.isError}
+        <p class="error">{$updatePasswordMutation.error}</p>
       {/if}
-      {#if deleteState.loading}
+      {#if $updatePasswordMutation.isPending}
         <Loader />
       {/if}
 
@@ -281,7 +248,10 @@
   <p class="text">Are you sure you want to change your account password?</p>
 
   <div class="button-group">
-    <button class="button button--alt" on:click={updatePassword}>
+    <button
+      class="button button--alt"
+      on:click={() => $updatePasswordMutation.mutate()}
+    >
       Confirm
     </button>
     <button
@@ -313,7 +283,12 @@
     />
   </label>
   <div class="button-group">
-    <button class="button button--danger" on:click={doDelete}> Confirm </button>
+    <button
+      class="button button--danger"
+      on:click={() => $deleteMutation.mutate()}
+    >
+      Confirm
+    </button>
     <button
       class="button button--alt"
       on:click={() => (deleteState.showConfirm = false)}

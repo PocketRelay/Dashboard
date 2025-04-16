@@ -36,7 +36,13 @@
   </select>
 
   <!-- Pagination buttons -->
-  <Pagination.Root {count} bind:page {perPage} let:pages let:range>
+  <Pagination.Root
+    count={count < 1 ? 1 : count}
+    bind:page
+    {perPage}
+    let:pages
+    let:range
+  >
     <div class="pagination-container">
       <Pagination.PrevButton>
         <PhCaretLeftBold width="1rem" height="1rem" />

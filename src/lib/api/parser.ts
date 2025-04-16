@@ -1,3 +1,61 @@
+import { CHARACTERS, type Character } from "$lib/data/inventory";
+import type { PlayerDataMap } from "./players";
+
+const VERSION_NUMBER = 20;
+const DEV_VERSION_NUMBER = 4;
+
+/**
+ * Serializes the provided array of values as a string
+ * separated by the ";" character
+ *
+ * @param values
+ * @returns
+ */
+function serializeValues(values: (string | number | boolean)[]): string {
+  return values
+    .map((value) => {
+      if (typeof value === "boolean") {
+        return value ? "True" : "False";
+      } else if (typeof value === "number") {
+        if (Number.isInteger(value)) {
+          return value.toString();
+        } else {
+          // Floats are formatted to 4dp
+          return value.toFixed(4);
+        }
+      } else {
+        return value.toString();
+      }
+    })
+    .join(";");
+}
+
+export interface PlayerData {
+  // Base player data
+  base: PlayerBase;
+  // All classes for the player (Uses default for those that are missing)
+  classes: PlayerClass[];
+  // All characters for the player (Uses defaults for those that are missing)
+  characters: PlayerCharacter[];
+}
+
+export function decodePlayerData(input: PlayerDataMap): PlayerData {
+  const baseValue: string | undefined = input[PLAYER_BASE_KEY];
+
+  const base: PlayerBase = baseValue
+    ? parsePlayerBase(baseValue)
+    : createDefaultPlayerBase();
+
+  const classes = getPlayerClasses(input);
+  const characters = getPlayerCharacters(input);
+
+  return {
+    base,
+    classes,
+    characters,
+  };
+}
+
 // Player data key for the player base data
 export const PLAYER_BASE_KEY: string = "Base";
 
@@ -8,20 +66,21 @@ export const PLAYER_CHALLENGES_KEY: string = "Progress";
 export interface PlayerBase {
   // The number of credits for the player
   credits: number;
+
+  nextPackToConsume: number;
+  numCopiesToConsume: number;
+
   // The number of credits the player has spent
   creditsSpent: number;
+  platformCurrencySpent: number;
+
   // The number of games the player has played
   gamesPlayed: number;
   // The number seconds the player has spent in game
   secondsPlayed: number;
+  lastLevelUpTime: number;
   // The encoded inventory string
-  inventory: string;
-
-  // Unknown values
-  u1: string;
-  u2: string;
-  u3: string;
-  u4: string;
+  inventory: number[];
 }
 
 // Decoded format of the player challenges data
@@ -72,6 +131,50 @@ function parseIntWithDefault(
   return value;
 }
 
+// Default inventory data
+const DEFAULT_INVENTORY: number[] = [
+  1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+  0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+];
+
+export function createDefaultPlayerBase(): PlayerBase {
+  return {
+    credits: 0,
+    nextPackToConsume: -1,
+    numCopiesToConsume: 0,
+    creditsSpent: 0,
+    platformCurrencySpent: 0,
+    gamesPlayed: 0,
+    secondsPlayed: 0,
+    lastLevelUpTime: 0,
+    inventory: DEFAULT_INVENTORY,
+  };
+}
+
 /**
  * Parses the player base player data value into a
  * editable format
@@ -82,35 +185,37 @@ function parseIntWithDefault(
  * @param value The raw encoded player base value
  * @returns
  */
-export function parsePlayerBase(value: string): PlayerBase | null {
+export function parsePlayerBase(value: string): PlayerBase {
   const parts: string[] = value.split(";");
-  if (parts.length < 11) return null;
+
+  // Use a default if the data is invalid
+  if (parts.length < 11) return createDefaultPlayerBase();
 
   const credits: number = parseIntWithDefault(parts[2]);
 
-  const u1: string = parts[3];
-  const u2: string = parts[4];
+  const nextPackToConsume: number = parseIntWithDefault(parts[3], -1);
+  const numCopiesToConsume: number = parseIntWithDefault(parts[4]);
 
   const creditsSpent: number = parseIntWithDefault(parts[5]);
 
-  const u3: string = parts[6];
+  const platformCurrencySpent: number = parseIntWithDefault(parts[6]);
 
   const gamesPlayed: number = parseIntWithDefault(parts[7]);
   const secondsPlayed: number = parseIntWithDefault(parts[8]);
 
-  const u4: string = parts[9];
-  const inventory: string = parts[10];
+  const lastLevelUpTime: number = parseIntWithDefault(parts[9]);
+  const inventory: number[] = parseInventory(parts[10]);
 
   return {
     credits,
+    nextPackToConsume,
+    numCopiesToConsume,
     creditsSpent,
+    platformCurrencySpent,
     gamesPlayed,
     secondsPlayed,
+    lastLevelUpTime,
     inventory,
-    u1,
-    u2,
-    u3,
-    u4,
   };
 }
 
@@ -147,7 +252,19 @@ export function parseInventory(inventory: string): number[] {
  * @returns The encoded value
  */
 export function encodePlayerBase(value: PlayerBase) {
-  return `20;4;${value.credits};${value.u1};${value.u2};${value.creditsSpent};${value.u3};${value.gamesPlayed};${value.secondsPlayed};${value.u4};${value.inventory}`;
+  return serializeValues([
+    VERSION_NUMBER,
+    DEV_VERSION_NUMBER,
+    value.credits,
+    value.nextPackToConsume,
+    value.numCopiesToConsume,
+    value.creditsSpent,
+    value.platformCurrencySpent,
+    value.gamesPlayed,
+    value.secondsPlayed,
+    value.lastLevelUpTime,
+    encodeInventory(value.inventory),
+  ]);
 }
 
 /**
@@ -174,6 +291,207 @@ export function encodeInventory(inventory: number[]): string {
       output += hex;
     }
   }
+  return output;
+}
+export interface CharacterNames {
+  kitName: string;
+  characterName: string;
+}
+
+export interface PlayerCharacter {
+  // Internal name for the character
+  kitName: string;
+  // Player given name for the character
+  characterName: string;
+  tint1ID: number;
+  tint2ID: number;
+  patternID: number;
+  patternColorID: number;
+  phongID: number;
+  emissiveID: number;
+  skinToneID: number;
+  secondsPlayed: number;
+  timestampYear: number;
+  timestampMonth: number;
+  timestampDay: number;
+  timestampSeconds: number;
+  powers: string;
+  hotkeys: string;
+  weapons: string;
+  weaponMods: string;
+  // Whether this character has been deployed (Created/used by the player)
+  deployed: boolean;
+  // Whether the character has leveled up
+  leveledUp: boolean;
+
+  // App state, not stored in the character data
+  character: Character;
+}
+
+export function createDefaultPlayerCharacter(
+  character: Character
+): PlayerCharacter {
+  return {
+    kitName: character.kitName,
+    characterName: character.characterName,
+    tint1ID: 0,
+    tint2ID: 45,
+    patternID: 0,
+    patternColorID: 47,
+    phongID: 45,
+    emissiveID: 9,
+    skinToneID: 9,
+    secondsPlayed: 0,
+    timestampYear: 0,
+    timestampMonth: 0,
+    timestampDay: 0,
+    timestampSeconds: 0,
+    powers: "",
+    hotkeys: "",
+    weapons: "",
+    weaponMods: "",
+    deployed: false,
+    leveledUp: true,
+    character,
+  };
+}
+
+/**
+ * Parses the player base player data value into a
+ * editable format
+ *
+ * Format:
+ * 20;4;CREDITS;UNKNOWN;UKNOWN;CREDITS_SPENT;UKNOWN;GAMES_PLAYED;SECONDS_PLAYED;UKNOWN;INVENTORY
+ *
+ * @param value The raw encoded player base value
+ * @returns
+ */
+export function parsePlayerCharacter(
+  value: string,
+  character: Character
+): PlayerCharacter | null {
+  const parts: string[] = value.split(";");
+
+  // Use a default if the data is invalid
+  if (parts.length < 22) return null;
+
+  const kitName: string = parts[2];
+  const characterName: string = parts[3];
+  const tint1ID: number = parseIntWithDefault(parts[4]);
+  const tint2ID: number = parseIntWithDefault(parts[4], 45);
+  const patternID: number = parseIntWithDefault(parts[4]);
+  const patternColorID: number = parseIntWithDefault(parts[4], 47);
+  const phongID: number = parseIntWithDefault(parts[4], 45);
+  const emissiveID: number = parseIntWithDefault(parts[4], 9);
+  const skinToneID: number = parseIntWithDefault(parts[4], 9);
+  const secondsPlayed: number = parseIntWithDefault(parts[4]);
+  const timestampYear: number = parseIntWithDefault(parts[4]);
+  const timestampMonth: number = parseIntWithDefault(parts[4]);
+  const timestampDay: number = parseIntWithDefault(parts[4]);
+  const timestampSeconds: number = parseIntWithDefault(parts[4]);
+  const powers: string = parts[4];
+  const hotkeys: string = parts[4];
+  const weapons: string = parts[4];
+  const weaponMods: string = parts[4];
+  const deployed: boolean = parts[4] === "True";
+  const leveledUp: boolean = parts[4] === "True";
+
+  return {
+    kitName,
+    characterName,
+    tint1ID,
+    tint2ID,
+    patternID,
+    patternColorID,
+    phongID,
+    emissiveID,
+    skinToneID,
+    secondsPlayed,
+    timestampYear,
+    timestampMonth,
+    timestampDay,
+    timestampSeconds,
+    powers,
+    hotkeys,
+    weapons,
+    weaponMods,
+    deployed,
+    leveledUp,
+    character,
+  };
+}
+
+export function encodePlayerCharacter(value: PlayerCharacter): string {
+  return serializeValues([
+    VERSION_NUMBER,
+    DEV_VERSION_NUMBER,
+    value.kitName,
+    value.characterName,
+    value.tint1ID,
+    value.tint2ID,
+    value.patternID,
+    value.patternColorID,
+    value.phongID,
+    value.emissiveID,
+    value.skinToneID,
+    value.secondsPlayed,
+    value.timestampYear,
+    value.timestampMonth,
+    value.timestampDay,
+    value.timestampSeconds,
+    value.powers,
+    value.hotkeys,
+    value.weapons,
+    value.weaponMods,
+    value.deployed,
+    value.leveledUp,
+  ]);
+}
+
+export function getPlayerCharacters(
+  playerData: Partial<Record<string, string>>
+): PlayerCharacter[] {
+  const characters: PlayerCharacter[] = [];
+
+  for (let i = 0; i < CHARACTERS.length; i++) {
+    const localChar = CHARACTERS[i];
+    const key = `class${i + 1}`;
+    const data = playerData[key];
+
+    if (data === undefined) {
+      // Create a default value if one isn't present
+      characters.push(createDefaultPlayerCharacter(localChar));
+      continue;
+    }
+
+    const parsedChar = parsePlayerCharacter(data, localChar);
+    if (parsedChar === null) {
+      // Create a default value if the existing one is not able to be parsed
+      characters.push(createDefaultPlayerCharacter(localChar));
+      continue;
+    }
+
+    characters.push(parsedChar);
+  }
+
+  return characters;
+}
+
+export function encodePlayerCharacters(
+  characters: PlayerCharacter[]
+): Record<string, string> {
+  let output: Record<string, string> = {};
+
+  for (const character of characters) {
+    const classNameIndex = CHARACTERS.findIndex(
+      (entry) => entry.kitName == character.kitName
+    );
+    if (classNameIndex === -1) continue;
+
+    const key = `char${classNameIndex + 1}`;
+    output[key] = encodePlayerCharacter(character);
+  }
+
   return output;
 }
 
@@ -218,7 +536,14 @@ export function parsePlayerClass(value: string): PlayerClass | null {
  * @returns     The encoded value
  */
 export function encodePlayerClass(value: PlayerClass): string {
-  return `20;4;${value.name};${value.level};${value.exp};${value.promotions}`;
+  return serializeValues([
+    VERSION_NUMBER,
+    DEV_VERSION_NUMBER,
+    value.name,
+    value.level,
+    value.exp,
+    value.promotions,
+  ]);
 }
 
 // The order for this is STRICT, changing it may break the game
@@ -231,27 +556,11 @@ export const LOCAL_CLASS_NAMES: string[] = [
   "Vanguard",
 ];
 
-export function encodePlayerClasses(
-  classes: PlayerClass[]
-): Record<string, string> {
-  let output: Record<string, string> = {};
-
-  for (const playerClass of classes) {
-    const classNameIndex = LOCAL_CLASS_NAMES.indexOf(playerClass.name);
-    if (classNameIndex === -1) continue;
-
-    const key = `class${classNameIndex + 1}`;
-    output[key] = encodePlayerClass(playerClass);
-  }
-
-  return output;
-}
-
 function createDefaultClass(name: string): PlayerClass {
   return {
     name: name,
-    level: 0,
-    exp: "0.0",
+    level: 1,
+    exp: "0.0000",
     promotions: 0,
   };
 }
@@ -293,4 +602,20 @@ export function getPlayerClasses(
   }
 
   return classes;
+}
+
+export function encodePlayerClasses(
+  classes: PlayerClass[]
+): Record<string, string> {
+  let output: Record<string, string> = {};
+
+  for (const playerClass of classes) {
+    const classNameIndex = LOCAL_CLASS_NAMES.indexOf(playerClass.name);
+    if (classNameIndex === -1) continue;
+
+    const key = `class${classNameIndex + 1}`;
+    output[key] = encodePlayerClass(playerClass);
+  }
+
+  return output;
 }

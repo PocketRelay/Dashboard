@@ -32,11 +32,12 @@ p {
 
 *::-webkit-scrollbar {
   background-color: #0f0f0f;
-  width: 12px;
+  width: 8px;
+  height: 8px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #4e5382;
+  background-color: #444;
   border-radius: 10px;
 }
 
@@ -362,4 +363,53 @@ p {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-play-state: running;
+}
+
+.power {
+  display: inline-block;
+  width: 128px;
+  height: 128px;
+  background-size: 128px 128px;
+}
+.power-icon {
+  /*background-size: 384px 128px;*/
+  height: 64px;
+  overflow: hidden;
+  width: 64px;
+}
+.power-icon > img {
+  height: 128px;
+  position: relative;
+  width: 384px; /* Scale the image down 50%. */
+}
+
+.rank-1 > img {
+  left: 0;
+}
+.rank-2 > img {
+  left: -64px;
+}
+.rank-3 > img {
+  left: -128px;
+}
+.rank-4A > img {
+  left: -192px;
+}
+.rank-4B > img {
+  left: -192px;
+  top: -64px;
+}
+.rank-5A > img {
+  left: -256px;
+}
+.rank-5B > img {
+  left: -256px;
+  top: -64px;
+}
+.rank-6A > img {
+  left: -320px;
+}
+.rank-6B > img {
+  left: -320px;
+  top: -64px;
 }

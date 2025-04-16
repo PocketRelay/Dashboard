@@ -50,23 +50,7 @@
       <Inventory class="sidebar-button__icon" />
       <span class="sidebar-button__text">Inventory</span>
     </a>
-    <a
-      class="sidebar-button"
-      href="{base}/inventory_v2"
-      class:sidebar-button--selected={$page.route.id ==
-        "/(dashboard)/inventory_v2"}
-    >
-      <Inventory class="sidebar-button__icon" />
-      <span class="sidebar-button__text">Inventory V2</span>
-    </a>
-    <a
-      class="sidebar-button"
-      href="{base}/classes"
-      class:sidebar-button--selected={$page.route.id == "/(dashboard)/classes"}
-    >
-      <Classes class="sidebar-button__icon" />
-      <span class="sidebar-button__text">Classes</span>
-    </a>
+
     <a
       class="sidebar-button"
       href="{base}/games"

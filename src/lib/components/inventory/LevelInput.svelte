@@ -43,16 +43,9 @@
 </div>
 
 <style>
-  .level-input__button {
-    background-color: #333;
-  }
-
-  .level-input__value {
-    background-color: #222;
-  }
-
   .level-input__button,
   .level-input__value {
+    background-color: #333;
     border: none;
     border: 1px solid #444;
     border-left: none;
@@ -82,6 +75,10 @@
       border-top-right-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem;
     }
+  }
+
+  .level-input__value {
+    background-color: #222;
   }
 
   .level-input {

@@ -12,13 +12,7 @@
 </script>
 
 <!-- Pagination buttons -->
-<Pagination.Root
-  count={count < 1 ? 1 : count}
-  bind:page
-  {perPage}
-  let:pages
-  let:range
->
+<Pagination.Root count={count < 1 ? 1 : count} bind:page {perPage} let:pages>
   <!-- Pagination count selector -->
   <select bind:value={perPage} data-pagination-per-page-button>
     <option value={5}>5</option>

@@ -18,10 +18,10 @@
 
     let loaded = await loadPlayer();
 
-    if (!loaded) {
-      await goto(`${base}/login`);
-    } else {
+    if (loaded) {
       state = State.Loaded;
+    } else {
+      await goto(`${base}/login`);
     }
   });
 </script>

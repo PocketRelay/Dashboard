@@ -26,7 +26,7 @@
   interface StoredClass {
     // The class key index value
     index: number;
-    // The actual player classs
+    // The actual player class
     value: PlayerClass;
   }
 
@@ -84,8 +84,10 @@
 
       await Promise.all(promises);
     },
-    onSuccess: () =>
-      client.invalidateQueries({ queryKey: ["player-data-all", playerId] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["player-data-all", playerId] });
+      client.invalidateQueries({ queryKey: ["player-data-base", playerId] });
+    },
   });
 </script>
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { player } from "$lib/api/api";
   import DashboardPage from "$lib/components/DashboardPage.svelte";
-  import Inventory from "$lib/components/Inventory.svelte";
+  import Inventory from "$lib/components/inventory/Inventory.svelte";
 </script>
 
 <DashboardPage

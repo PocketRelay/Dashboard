@@ -2,10 +2,9 @@
   import { base } from "$app/paths";
   import { page } from "$app/stores";
   import DashboardPage from "$lib/components/DashboardPage.svelte";
-  import Inventory from "$lib/components/Inventory.svelte";
+  import Inventory from "$lib/components/inventory/Inventory.svelte";
 
   const playerId = parseInt($page.params.id);
-  if (Number.isNaN(playerId)) throw "NaN Player ID";
 </script>
 
 <DashboardPage

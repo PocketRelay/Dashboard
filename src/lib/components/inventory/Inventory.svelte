@@ -9,13 +9,13 @@
     type PlayerBase,
   } from "$lib/api/parser";
   import { getPlayerData, setPlayerData } from "$lib/api/players";
-  import InventoryCharacters from "./inventory/InventoryCharacters.svelte";
-  import InventoryConsumables from "./inventory/InventoryConsumables.svelte";
-  import InventoryGear from "./inventory/InventoryGear.svelte";
-  import InventoryOther from "./inventory/InventoryOther.svelte";
-  import InventoryWeaponMods from "./inventory/InventoryWeaponMods.svelte";
-  import InventoryWeapons from "./inventory/InventoryWeapons.svelte";
-  import Loader from "./Loader.svelte";
+  import InventoryCharacters from "./InventoryCharacters.svelte";
+  import InventoryConsumables from "./InventoryConsumables.svelte";
+  import InventoryGear from "./InventoryGear.svelte";
+  import InventoryOther from "./InventoryOther.svelte";
+  import InventoryWeaponMods from "./InventoryWeaponMods.svelte";
+  import InventoryWeapons from "./InventoryWeapons.svelte";
+  import Loader from "../Loader.svelte";
   import {
     createMutation,
     createQuery,

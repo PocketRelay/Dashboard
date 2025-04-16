@@ -52,6 +52,21 @@ export interface Weapon {
   upfront?: number;
 }
 
+export function getWeaponType(weapon: Weapon): WeaponType | undefined {
+  return getWeaponCategory(weapon)?.weaponType;
+}
+
+export function getWeaponCategory(weapon: Weapon): WeaponCategory | undefined {
+  for (const category of WEAPON_CATEGORIES) {
+    if (
+      category.values.find((value) => value.level_index === weapon.level_index)
+    ) {
+      return category;
+    }
+  }
+  return undefined;
+}
+
 export function getWeaponWeight(weapon: Weapon, level: number): number {
   return weapon.weight_L + ((weapon.weight_H - weapon.weight_L) / 9) * level;
 }
@@ -1559,10 +1574,34 @@ export const PISTOLS: Weapon[] = [
   },
 ];
 
-export const WEAPON_CATEGORIES: Category<Weapon>[] = [
-  { name: "Sniper Rifles", values: SNIPER_RIFLES },
-  { name: "Assault Rifles", values: ASSAULT_RIFLES },
-  { name: "Sub Machine Guns", values: SUB_MACHINE_GUNS },
-  { name: "Shotguns", values: SHOTGUNS },
-  { name: "Pistols", values: PISTOLS },
+export enum WeaponType {
+  SNIPER_RIFLE,
+  ASSAULT_RIFLE,
+  SUB_MACHINE_GUN,
+  SHOTGUN,
+  PISTOL,
+}
+
+export type WeaponCategory = Category<Weapon> & {
+  weaponType: WeaponType;
+};
+
+export const WEAPON_CATEGORIES: WeaponCategory[] = [
+  {
+    name: "Sniper Rifles",
+    values: SNIPER_RIFLES,
+    weaponType: WeaponType.SNIPER_RIFLE,
+  },
+  {
+    name: "Assault Rifles",
+    values: ASSAULT_RIFLES,
+    weaponType: WeaponType.ASSAULT_RIFLE,
+  },
+  {
+    name: "Sub Machine Guns",
+    values: SUB_MACHINE_GUNS,
+    weaponType: WeaponType.SUB_MACHINE_GUN,
+  },
+  { name: "Shotguns", values: SHOTGUNS, weaponType: WeaponType.SHOTGUN },
+  { name: "Pistols", values: PISTOLS, weaponType: WeaponType.PISTOL },
 ];

@@ -3,6 +3,7 @@
 
   import { Tabs } from "bits-ui";
   import InventoryCharacters from "./InventoryClasses.svelte";
+  import InventoryWeapons from "./InventoryWeapons.svelte";
 
   export let playerData: PlayerData;
   export let editable: boolean;
@@ -20,5 +21,8 @@
 
   <Tabs.Content value="characters">
     <InventoryCharacters bind:playerData {editable} />
+  </Tabs.Content>
+  <Tabs.Content value="weapons">
+    <InventoryWeapons bind:playerData {editable} />
   </Tabs.Content>
 </Tabs.Root>

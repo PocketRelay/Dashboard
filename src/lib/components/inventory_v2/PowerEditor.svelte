@@ -9,6 +9,7 @@
   import PowerEditorEvolution from "./PowerEditorEvolution.svelte";
 
   export let powerData: PlayerCharacterPower;
+  export let editable: boolean;
 
   const power: Power = powerData.power!;
 
@@ -58,6 +59,7 @@
       active={powerData.powerProgress > 0}
       onClickEvolution={() => onChoosePowerProgress(1.0)}
       {power}
+      {editable}
     />
 
     <PowerEditorEvolution
@@ -65,6 +67,7 @@
       active={powerData.powerProgress > 1}
       onClickEvolution={() => onChoosePowerProgress(2.0)}
       {power}
+      {editable}
     />
 
     <PowerEditorEvolution
@@ -72,6 +75,7 @@
       active={powerData.powerProgress > 2}
       onClickEvolution={() => onChoosePowerProgress(3.0)}
       {power}
+      {editable}
     />
 
     <div class="evolution-group">
@@ -80,6 +84,7 @@
         active={powerData.powerProgress > 3 && getPathAtIndex(0) == Path.A}
         onClickEvolution={() => onChoosePowerPath(4.0, 0, Path.A)}
         {power}
+        {editable}
       />
 
       <PowerEditorEvolution
@@ -87,6 +92,7 @@
         active={powerData.powerProgress > 3 && getPathAtIndex(0) == Path.B}
         onClickEvolution={() => onChoosePowerPath(4.0, 0, Path.B)}
         {power}
+        {editable}
       />
     </div>
 
@@ -96,6 +102,7 @@
         active={powerData.powerProgress > 4 && getPathAtIndex(1) == Path.A}
         onClickEvolution={() => onChoosePowerPath(5.0, 1, Path.A)}
         {power}
+        {editable}
       />
 
       <PowerEditorEvolution
@@ -103,6 +110,7 @@
         active={powerData.powerProgress > 4 && getPathAtIndex(1) == Path.B}
         onClickEvolution={() => onChoosePowerPath(5.0, 1, Path.B)}
         {power}
+        {editable}
       />
     </div>
     <div class="evolution-group">
@@ -111,6 +119,7 @@
         active={powerData.powerProgress > 5 && getPathAtIndex(2) == Path.A}
         onClickEvolution={() => onChoosePowerPath(6.0, 2, Path.A)}
         {power}
+        {editable}
       />
 
       <PowerEditorEvolution
@@ -118,6 +127,7 @@
         active={powerData.powerProgress > 5 && getPathAtIndex(2) == Path.B}
         onClickEvolution={() => onChoosePowerPath(6.0, 2, Path.B)}
         {power}
+        {editable}
       />
     </div>
   </div>

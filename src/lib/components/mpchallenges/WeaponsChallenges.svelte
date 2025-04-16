@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { CHALLENGE_TYPES_WEAPONS } from "$lib/data/inventory";
+    import { CHALLENGE_TYPES_WEAPONS } from "$lib/data/challenges";
     import ChallengesList from "./ChallengesList.svelte";
     import { Progress } from "svelte-ux";
 

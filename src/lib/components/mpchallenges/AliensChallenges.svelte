@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { CHALLENGE_TYPES_ALIENS } from "$lib/data/inventory";
+    import { CHALLENGE_TYPES_ALIENS } from "$lib/data/challenges";
     import { Result } from "postcss";
     import ChallengesList from "./ChallengesList.svelte";
     import { Progress } from "svelte-ux";

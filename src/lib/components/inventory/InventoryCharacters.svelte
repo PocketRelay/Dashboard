@@ -3,7 +3,7 @@
     import {
         CHARACTER_CLASSES,
         MAX_CHARACTER_LEVEL,
-    } from "$lib/data/inventory";
+    } from "$lib/data/characters";
     import InventoryList from "./InventoryList.svelte";
     import LevelInput from "./LevelInput.svelte";
 

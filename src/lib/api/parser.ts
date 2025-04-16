@@ -1,8 +1,9 @@
+import { getWeaponByIndex, type Weapon } from "$lib/data/weapons";
 import {
   CHARACTERS,
   getCharacterByKitName,
   type Character,
-} from "$lib/data/inventory";
+} from "$lib/data/characters";
 import {
   INTERNAL_POWERS,
   POWERS,
@@ -11,6 +12,7 @@ import {
   type Power,
 } from "$lib/data/powers";
 import type { PlayerDataMap } from "./players";
+import { getWeaponModByIndex, type WeaponMod } from "$lib/data/weapon_mods";
 
 const VERSION_NUMBER = 20;
 const DEV_VERSION_NUMBER = 4;
@@ -51,6 +53,18 @@ export interface PlayerData {
   classes: PlayerClass[];
   // All characters for the player (Uses defaults for those that are missing)
   characters: PlayerCharacter[];
+}
+
+export function encodePlayerData(input: PlayerData): PlayerDataMap {
+  const baseValue = encodePlayerBase(input.base);
+  const characters = encodePlayerCharacters(input.characters);
+  const classes = encodePlayerClasses(input.classes);
+
+  return {
+    [PLAYER_BASE_KEY]: baseValue,
+    ...classes,
+    ...characters,
+  };
 }
 
 export function decodePlayerData(input: PlayerDataMap): PlayerData {
@@ -323,6 +337,103 @@ export interface CharacterNames {
 
 // Singularity 179 1.0000 0 0 0 0 0 0 0 True,Warp 185 0.0000 0 0 0 0 0 0 0 True,Shockwave 177 0.0000 0 0 0 0 0 0 0 True,MPPassive 206 0.0000 0 0 0 0 0 0 0 True,MPMeleePassive 200 0.0000 0 0 0 0 0 0 0 True,Consumable_Rocket 88 0.0000 0 0 0 0 0 0 0 False,Consumable_Revive 87 0.0000 0 0 0 0 0 0 0 False,Consumable_Shield 89 0.0000 0 0 0 0 0 0 0 False,Consumable_Ammo 86 0.0000 0 0 0 0 0 0 0 False
 
+export interface PlayerCharacterWeapon {
+  weaponIndex: number;
+  weapon: Weapon | undefined;
+}
+
+function encodePlayerCharacterWeapons(
+  weapons: PlayerCharacterWeapon[]
+): string {
+  return serializeValues(
+    weapons.map((weapon) => weapon.weaponIndex),
+    ","
+  );
+}
+
+function decodePlayerCharacterWeapons(input: string): PlayerCharacterWeapon[] {
+  const out: PlayerCharacterWeapon[] = [];
+  const parts = input.split(",");
+  for (const part of parts) {
+    const weaponIndex = parseIntWithDefault(part, -1);
+    if (weaponIndex === -1) continue; // Invalid value
+
+    const weapon = getWeaponByIndex(weaponIndex);
+
+    out.push({
+      weaponIndex,
+      weapon,
+    });
+  }
+
+  return out;
+}
+
+function decodePlayerCharacterWeaponMods(
+  input: string
+): PlayerCharacterWeaponMods[] {
+  const out: PlayerCharacterWeaponMods[] = [];
+  const parts = input.split(",");
+  for (const part of parts) {
+    const weaponModParts = part.split(" ");
+    if (weaponModParts.length < 1) continue; // Invalid value
+
+    const weaponIndex = parseIntWithDefault(part, -1);
+    if (weaponIndex === -1) continue; // Invalid value
+
+    const weapon = getWeaponByIndex(weaponIndex);
+
+    const rawIndexes = parts.slice(1);
+
+    const weaponMods: PlayerCharacterWeaponMod[] = [];
+    for (const rawIndex of rawIndexes) {
+      const weaponModIndex = parseIntWithDefault(rawIndex, -1);
+      if (weaponModIndex === -1) continue; // Invalid value
+      const weaponMod = getWeaponModByIndex(weaponModIndex);
+      weaponMods.push({
+        weaponModIndex,
+        weaponMod,
+      });
+    }
+
+    out.push({
+      weapon: {
+        weaponIndex,
+        weapon,
+      },
+      weaponMods,
+    });
+  }
+
+  return out;
+}
+
+export interface PlayerCharacterWeaponMods {
+  weapon: PlayerCharacterWeapon;
+  weaponMods: PlayerCharacterWeaponMod[];
+}
+
+function encodePlayerCharacterWeaponMods(
+  weapons: PlayerCharacterWeaponMods[]
+): string {
+  return serializeValues(
+    weapons.map((weapon) =>
+      serializeValues(
+        [
+          weapon.weapon.weaponIndex,
+          ...weapon.weaponMods.map((weaponMod) => weaponMod.weaponModIndex),
+        ],
+        " "
+      )
+    ),
+    ","
+  );
+}
+export interface PlayerCharacterWeaponMod {
+  weaponModIndex: number;
+  weaponMod: WeaponMod | undefined;
+}
+
 export interface PlayerCharacterPower {
   powerName: string;
   powerID: number;
@@ -350,6 +461,7 @@ export function encodePlayerCharacterPower(
     " "
   );
 }
+
 export function encodePlayerCharacterPowers(
   powers: PlayerCharacterPower[]
 ): string {
@@ -556,8 +668,8 @@ export interface PlayerCharacter {
   timestampSeconds: number;
   powers: PlayerCharacterPower[];
   hotkeys: string;
-  weapons: string;
-  weaponMods: string;
+  weapons: PlayerCharacterWeapon[];
+  weaponMods: PlayerCharacterWeaponMods[];
   // Whether this character has been deployed (Created/used by the player)
   deployed: boolean;
   // Whether the character has leveled up
@@ -589,8 +701,8 @@ export function createDefaultPlayerCharacter(
     timestampSeconds: 0,
     powers: createDefaultPlayerCharacterPowers(character.powers),
     hotkeys: "",
-    weapons: "",
-    weaponMods: "",
+    weapons: [],
+    weaponMods: [],
     deployed: false,
     leveledUp: true,
     character,
@@ -642,8 +754,11 @@ export function parsePlayerCharacter(
     character.powers
   );
   const hotkeys: string = parts[17];
-  const weapons: string = parts[18];
-  const weaponMods: string = parts[19];
+  const weapons: PlayerCharacterWeapon[] = decodePlayerCharacterWeapons(
+    parts[18]
+  );
+  const weaponMods: PlayerCharacterWeaponMods[] =
+    decodePlayerCharacterWeaponMods(parts[19]);
   const deployed: boolean = parts[20] === "True";
   const leveledUp: boolean = parts[21] === "True";
 
@@ -693,8 +808,8 @@ export function encodePlayerCharacter(value: PlayerCharacter): string {
     value.timestampSeconds,
     encodePlayerCharacterPowers(value.powers),
     value.hotkeys,
-    value.weapons,
-    value.weaponMods,
+    encodePlayerCharacterWeapons(value.weapons),
+    encodePlayerCharacterWeaponMods(value.weaponMods),
     value.deployed,
     value.leveledUp,
   ]);

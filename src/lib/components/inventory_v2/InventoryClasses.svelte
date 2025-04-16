@@ -6,6 +6,7 @@
   import InventoryCharacters from "./InventoryCharacters.svelte";
 
   export let playerData: PlayerData;
+  export let editable: boolean;
 </script>
 
 <Tabs.Root>
@@ -19,7 +20,7 @@
   {#each playerData.classes as playerClass}
     <Tabs.Content value={playerClass.name}>
       <InventoryClassDetails bind:playerClass />
-      <InventoryCharacters {playerClass} bind:playerData />
+      <InventoryCharacters {playerClass} bind:playerData {editable} />
     </Tabs.Content>
   {/each}
 </Tabs.Root>

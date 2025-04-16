@@ -1,13 +1,20 @@
 <script lang="ts">
-  import { type PlayerCharacter, type PlayerData } from "$lib/api/parser";
+  import {
+    type PlayerCharacter,
+    type PlayerCharacterWeapon,
+    type PlayerData,
+  } from "$lib/api/parser";
   import { isAdmin, player } from "$lib/api/api";
   import { MAX_CHARACTER_LEVEL } from "$lib/data/inventory";
   import LevelInput from "$lib/components/inventory/LevelInput.svelte";
   import InventoryCharacterPowerLevel from "./PowerLevelDisplay.svelte";
   import InventoryCharacterPowerEditor from "./PowerEditor.svelte";
+  import WeaponEditor from "./WeaponEditor.svelte";
+  import { getWeaponWeight } from "$lib/data/weapons";
 
   export let playerData: PlayerData;
   export let playerCharacter: PlayerCharacter;
+  export let editable: boolean;
 
   // Level of the character
   $: characterLevel =
@@ -30,7 +37,7 @@
           {playerCharacter.character.name} - {playerCharacter.characterName}
         </p>
 
-        {#if isAdmin($player)}
+        {#if editable}
           <div class="input">
             <span class="input__label">Level</span>
             <LevelInput
@@ -42,6 +49,8 @@
             />
           </div>
         {/if}
+
+        <WeaponEditor bind:playerCharacter {editable} />
       </div>
     </div>
 
@@ -58,7 +67,7 @@
 <div>
   {#each playerCharacter.powers as power}
     {#if power.power !== undefined}
-      <InventoryCharacterPowerEditor bind:powerData={power} />
+      <InventoryCharacterPowerEditor bind:powerData={power} {editable} />
     {/if}
   {/each}
 </div>

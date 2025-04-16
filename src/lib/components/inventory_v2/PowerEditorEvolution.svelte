@@ -15,6 +15,7 @@
   import { Tooltip } from "bits-ui";
 
   export let index: number;
+  export let editable: boolean;
 
   export let active: boolean;
   export let power: Power;
@@ -29,6 +30,7 @@
       class="evolution"
       class:evolution--active={active}
       on:click={onClickEvolution}
+      disabled={!editable}
     >
       <div class="evolution-icon" data-index={index}>
         <img src={`/assets/powers/${power.iconSet}.png`} alt={evolution.name} />

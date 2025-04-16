@@ -1,8 +1,8 @@
 <script lang="ts">
   import { getLeaderboard, LeaderboardName } from "$lib/api/leaderboard";
-  import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Loader from "$lib/components/Loader.svelte";
-  import QueryPagination from "$lib/components/QueryPagination.svelte";
+  import PageHeading from "$lib/components/PageHeading.svelte";
+  import Pagination from "$lib/components/Pagination.svelte";
   import { getNumberWithOrdinal } from "$lib/tools/numbers";
   import { createQuery } from "@tanstack/svelte-query";
   import { writable, type Writable, derived } from "svelte/store";
@@ -29,48 +29,49 @@
   }
 </script>
 
-<DashboardPage
+<PageHeading
   title="Leaderboard"
   text="Click a leaderboard category to show results based on that leaderboard"
->
-  <svelte:fragment slot="heading">
-    <div class="names">
-      <button
-        class="name card"
-        class:name--selected={$selected == LeaderboardName.N7Rating}
-        on:click={onSelectCategory(LeaderboardName.N7Rating)}
-      >
-        <h2 class="name__title">N7 Rating</h2>
-        <p class="text text--wrapped">
-          This leaderboard is ranked based on your total class levels and
-          promotions combined
-        </p>
-      </button>
+/>
 
-      <button
-        class="name card"
-        class:name--selected={$selected == LeaderboardName.ChallengePoints}
-        on:click={onSelectCategory(LeaderboardName.ChallengePoints)}
-      >
-        <h2 class="name__title">Challenge Points</h2>
-        <p class="text text--wrapped">
-          This leaderboard is ranked based on the amount challenge points you’ve
-          gained from completing challenges
-        </p>
-      </button>
-    </div>
+<div class="names">
+  <button
+    class="name card"
+    class:name--selected={$selected == LeaderboardName.N7Rating}
+    on:click={onSelectCategory(LeaderboardName.N7Rating)}
+  >
+    <h2 class="name__title">N7 Rating</h2>
+    <p class="text text--wrapped">
+      This leaderboard is ranked based on your total class levels and promotions
+      combined
+    </p>
+  </button>
 
-    <QueryPagination
+  <button
+    class="name card"
+    class:name--selected={$selected == LeaderboardName.ChallengePoints}
+    on:click={onSelectCategory(LeaderboardName.ChallengePoints)}
+  >
+    <h2 class="name__title">Challenge Points</h2>
+    <p class="text text--wrapped">
+      This leaderboard is ranked based on the amount challenge points you’ve
+      gained from completing challenges
+    </p>
+  </button>
+</div>
+
+{#if $query.error}
+  <p class="error">{$query.error}</p>
+{/if}
+
+<div class="table-container">
+  <div class="table-pagination">
+    <Pagination
       count={$query.data?.total ?? 0}
       bind:perPage={$perPage}
       bind:page={$page}
-      on:refresh={() => $query.refetch()}
     />
-
-    {#if $query.error}
-      <p class="error">{$query.error}</p>
-    {/if}
-  </svelte:fragment>
+  </div>
 
   <table class="table">
     {#if $query.isLoading}
@@ -95,13 +96,20 @@
       {/if}
     </tbody>
   </table>
-</DashboardPage>
+  <div class="table-pagination">
+    <Pagination
+      count={$query.data?.total ?? 0}
+      bind:perPage={$perPage}
+      bind:page={$page}
+    />
+  </div>
+</div>
 
 <style lang="scss">
   .names {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 1rem;
     margin-bottom: 1rem;
   }
 

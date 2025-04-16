@@ -8,7 +8,11 @@
     PLAYER_BASE_KEY,
     type PlayerBase,
   } from "$lib/api/parser";
-  import { getPlayerData, setPlayerData } from "$lib/api/players";
+  import {
+    getAllPlayerData,
+    getPlayerData,
+    setPlayerData,
+  } from "$lib/api/players";
   import InventoryCharacters from "./InventoryCharacters.svelte";
   import InventoryConsumables from "./InventoryConsumables.svelte";
   import InventoryGear from "./InventoryGear.svelte";
@@ -29,6 +33,12 @@
   let credits: number = 0;
 
   const client = useQueryClient();
+
+  // Query to load all the player data
+  const playerData = createQuery({
+    queryKey: ["player-data-all", playerId],
+    queryFn: () => getAllPlayerData(playerId),
+  });
 
   const playerDataBase = createQuery({
     queryKey: ["player-data-base", playerId],
@@ -168,10 +178,8 @@
   .wrapper {
     display: flex;
     flex-flow: column;
-    height: 100%;
 
     flex: auto;
-    overflow: auto;
     gap: 1rem;
   }
 
@@ -179,6 +187,5 @@
     flex: auto;
     display: flex;
     flex-flow: column;
-    overflow: auto;
   }
 </style>

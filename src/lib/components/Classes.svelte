@@ -164,7 +164,7 @@
   .classes {
     display: flex;
     flex-flow: row wrap;
-    gap: 2rem;
+    gap: 1rem;
     margin-top: 1rem;
   }
 

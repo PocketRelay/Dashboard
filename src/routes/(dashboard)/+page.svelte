@@ -8,7 +8,8 @@
     type LeaderboardEntry,
   } from "$lib/api/leaderboard";
   import { PlayerRole, type PlayerAccount } from "$lib/api/players";
-  import DashboardPage from "$lib/components/DashboardPage.svelte";
+  import { getServerDetails } from "$lib/api/server";
+  import PageHeading from "$lib/components/PageHeading.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import { serverVersion } from "$lib/dashboard.state";
   import { getNumberWithOrdinal } from "$lib/tools/numbers";
@@ -91,117 +92,116 @@
   $: updateCheck($player, $serverVersion);
 </script>
 
-<DashboardPage title={"Dashboard Home"}>
-  {#if loading}
-    <Loader />
-  {:else if data}
-    <div class="cards">
-      <div class="card">
-        <div class="card__head">
-          <Account class="card__head__icon" />
-          <h2 class="card__head__title">Current Player</h2>
-        </div>
-        <p>
-          Welcome to your dashboard you are the <span class="annot"
-            >{getNumberWithOrdinal($player.id)}</span
-          > player to join this server
-        </p>
-        <span class="card__value">{$player.display_name}</span>
+<PageHeading title="Dashboard Home" />
+
+{#if loading}
+  <Loader />
+{:else if data}
+  <div class="cards">
+    <div class="card">
+      <div class="card__head">
+        <Account class="card__head__icon" />
+        <h2 class="card__head__title">Current Player</h2>
       </div>
-      <div class="card">
-        <div class="card__head">
-          <List class="card__head__icon" />
-          <h2 class="card__head__title">Leaderboard Placing</h2>
-        </div>
-        <p>
-          You currently rank <span class="annot"
-            >{data.n7Entry !== null
-              ? getNumberWithOrdinal(data.n7Entry.rank)
-              : "Not yet ranked"}</span
-          >
-          place in the N7 Rating leaderboard and
-          <span class="annot"
-            >{data.cpEntry !== null
-              ? getNumberWithOrdinal(data.cpEntry.rank)
-              : "Not yet ranked"}</span
-          >
-          place in the Challenge Points leaderboard
-        </p>
-        <a class="card__value card__value--button" href="/leaderboard"
-          >View Leaderboard</a
-        >
-      </div>
-      <div class="card">
-        <div class="card__head">
-          <AccountMultiple class="card__head__icon" />
-          <h2 class="card__head__title">Total Players</h2>
-        </div>
-        <p>Below is the total number of players apart of this server</p>
-        <span class="card__value">{data.totalPlayers}</span>
-      </div>
-      <div class="card" data-warning={newerRelease !== null}>
-        <div class="card__head">
-          <Sync class="card__head__icon" />
-          <h2 class="card__head__title">
-            Server Version {#if newerRelease !== null}
-              <b class="outdated">Outdated</b>
-            {/if}
-          </h2>
-        </div>
-        <p>
-          The Pocket Relay server you are connected to is currently on version
-        </p>
-        {#if newerRelease === null}
-          <span class="card__value">{$serverVersion ?? "Loading..."}</span>
-        {:else}
-          <p class="version">
-            Current version: <b class="version__old"
-              >v{$serverVersion ?? "..."}</b
-            >
-            Latest version:
-            <a
-              class="version__new"
-              href={newerRelease.html_url}
-              target="_blank"
-              rel="noreferrer">{newerRelease.tag_name}</a
-            >
-          </p>
-        {/if}
-      </div>
-      <div class="card">
-        <div class="card__head">
-          <List class="card__head__icon" />
-          <h2 class="card__head__title">N7 Rating</h2>
-        </div>
-        <p>
-          Your current N7 rating is below this is accumulated from leveling up
-        </p>
-        <span class="card__value"
-          >{data.n7Entry !== null ? data.n7Entry.value : "Not yet ranked"}</span
-        >
-      </div>
-      <div class="card">
-        <div class="card__head">
-          <List class="card__head__icon" />
-          <h2 class="card__head__title">Challenge Points</h2>
-        </div>
-        <p>
-          Your current total challenge point count is listed below. You can get
-          these by completing challenges
-        </p>
-        <span class="card__value"
-          >{data.cpEntry !== null ? data.cpEntry.value : "Not yet ranked"}</span
-        >
-      </div>
+      <p>
+        Welcome to your dashboard you are the <span class="annot"
+          >{getNumberWithOrdinal($player.id)}</span
+        > player to join this server
+      </p>
+      <span class="card__value">{$player.display_name}</span>
     </div>
-  {/if}
-</DashboardPage>
+    <div class="card">
+      <div class="card__head">
+        <List class="card__head__icon" />
+        <h2 class="card__head__title">Leaderboard Placing</h2>
+      </div>
+      <p>
+        You currently rank <span class="annot"
+          >{data.n7Entry !== null
+            ? getNumberWithOrdinal(data.n7Entry.rank)
+            : "Not yet ranked"}</span
+        >
+        place in the N7 Rating leaderboard and
+        <span class="annot"
+          >{data.cpEntry !== null
+            ? getNumberWithOrdinal(data.cpEntry.rank)
+            : "Not yet ranked"}</span
+        >
+        place in the Challenge Points leaderboard
+      </p>
+      <a class="card__value card__value--button" href="/leaderboard"
+        >View Leaderboard</a
+      >
+    </div>
+    <div class="card">
+      <div class="card__head">
+        <AccountMultiple class="card__head__icon" />
+        <h2 class="card__head__title">Total Players</h2>
+      </div>
+      <p>Below is the total number of players apart of this server</p>
+      <span class="card__value">{data.totalPlayers}</span>
+    </div>
+    <div class="card" data-warning={newerRelease !== null}>
+      <div class="card__head">
+        <Sync class="card__head__icon" />
+        <h2 class="card__head__title">
+          Server Version {#if newerRelease !== null}
+            <b class="outdated">Outdated</b>
+          {/if}
+        </h2>
+      </div>
+      <p>
+        The Pocket Relay server you are connected to is currently on version
+      </p>
+      {#if newerRelease === null}
+        <span class="card__value">{$serverVersion ?? "Loading..."}</span>
+      {:else}
+        <p class="version">
+          Current version: <b class="version__old">v{$serverVersion ?? "..."}</b
+          >
+          Latest version:
+          <a
+            class="version__new"
+            href={newerRelease.html_url}
+            target="_blank"
+            rel="noreferrer">{newerRelease.tag_name}</a
+          >
+        </p>
+      {/if}
+    </div>
+    <div class="card">
+      <div class="card__head">
+        <List class="card__head__icon" />
+        <h2 class="card__head__title">N7 Rating</h2>
+      </div>
+      <p>
+        Your current N7 rating is below this is accumulated from leveling up
+      </p>
+      <span class="card__value"
+        >{data.n7Entry !== null ? data.n7Entry.value : "Not yet ranked"}</span
+      >
+    </div>
+    <div class="card">
+      <div class="card__head">
+        <List class="card__head__icon" />
+        <h2 class="card__head__title">Challenge Points</h2>
+      </div>
+      <p>
+        Your current total challenge point count is listed below. You can get
+        these by completing challenges
+      </p>
+      <span class="card__value"
+        >{data.cpEntry !== null ? data.cpEntry.value : "Not yet ranked"}</span
+      >
+    </div>
+  </div>
+{/if}
 
 <style lang="scss">
   .cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 1rem;
   }
 
   .version {

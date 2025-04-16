@@ -1,9 +1,8 @@
 <script lang="ts">
   import { player } from "$lib/api/api";
-  import DashboardPage from "$lib/components/DashboardPage.svelte";
+  import PageHeading from "$lib/components/PageHeading.svelte";
   import Challenges from "$lib/components/MpChallenges.svelte";
 </script>
 
-<DashboardPage title="MP Challenges">
-  <Challenges playerId={$player.id} />
-</DashboardPage>
+<PageHeading title="MP Challenges"/>
+<Challenges playerId={$player.id} />

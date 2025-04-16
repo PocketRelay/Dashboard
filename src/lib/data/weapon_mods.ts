@@ -178,7 +178,7 @@ export const WEAPON_MODS: WeaponModCategory[] = [
     values: SNIPER_RIFLE_MODS,
     weaponType: WeaponType.SNIPER_RIFLE,
   },
-  { name: "Shotugn", values: SHOTGUN_MODS, weaponType: WeaponType.SHOTGUN },
+  { name: "Shotgun", values: SHOTGUN_MODS, weaponType: WeaponType.SHOTGUN },
   { name: "Pistol", values: PISTOL_MODS, weaponType: WeaponType.PISTOL },
   {
     name: "SMG",

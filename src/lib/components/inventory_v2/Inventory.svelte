@@ -13,39 +13,51 @@
   export let editable: boolean;
 </script>
 
-<Tabs.Root>
+<Tabs.Root let:value>
   <Tabs.List class="inventory-tabs">
     <Tabs.Trigger value="characters" class="inventory-tab"
       >Characters</Tabs.Trigger
     >
     <Tabs.Trigger value="weapons" class="inventory-tab">Weapons</Tabs.Trigger>
-    <Tabs.Trigger value="weapon-mods" class="inventory-tab"
-      >Weapon Mods</Tabs.Trigger
-    >
-    <Tabs.Trigger value="consumables" class="inventory-tab"
-      >Consumables</Tabs.Trigger
-    >
+    <Tabs.Trigger value="weapon-mods" class="inventory-tab">
+      Weapon Mods
+    </Tabs.Trigger>
+    <Tabs.Trigger value="consumables" class="inventory-tab">
+      Consumables
+    </Tabs.Trigger>
     <Tabs.Trigger value="gear" class="inventory-tab">Gear</Tabs.Trigger>
     <Tabs.Trigger value="other" class="inventory-tab">Other</Tabs.Trigger>
   </Tabs.List>
 
   <Tabs.Content value="characters">
-    <InventoryCharacters bind:playerData {editable} />
+    {#if value === "characters"}
+      <InventoryCharacters bind:playerData {editable} />
+    {/if}
   </Tabs.Content>
   <Tabs.Content value="weapons">
-    <InventoryWeapons bind:playerData {editable} />
+    {#if value === "weapons"}
+      <InventoryWeapons bind:playerData {editable} />
+    {/if}
   </Tabs.Content>
   <Tabs.Content value="weapon-mods">
-    <InventoryWeaponMods bind:playerData {editable} />
+    {#if value === "weapon-mods"}
+      <InventoryWeaponMods bind:playerData {editable} />
+    {/if}
   </Tabs.Content>
   <Tabs.Content value="consumables">
-    <InventoryConsumables bind:playerData {editable} />
+    {#if value === "consumables"}
+      <InventoryConsumables bind:playerData {editable} />
+    {/if}
   </Tabs.Content>
   <Tabs.Content value="gear">
-    <InventoryGear bind:playerData {editable} />
+    {#if value === "gear"}
+      <InventoryGear bind:playerData {editable} />
+    {/if}
   </Tabs.Content>
   <Tabs.Content value="other">
-    <InventoryOther bind:playerData {editable} />
+    {#if value === "other"}
+      <InventoryOther bind:playerData {editable} />
+    {/if}
   </Tabs.Content>
 </Tabs.Root>
 

@@ -1,6 +1,9 @@
 // Player data key for the player base data
 export const PLAYER_BASE_KEY: string = "Base";
 
+// Player data key for the player challenges data
+export const PLAYER_CHALLENGES_KEY: string = "Progress";
+
 // Decoded format of the player base data
 export interface PlayerBase {
     // The number of credits for the player
@@ -21,6 +24,37 @@ export interface PlayerBase {
     u3: string;
     u4: string;
 }
+
+// Decoded format of the player challenges data
+export interface PlayerChallenges {
+    rawnumbers: number[];
+}
+
+
+/**
+ * Parses the player challenges data value into an editable format
+ * 
+ * Format: 
+ * 22;0...X (overall 746 values). We are interested in only 344 values.
+ * See file challenges_format.txt for more information.
+ */
+export function parsePlayerChallenges(value: string): PlayerChallenges | null {
+    const parts: string[] = value.split(",");
+    if (parts.length < 347) return null;
+
+    let rawnumbers: number[] = [];
+    for (let index = 0; index < parts.length; index += 1) {
+        let value: number = parseInt(parts[index]);
+
+        // Handle invalid values
+        if (Number.isNaN(value)) value = 0;
+
+        rawnumbers.push(value);
+    }
+
+    return { rawnumbers };
+}
+
 
 /**
  * Parses an int value from a string returning a default value

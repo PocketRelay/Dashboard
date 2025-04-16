@@ -8,7 +8,6 @@
     type LeaderboardEntry,
   } from "$lib/api/leaderboard";
   import { PlayerRole, type PlayerAccount } from "$lib/api/players";
-  import { getServerDetails } from "$lib/api/server";
   import DashboardPage from "$lib/components/DashboardPage.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import { serverVersion } from "$lib/dashboard.state";
@@ -60,7 +59,7 @@
 
   async function updateCheck(
     player: PlayerAccount,
-    currentVersion: string | null
+    currentVersion: string | null,
   ) {
     // Only check for updates on the super admin account
     if (player.role !== PlayerRole.SuperAdmin) {
@@ -76,11 +75,11 @@
       const release = await getLatestRelease();
       if (semver.gt(currentVersion, release.tag_name)) {
         console.debug(
-          `Server is running future relase version ${currentVersion} (Latest: ${release.tag_name})`
+          `Server is running future relase version ${currentVersion} (Latest: ${release.tag_name})`,
         );
       } else if (semver.lt(currentVersion, release.tag_name)) {
         console.debug(
-          `Server is running outdated relase version ${currentVersion} (Latest: ${release.tag_name})`
+          `Server is running outdated relase version ${currentVersion} (Latest: ${release.tag_name})`,
         );
         newerRelease = release;
       }

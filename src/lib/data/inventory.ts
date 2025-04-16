@@ -306,6 +306,589 @@ export const CHARACTER_CLASSES: Category<Character>[] = [
     { name: "Vanguard", values: VANGUARD_CHARACTERS }
 ]
 
+//////////////////////////////////////////////////////////// challenges start ////////////////////////////////////////////////////////////////////////////////
+
+///////////// GENERAL
+export const MASS_EFFECT_CHALLENGES: Challenge[] = [
+    { index_current_points: 102, name: "Mass Effect", image: "BOB-Fem.webp", challenge_points: 500, description: "Complete 25 of the Mass Effect Challenges", times_completed_index: 1, max_points: 25 },
+    { index_current_points: 104, name: "Squad Elite", image: "OptTeamPrivate.webp", challenge_points: 200, description: "Complete Squad Elite once", times_completed_index: 1, max_points: 8 },
+    { index_current_points: 105, name: "Spectre Mastery", image: "OptTeamPrivate.webp", challenge_points: 500, description: "Complete Spectre Mastery once", times_completed_index: 1, max_points: 3 },
+    { index_current_points: 106, name: "Solo Mastery", image: "OptTeamPrivate.webp", challenge_points: 100, description: "Complete Solo Mastery once", times_completed_index: 1, max_points: 3 },
+    { index_current_points: 107, name: "Shotgun Mastery", image: "OptTeamPrivate.webp", challenge_points: 175, description: "Complete Shotgun Mastery once", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 108, name: "Assault Rifle Mastery", image: "OptTeamPrivate.webp", challenge_points: 175, description: "Complete Assault Rifle Mastery once", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 109, name: "Pistol Mastery", image: "OptTeamPrivate.webp", challenge_points: 155, description: "Complete Pistol Mastery once", times_completed_index: 1, max_points: 8 },
+    { index_current_points: 110, name: "SMG Mastery", image: "OptTeamPrivate.webp", challenge_points: 100, description: "Complete SMG Mastery once", times_completed_index: 1, max_points: 5 },
+    { index_current_points: 111, name: "Sniper Mastery", image: "OptTeamPrivate.webp", challenge_points: 175, description: "Complete Sniper Mastery once", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 112, name: "Resurgence Mastery", image: "OptTeamPrivate.webp", challenge_points: 170, description: "Complete Resurgence Mastery once", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 113, name: "Rebellion Mastery", image: "OptTeamPrivate.webp", challenge_points: 170, description: "Complete Rebellion Mastery once", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 114, name: "Earth Mastery", image: "OptTeamPrivate.webp", challenge_points: 170, description: "Complete Earth Mastery once", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 115, name: "Retaliation Mastery", image: "OptTeamPrivate.webp", challenge_points: 170, description: "Complete Retaliation Mastery once", times_completed_index: 1, max_points: 6 },
+    { index_current_points: 116, name: "Combat Mastery", image: "OptTeamPrivate.webp", challenge_points: 255, description: "Complete Combat Mastery once", times_completed_index: 1, max_points: 12 },
+    { index_current_points: 117, name: "Cerberus Mastery", image: "OptTeamPrivate.webp", challenge_points: 250, description: "Complete Cerberus Mastery once", times_completed_index: 1, max_points: 21 },
+    { index_current_points: 118, name: "Reapers Mastery", image: "OptTeamPrivate.webp", challenge_points: 250, description: "Complete Reapers Mastery once", times_completed_index: 1, max_points: 18 },
+    { index_current_points: 119, name: "Geth Mastery", image: "OptTeamPrivate.webp", challenge_points: 250, description: "Complete Geth Mastery once", times_completed_index: 1, max_points: 18 },
+    { index_current_points: 120, name: "Collectors Mastery", image: "OptTeamPrivate.webp", challenge_points: 250, description: "Complete Collectors Mastery once", times_completed_index: 1, max_points: 15 },
+    { index_current_points: 121, name: "Bloodpack Mastery", image: "OptTeamPrivate.webp", challenge_points: 170, description: "Complete Bloodpack Mastery once", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 122, name: "Commando Mastery", image: "OptTeamPrivate.webp", challenge_points: 200, description: "Complete Commando Mastery once", times_completed_index: 1, max_points: 12 },
+    { index_current_points: 123, name: "Machine Mastery", image: "OptTeamPrivate.webp", challenge_points: 170, description: "Complete Machine Mastery once", times_completed_index: 1, max_points: 8 },
+    { index_current_points: 124, name: "Outsider Mastery", image: "OptTeamPrivate.webp", challenge_points: 170, description: "Complete Outsider Mastery once", times_completed_index: 1, max_points: 7 },
+    { index_current_points: 125, name: "N7 Mastery", image: "OptTeamPrivate.webp", challenge_points: 300, description: "Complete N7 Mastery once", times_completed_index: 1, max_points: 6 },
+    { index_current_points: 126, name: "Map Mastery", image: "OptTeamPrivate.webp", challenge_points: 450, description: "Complete Map Mastery once", times_completed_index: 1, max_points: 40 },
+    { index_current_points: 127, name: "Biotic Mastery", image: "OptTeamPrivate.webp", challenge_points: 140, description: "Complete Biotic Mastery once", times_completed_index: 1, max_points: 14 },
+    { index_current_points: 128, name: "Tech Mastery", image: "OptTeamPrivate.webp", challenge_points: 140, description: "Complete Tech Mastery once", times_completed_index: 1, max_points: 13 },
+]
+
+export const SQUAD_ELITE_CHALLENGES: Challenge[] = [
+    { index_current_points: 104, name: "Squad Elite", image: "SqadMstr.png", challenge_points: 200, description: "Complete 8 of the Squad Elite Challenges", times_completed_index: 1, max_points: 8 },
+    { index_current_points: 131, name: "Bronze Extractions", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Extract at least 25 times on bronze difficulty", times_completed_index: 1, max_points: 25 },
+    { index_current_points: 420, name: "Silver Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract at least 25 times on silver difficulty", times_completed_index: 1, max_points: 25 },
+    { index_current_points: 421, name: "Gold Extractions", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Extract at least 25 times on gold difficulty", times_completed_index: 1, max_points: 25 },
+    { index_current_points: 422, name: "Platinum Extractions", image: "OptTeamPrivate.webp", challenge_points: 40, description: "Extract at least 25 times on platinum difficulty", times_completed_index: 1, max_points: 25 },
+    { index_current_points: 132, name: "First Aid Medals", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 100 First Aid Medals", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 133, name: "Cobra Missle Launcher Use", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points using the Cobra Missle Launcher", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 134, name: "Survival Medals", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Earn 100 survival medals", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 745, name: "Unknown Map Extractions", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Extract 25 times from unknown locations", times_completed_index: 1, max_points: 25 },
+    { index_current_points: 746, name: "Unknown Enemy Extractions", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Extract 25 times against unknown enemey", times_completed_index: 1, max_points: 25 },
+]
+
+export const SPECTRE_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 135, name: "Spectre Mastery", image: "SpecMstr.png", challenge_points: 500, description: "Complete 3 of the Spectre Mastery Challenges", times_completed_index: 1, max_points: 3 },
+    { index_current_points: 136, name: "Points Earned", image: "OptTeamPrivate.webp", challenge_points: 100, description: "Earn 25000000 points", times_completed_index: 1, max_points: 25000000 },
+    { index_current_points: 137, name: "Waves Completed", image: "OptTeamPrivate.webp", challenge_points: 100, description: "Complete 2500 waves", times_completed_index: 1, max_points: 2500 },
+    { index_current_points: 138, name: "In-Game Medals Earned", image: "OptTeamPrivate.webp", challenge_points: 100, description: "Earn 5000 points from medals", times_completed_index: 1, max_points: 5000 },
+]
+
+export const SOLO_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 139, name: "Solo Mastery", image: "SoloMstr.png", challenge_points: 100, description: "Complete 3 of the Solo Mastery Challenges", times_completed_index: 1, max_points: 3 },
+    { index_current_points: 140, name: "Solo bronze", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Extract 10 times solo on bronze", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 141, name: "Solo silver", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Extract 5 times solo on silver", times_completed_index: 1, max_points: 5 },
+    { index_current_points: 142, name: "Solo gold", image: "OptTeamPrivate.webp", challenge_points: 50, description: "Extract 2 times solo on gold", times_completed_index: 1, max_points: 2 },
+    { index_current_points: 143, name: "Solo platinum", image: "OptTeamPrivate.webp", challenge_points: 100, description: "Extract 1 times solo on platinum", times_completed_index: 1, max_points: 1 },
+]
+
+export const N7_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 139, name: "N7 Mastery", image: "N7Mstr.png", challenge_points: 300, description: "Complete 6 of the N7 Mastery Challenges", times_completed_index: 1, max_points: 6 },
+    { index_current_points: 331, name: "Promotions", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Promote 6 characters", times_completed_index: 1, max_points: 6 },
+    { index_current_points: 331, name: "Promotions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Promote 12 characters", times_completed_index: 1, max_points: 12 },
+    { index_current_points: 331, name: "Promotions", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Promote 24 characters", times_completed_index: 1, max_points: 24 },
+    { index_current_points: 331, name: "Promotions", image: "OptTeamPrivate.webp", challenge_points: 40, description: "Promote 36 characters", times_completed_index: 1, max_points: 36 },
+    { index_current_points: 331, name: "Promotions", image: "OptTeamPrivate.webp", challenge_points: 50, description: "Promote 48 characters", times_completed_index: 1, max_points: 48 },
+    { index_current_points: 331, name: "Promotions", image: "OptTeamPrivate.webp", challenge_points: 60, description: "Promote 60 characters", times_completed_index: 1, max_points: 60 },
+]
+
+export const MAP_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 139, name: "Map Mastery", image: "MapMstr.png", challenge_points: 450, description: "Complete 40 of the Map Mastery Challenges", times_completed_index: 1, max_points: 40 },
+    { index_current_points: 333, name: "Firebase Ghost: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Ghost", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 334, name: "Firebase Ghost: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Ghost", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 335, name: "Firebase Ghost: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Ghost", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 336, name: "Firebase Ghost: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Ghost", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 337, name: "Firebase White: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB White", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 338, name: "Firebase White: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB White", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 339, name: "Firebase White: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB White", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 340, name: "Firebase White: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB White", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 341, name: "Firebase Dagger: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Dagger", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 342, name: "Firebase Dagger: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Dagger", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 343, name: "Firebase Dagger: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Dagger", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 344, name: "Firebase Dagger: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Dagger", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 345, name: "Firebase Giant: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Giant", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 346, name: "Firebase Giant: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Giant", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 347, name: "Firebase Giant: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Giant", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 348, name: "Firebase Giant: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Giant", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 349, name: "Firebase Glacier: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Glacier", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 350, name: "Firebase Glacier: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Glacier", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 351, name: "Firebase Glacier: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Glacier", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 352, name: "Firebase Glacier: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Glacier", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 353, name: "Firebase Reactor: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Reactor", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 354, name: "Firebase Reactor: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Reactor", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 355, name: "Firebase Reactor: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Reactor", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 356, name: "Firebase Reactor: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Reactor", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 357, name: "Firebase Condor: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Condor", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 358, name: "Firebase Condor: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Condor", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 359, name: "Firebase Condor: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Condor", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 360, name: "Firebase Condor: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Condor", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 361, name: "Firebase Hydra: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Hydra", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 362, name: "Firebase Hydra: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Hydra", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 363, name: "Firebase Hydra: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Hydra", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 364, name: "Firebase Hydra: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Hydra", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 365, name: "Firebase Jade: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Jade", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 366, name: "Firebase Jade: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Jade", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 367, name: "Firebase Jade: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Jade", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 368, name: "Firebase Jade: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Jade", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 369, name: "Firebase Goddess: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Goddess", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 370, name: "Firebase Goddess: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Goddess", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 371, name: "Firebase Goddess: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Goddess", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 372, name: "Firebase Goddess: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Goddess", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 373, name: "Firebase Rio: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Rio", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 374, name: "Firebase Rio: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Rio", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 375, name: "Firebase Rio: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Rio", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 376, name: "Firebase Rio: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Rio", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 377, name: "Firebase Vancouver: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB Vancouver", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 378, name: "Firebase Vancouver: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB Vancouver", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 379, name: "Firebase Vancouver: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB Vancouver", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 380, name: "Firebase Vancouver: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB Vancouver", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 381, name: "Firebase London: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 100 bronze waves on FB London", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 382, name: "Firebase London: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 100 silver waves on FB London", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 383, name: "Firebase London: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 100 gold waves on FB London", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 384, name: "Firebase London: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 100 platinum waves on FB London", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 385, name: "Hazard: Bronze Waves", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Complete 200 bronze waves on hazard missions", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 386, name: "Hazard: Silver Waves", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Complete 200 silver waves on hazard missions", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 387, name: "Hazard: Gold Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 gold on hazard missions", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 388, name: "Hazard: Platinum Waves", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Complete 200 platinum waves on hazard missions", times_completed_index: 1, max_points: 175 },
+]
+
+export const BIOTIC_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 127, name: "Biotic Mastery", image: "BioticMstr.png", challenge_points: 140, description: "Complete 14 of the Biotic Mastery Challenges", times_completed_index: 1, max_points: 14 },
+    { index_current_points: 390, name: "Biotic Explosions 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Detonate 50 biotic explosions", times_completed_index: 1, max_points: 50 },
+    { index_current_points: 390, name: "Biotic Explosions 2", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Detonate 250 biotic explosions", times_completed_index: 1, max_points: 250 },
+    { index_current_points: 390, name: "Biotic Explosions 3", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Detonate 500 biotic explosions", times_completed_index: 1, max_points: 500 },
+    { index_current_points: 391, name: "Throw Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Throw", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 392, name: "Pull Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Pull", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 393, name: "Singularity Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Singularity", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 394, name: "Shockwave Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Shockwave", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 395, name: "Warp Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Warp", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 396, name: "Biotic Charge Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Biotic Charge", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 397, name: "Reave Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Reave", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 398, name: "Stasis Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Stasis", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 400, name: "Dark Channel Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Dark Channel", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 401, name: "Annihilation Field Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Annihilation Field", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 402, name: "Biotic Slash Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Biotic Slash", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 403, name: "Lash Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Lash", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 404, name: "Nova Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Nova", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 617, name: "Smash Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Smash", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 618, name: "Biotic Orbs Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Biotic Orbs", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 619, name: "Barrier Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Barrier", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 706, name: "Dark Sphere Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Dark Sphere", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 707, name: "Seeker Swarm Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Seeker Swarm", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 708, name: "Biotic Hammer Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Biotic Hammer", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 709, name: "Poison Strike Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Poison Strike", times_completed_index: 1, max_points: 50000 },
+]
+
+export const TECH_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 128, name: "Tech Mastery", image: "TechMstr.png", challenge_points: 140, description: "Complete 13 of the Tech Mastery Challenges", times_completed_index: 1, max_points: 13 },
+    { index_current_points: 406, name: "Tech Explosions 1", image: "OptTeamPrivate.webp", challenge_points: 15, description: "Detonate 50 Tech explosions", times_completed_index: 1, max_points: 50 },
+    { index_current_points: 406, name: "Tech Explosions 2", image: "OptTeamPrivate.webp", challenge_points: 25, description: "Detonate 250 Tech explosions", times_completed_index: 1, max_points: 250 },
+    { index_current_points: 406, name: "Tech Explosions 3", image: "OptTeamPrivate.webp", challenge_points: 35, description: "Detonate 500 Tech explosions", times_completed_index: 1, max_points: 500 },
+    { index_current_points: 407, name: "Incinerate Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Incinerate", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 408, name: "Overload Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Overload", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 410, name: "Cryo Blast Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 25000 Points Using Cryo Blast", times_completed_index: 1, max_points: 25000 },
+    { index_current_points: 411, name: "Combat Drone Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Combat Drone", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 412, name: "Tech Armor Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 25000 Points Using Tech Armor", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 413, name: "Energy Drain Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Energy Drain", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 414, name: "Sentury Turret Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Sentury Turret", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 405, name: "Submission Net Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Submission Net", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 415, name: "Flamer Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Flamer", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 416, name: "Shadow Strike Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Shadow Strike", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 417, name: "Electric Slash Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Electric Slash", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 418, name: "Snap Freeze Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Snap Freeze", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 419, name: "Geth Turret Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Geth Turret", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 710, name: "Siege Pulse Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Siege Pulse", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 711, name: "Hex Shield Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Hex Shield", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 714, name: "Electrical Hammer Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using Electrical Hammer", times_completed_index: 1, max_points: 50000 },
+]
+
+export const CHALLENGE_TYPES_GENERAL: Category<Challenge>[] = [
+    { name: "Mass Effect", values: MASS_EFFECT_CHALLENGES },
+    { name: "Squad Elite", values: SQUAD_ELITE_CHALLENGES },
+    { name: "Spectre Mastery", values: SPECTRE_MASTERY_CHALLENGES },
+    { name: "Solo Mastery", values: SOLO_MASTERY_CHALLENGES },
+    { name: "N7 Mastery", values: N7_MASTERY_CHALLENGES },
+    { name: "Map Mastery", values: MAP_MASTERY_CHALLENGES },
+    { name: "Biotic Mastery", values: BIOTIC_MASTERY_CHALLENGES },
+    { name: "Tech Mastery", values: TECH_MASTERY_CHALLENGES },
+]
+
+
+///////////// ALIENS
+export const RESURGENCE_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 112, name: "Resurgence Mastery", image: "RsrgMstr.png", challenge_points: 170, description: "Complete 9 of the Resurgence Mastery Challenges", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 205, name: "Geth Plasma SMG Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Geth Plasma SMG", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 206, name: "Striker Assault Rifle Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Striker Assault Rifle", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 215, name: "Kishock Harpoon Gun Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Kishock Harpoon Gun", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 207, name: "Firebase Hydra Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 15 times from Firebase Hydra", times_completed_index: 1, max_points: 15 },
+    { index_current_points: 208, name: "Firebase Condor Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 15 times from Firebase Condor", times_completed_index: 1, max_points: 15 },
+    { index_current_points: 209, name: "Geth Infiltrator Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Geth Infiltrator", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 210, name: "Geth Engineer Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Geth Engineer", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 211, name: "Asari Justicar Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Asari Justicar", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 212, name: "Krogan Vanguard Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Krogan Vanguard", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 213, name: "Batarian Sentinel Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Batarian Sentinel", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 214, name: "Batarian Soldier Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Batarian Soldier", times_completed_index: 1, max_points: 10 },
+]
+
+export const REBELLION_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 113, name: "Rebellion Mastery", image: "ReblMstr.png", challenge_points: 170, description: "Complete 9 of the Rebellion Mastery Challenges", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 216, name: "Reegar Carbine Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Reegar Carbine", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 217, name: "Krysae Sniper Rifle Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Krysae Sniper Rifle", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 218, name: "Cerberus Harrier Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Cerberus Harrier", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 219, name: "Firebase Jade Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 15 times from Firebase Jade", times_completed_index: 1, max_points: 15 },
+    { index_current_points: 220, name: "Firebase Goddess Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 15 times from Firebase Goddess", times_completed_index: 1, max_points: 15 },
+    { index_current_points: 221, name: "Vorcha Soldier Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Vorcha Soldier", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 222, name: "Vorcha Sentinel Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Vorcha Sentinel", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 223, name: "Quarian Engineer Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Quarian Engineer", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 224, name: "Quarian Infiltrator Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Quarian Infiltrator", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 225, name: "Phoenix Adept Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Phoenix Adept", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 226, name: "Phoenix Vanguard Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Phoenix Vanguard", times_completed_index: 1, max_points: 10 },
+]
+
+export const EARTH_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 114, name: "Earth Mastery", image: "EarthMstr.png", challenge_points: 170, description: "Complete 9 of the Earth Mastery Challenges", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 228, name: "N7 Typhoon Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the N7 Typhoon", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 229, name: "Acolyte Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Acolyte", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 230, name: "N7 Piranha Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the N7 Piranha", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 231, name: "Firebase London Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 15 times from Firebase London", times_completed_index: 1, max_points: 15 },
+    { index_current_points: 232, name: "Firebase Vancouver Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 15 times from Firebase Vancouver", times_completed_index: 1, max_points: 15 },
+    { index_current_points: 233, name: "Firebase Rio Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 15 times from Firebase Rio", times_completed_index: 1, max_points: 15 },
+    { index_current_points: 234, name: "N7 Slayer Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using N7 Slayer", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 235, name: "N7 Fury Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using N7 Fury", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 236, name: "N7 Paladin Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using N7 Paladin", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 237, name: "N7 Destroyer Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using N7 Destroyer", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 238, name: "N7 Demolisher Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using N7 Demolisher", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 239, name: "N7 Shadow Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using N7 Shadow", times_completed_index: 1, max_points: 10 },
+]
+
+export const RETALIATION_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 115, name: "Retaliation Mastery", image: "InvsnMstr.png", challenge_points: 170, description: "Complete 6 of the Earth Mastery Challenges", times_completed_index: 1, max_points: 6 },
+    { index_current_points: 241, name: "Collector Sniper Rifle Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Collector Sniper Rifle", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 242, name: "Collector SMG Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Collector SMG", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 243, name: "Collector Assault Rifle Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Collector Assault Rifle", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 246, name: "Hazard Extractions", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Extract 50 times from Hazard maps", times_completed_index: 1, max_points: 50 },
+    { index_current_points: 247, name: "Volus Adept Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Volus Adept", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 248, name: "Volus Engineer Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Volus Engineer", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 249, name: "Turian Infiltrator Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Turian Infiltrator", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 250, name: "Turian Havoc Soldier Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using Turian Havoc Soldier", times_completed_index: 1, max_points: 10 },
+]
+
+export const BLOODPACK_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 121, name: "Bloodpack Mastery", image: "BloodPak.png", challenge_points: 170, description: "Complete 6 of the Bloodpack Mastery Challenges", times_completed_index: 1, max_points: 6 },
+    { index_current_points: 288, name: "Graal Spike Thrower Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Graal Spike Thrower", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 290, name: "Krogan Sentinel Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Krogan Sentinel", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 291, name: "Krogan Soldier Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Krogan Soldier", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 292, name: "Krogan Vanguard Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Krogan Vanguard", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 293, name: "Vorcha Sentinel Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Vorcha Sentinel", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 294, name: "Vorcha Soldier Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Krogan Sentinel", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 295, name: "Batarian Soldier Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Batarian Soldier", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 296, name: "Batarian Sentinel Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Batarian Sentinel", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 435, name: "Krogan Adept Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Krogan Adept", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 436, name: "Batarian Adept Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Batarian Adept", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 423, name: "Vorcha Hunter Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Vorcha Hunter", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 424, name: "Batarian Vanguard Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Batarian Vanguard", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 687, name: "Krogan Warlord Sentinel Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Krogan Warlord Sentinel", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 297, name: "Ballastic Blade Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 points using the Ballastic Blade", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 298, name: "Submission Net Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 80000 points using the Submission Net", times_completed_index: 1, max_points: 80000 },
+    { index_current_points: 299, name: "Carnage Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 points using the Carnage", times_completed_index: 1, max_points: 50000 },
+]
+
+export const COMMANDO_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 122, name: "Commando Mastery", image: "CmdoMstr.png", challenge_points: 200, description: "Complete 12 of the Commando Mastery Challenges", times_completed_index: 1, max_points: 12 },
+    { index_current_points: 438, name: "Disciple Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Disciple", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 439, name: "Phaeston Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Phaeston", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 440, name: "Scorpion Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Scorpion", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 301, name: "Turian Soldier Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Turian Soldier", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 302, name: "Turian Sentinel Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Turian Sentinel", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 303, name: "Asari Justicar Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Asari Justicar", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 304, name: "Asari Adept Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Asari Adept", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 305, name: "Asari Vanguard Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Asari Vanguard", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 308, name: "Salarian Engineer Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Salarian Engineer", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 309, name: "Salarian Infiltrator Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Salarian Infiltrator", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 425, name: "Turian Havoc Soldier Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Turian Havoc", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 426, name: "Turian Engineer Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Turian Saboteur", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 428, name: "Turian  Infiltrator Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Turian Infiltrator", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 427, name: "Asari Sentinel Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Asari Sentinel", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 429, name: "Asari Infiltrator Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Asari Infiltrator", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 688, name: "Cabal Vanguard Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Cabal Vanguard", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 310, name: "Squad Revives as Council Race", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Revive 50 teammates as an alien Council race", times_completed_index: 1, max_points: 50 },
+    { index_current_points: 311, name: "Turian Proximity Mine Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 points using the Turian Proximity Mine", times_completed_index: 1, max_points: 50000 },
+]
+
+export const MACHINE_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 123, name: "Machine Mastery", image: "MachMstr.png", challenge_points: 170, description: "Complete 8 of the Commando Mastery Challenges", times_completed_index: 1, max_points: 8 },
+    { index_current_points: 312, name: "Geth Pulse Rifle Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Geth Pulse Rifle", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 313, name: "Javelin Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Javelin", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 314, name: "Arc Pistol Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Arc Pistol", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 322, name: "Geth Proximity Mine Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 50000 Points Using the Geth Proximity Mine", times_completed_index: 1, max_points: 50000 },
+    { index_current_points: 317, name: "Female Quarian Infiltrator Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Female Quarian Infiltrator", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 320, name: "Female Quarian Engineer Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Female Quarian Engineer", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 318, name: "Male Quarian Engineer Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Male Quarian Engineer", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 319, name: "Male Quarian Infiltrator Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Male Quarian Infiltrator", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 431, name: "Male Quarian Soldier Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Quarian Soldier", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 316, name: "Geth Engineer Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Geth Engineer", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 430, name: "Geth Trooper Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Geth Trooper", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 437, name: "Geth Infiltrator Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Geth Infiltrator", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 689, name: "Geth Juggernaut Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Geth Juggernaut", times_completed_index: 1, max_points: 200 },
+]
+
+export const OUTSIDER_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 124, name: "Outsider Mastery", image: "Outsider.png", challenge_points: 170, description: "Complete 7 of the Outsider Mastery Challenges", times_completed_index: 1, max_points: 7 },
+    { index_current_points: 441, name: "Raptor Sniper Rifle Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Raptor Sniper Rifle", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 442, name: "Talon Pistol Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Talon Pistol", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 323, name: "Hornet SMG Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Hornet SMG", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 324, name: "Drell Vanguard Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Drell Vanguard", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 325, name: "Drell Adept Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Drell Adept", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 433, name: "Drell Infiltrator Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Drell Infiltrator", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 326, name: "Phoenix Adept Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Phoenix Adept", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 327, name: "Phoenix Vanguard Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Phoenix Vanguard", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 328, name: "Volus Engineer Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Volus Engineer", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 329, name: "Volus Adept Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Volus Adept", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 432, name: "Volus Sentinel Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Volus Sentinel", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 434, name: "Volus Vanguard Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Volus Vanguard", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 686, name: "Collector Adept Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Collector Adept", times_completed_index: 1, max_points: 200 },
+    { index_current_points: 690, name: "Talon Engineer Waves", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Complete 200 waves as a Talon Engineer", times_completed_index: 1, max_points: 200 },
+]
+
+export const RECKONING_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 692, name: "Reckoning Mastery", image: "MstrReckoning.png", challenge_points: 200, description: "Complete 10 of the Reckoning Mastery Challenges", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 693, name: "Collector Adept Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using the Collector Adept", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 694, name: "Krogan Warlord Sentinel Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using the Krogan Warlord Sentinel", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 695, name: "Cabal Vanguard Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using the Cabal Vanguard", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 696, name: "Geth Juggernaut Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using the Geth Juggernaut", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 697, name: "Talon Engineer Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using the Talon Engineer", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 698, name: "EDI Extractions", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Extract 10 times using the EDI", times_completed_index: 1, max_points: 10 },
+    { index_current_points: 699, name: "Lancer Assault Rifle Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Lancer Assault Rifle", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 700, name: "Punisher SMG Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Punisher SMG", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 701, name: "Venom Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Venom Shotgun", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 702, name: "Geth Spitfire Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Geth Spitfire", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 703, name: "Adas Assault Rifle Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Adas Assault Rifle", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 704, name: "Executioner Pistol Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Executioner Pistol", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 705, name: "Suppressor Pistol Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Suppressor Pistol", times_completed_index: 1, max_points: 200000 },
+]
+
+export const CHALLENGE_TYPES_ALIENS: Category<Challenge>[] = [
+    { name: "Resurgence Mastery", values: RESURGENCE_MASTERY_CHALLENGES },
+    { name: "Rebellion Mastery", values: REBELLION_MASTERY_CHALLENGES },
+    { name: "Earth Mastery", values: EARTH_MASTERY_CHALLENGES },
+    { name: "Retaliation Mastery", values: RETALIATION_MASTERY_CHALLENGES },
+    { name: "Bloodpack Mastery", values: BLOODPACK_MASTERY_CHALLENGES },
+    { name: "Commando Mastery", values: COMMANDO_MASTERY_CHALLENGES },
+    { name: "Machine Mastery", values: MACHINE_MASTERY_CHALLENGES },
+    { name: "Outsider Mastery", values: OUTSIDER_MASTERY_CHALLENGES },
+    { name: "Reckoning Mastery", values: RECKONING_MASTERY_CHALLENGES },
+]
+
+
+///////////// WEAPONS
+export const SHOTGUN_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 107, name: "Shotgun Mastery", image: "ShtgMstr.png", challenge_points: 175, description: "Complete 9 of the Shotgun Mastery Challenges", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 145, name: "Katana Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Katana", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 146, name: "Scimitar Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Scimitar", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 147, name: "Eviscerator Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Eviscerator", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 148, name: "Graal Spike Thrower Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Graal Spike Thrower", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 149, name: "Claymore Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Claymore", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 150, name: "Disciple Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Disciple", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 151, name: "Geth Plasma Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Geth Plasma Shotgun", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 152, name: "Wraith Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Wraith", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 153, name: "N7 Crusader Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the N7 Crusader", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 154, name: "Reegar Carbine Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Reegar Carbine", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 155, name: "N7 Piranha Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the N7 Piranha", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 156, name: "Shotgun Medals", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 100 Shotgun Medals", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 614, name: "AT-12 Raider Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the AT-12 Raider", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 718, name: "Venom Shotgun Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Venom", times_completed_index: 1, max_points: 140000 },
+]
+export const ASSAULTRIFLE_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 108, name: "Assault Rifle Mastery", image: "AsltMstr.png", challenge_points: 175, description: "Complete 9 of the Assault Rifle Mastery Challenges", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 158, name: "Avenger AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Avenger", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 159, name: "Phaeston AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Phaeston", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 160, name: "Vindicator AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Vindicator", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 161, name: "Mattock AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Mattock", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 162, name: "Falcon AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Falcon", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 163, name: "Revenant AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Revenant", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 164, name: "Geth Pulse AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Geth Pulse AR", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 165, name: "Saber AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Saber", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 166, name: "Striker AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Striker", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 167, name: "Collector AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Collector AR", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 168, name: "Harrier AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Harrier", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 169, name: "N7 Typhoon AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the N7 Typhoon", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 443, name: "Particle AR Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Particle AR", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 613, name: "Argus AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Argus", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 615, name: "N7 Valkyrie AR AR Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the N7 Valkyrie", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 715, name: "Geth Spitfire AR Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 140000 Points Using the Geth Spitfire", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 716, name: "Adas AR Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 140000 Points Using the Adas AR", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 731, name: "Lancer AR Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 140000 Points Using the Lancer", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 170, name: "Assault Rifle Medals", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 100 Assault Rifle Medals", times_completed_index: 1, max_points: 100 },
+]
+
+export const SNIPERRIFLE_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 111, name: "Sniper Rifle Mastery", image: "SnpMstr.png", challenge_points: 175, description: "Complete 9 of the Sniper Rifle Mastery Challenges", times_completed_index: 1, max_points: 9 },
+    { index_current_points: 172, name: "Mantis Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Mantis", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 173, name: "Viper Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Viper", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 174, name: "Raptor Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Raptor", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 175, name: "Incisor Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Incisor", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 176, name: "M-98 Widow Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the M-98 Widow", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 177, name: "Javelin Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Javelin", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 178, name: "Black Widow Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Black Widow", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 165, name: "Kishock Harpoon Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Kishock Harpoon", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 180, name: "Krysae Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Krysae", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 181, name: "Indra Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Indra", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 182, name: "N7 Valiant Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the N7 Valiant", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 612, name: "Collector SR Use", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 Points Using the Collector SR", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 183, name: "Sniper Rifle Medals", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 100 Sniper Rifle Medals", times_completed_index: 1, max_points: 100 },
+]
+
+export const SMG_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 110, name: "SMG Mastery", image: "SmgMstr.png", challenge_points: 100, description: "Complete 5 of the SMG Mastery Challenges", times_completed_index: 1, max_points: 5 },
+    { index_current_points: 185, name: "Shuriken Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Shuriken", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 186, name: "Tempest Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Tempest", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 187, name: "Locust Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Locust", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 188, name: "Hornet Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Hornet", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 189, name: "Geth Plasma SMG Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Geth Plasma SMG", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 190, name: "N7 Hurricane Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the N7 Hurricane", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 616, name: "Collector SMG Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Collector SMG", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 191, name: "SMG Medals", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 100 SMG Medals", times_completed_index: 1, max_points: 100 },
+]
+
+export const PISTOL_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 109, name: "Pistol Mastery", image: "PstlMstr.png", challenge_points: 155, description: "Complete 8 of the Pistol Mastery Challenges", times_completed_index: 1, max_points: 8 },
+    { index_current_points: 193, name: "Predator Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Predator", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 194, name: "Phalanx Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Phalanx", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 195, name: "Arc Pistol Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Arc Pistol", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 196, name: "Carnifex Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Carnifex", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 197, name: "Scorpion Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Scorpion", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 198, name: "Talon Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Talon", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 199, name: "Paladin Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Paladin", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 200, name: "N7 Eagle Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the N7 Eagle", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 201, name: "Acolyte Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Acolyte", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 719, name: "Executioner Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Executioner", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 732, name: "Suppressor Use", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 140000 Points Using the Suppressor", times_completed_index: 1, max_points: 140000 },
+    { index_current_points: 202, name: "Pistol Medals", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 100 Pistol Medals", times_completed_index: 1, max_points: 100 },
+]
+
+export const COMBAT_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 116, name: "Combat Mastery", image: "CmbtMstr.png", challenge_points: 255, description: "Complete 12 of the Combat Mastery Challenges", times_completed_index: 1, max_points: 12 },
+    { index_current_points: 252, name: "Melee Damage Use 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 250000 points with Melee Attacks", times_completed_index: 1, max_points: 250000 },
+    { index_current_points: 252, name: "Melee Damage Use 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 500000 points with Melee Attacks", times_completed_index: 1, max_points: 500000 },
+    { index_current_points: 252, name: "Melee Damage Use 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 1000000 points with Melee Attacks", times_completed_index: 1, max_points: 1000000 },
+    { index_current_points: 253, name: "Over-cover Grab 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Grab 50 Enemies while in cover", times_completed_index: 1, max_points: 50 },
+    { index_current_points: 253, name: "Over-cover Grab 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Grab 100 Enemies while in cover", times_completed_index: 1, max_points: 100 },
+    { index_current_points: 253, name: "Over-cover Grab 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Grab 250 Enemies while in cover", times_completed_index: 1, max_points: 250 },
+    { index_current_points: 254, name: "Headshots 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Kill 250 Enemies with headshots", times_completed_index: 1, max_points: 250 },
+    { index_current_points: 254, name: "Headshots 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Kill 500 Enemies with headshots", times_completed_index: 1, max_points: 500 },
+    { index_current_points: 254, name: "Headshots 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Kill 1000 Enemies with headshots", times_completed_index: 1, max_points: 1000 },
+    { index_current_points: 255, name: "Grenade Damage Use 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 100000 points with Melee Attacks", times_completed_index: 1, max_points: 100000 },
+    { index_current_points: 255, name: "Grenade Damage Use 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 200000 points with Melee Attacks", times_completed_index: 1, max_points: 200000 },
+    { index_current_points: 255, name: "Grenade Damage Use 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 300000 points with Melee Attacks", times_completed_index: 1, max_points: 300000 },
+]
+
+export const CERBERUS_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 117, name: "Cerberus Mastery", image: "CrbrsMstr.png", challenge_points: 250, description: "Complete 21 of the Cerberus Mastery Challenges", times_completed_index: 1, max_points: 21 },
+    { index_current_points: 258, name: "Cerberus Trooper 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Cerberus Troopers", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 258, name: "Cerberus Trooper 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Cerberus Troopers", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 258, name: "Cerberus Trooper 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Cerberus Troopers", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 259, name: "Centurion 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Centurions", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 259, name: "Centurion 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Centurions", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 259, name: "Centurion 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Centurions", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 260, name: "Nemesis 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Nemesises", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 260, name: "Nemesis 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Nemesises", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 260, name: "Nemesis 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Nemesises", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 261, name: "Guardian 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Guardians", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 261, name: "Guardian 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Guardians", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 261, name: "Guardian 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Guardians", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 262, name: "Atlas 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Atlases", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 262, name: "Atlas 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Atlases", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 262, name: "Atlas 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Atlases", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 263, name: "Phantom 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Phantoms", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 263, name: "Phantom 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Phantoms", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 263, name: "Phantom 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Phantoms", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 264, name: "Dragoon 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Dragoons", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 264, name: "Dragoon 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Dragoons", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 264, name: "Dragoon 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Dragoons", times_completed_index: 1, max_points: 450000 },
+]
+
+export const REAPERS_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 118, name: "Reapers Mastery", image: "ReapMstr.png", challenge_points: 250, description: "Complete 18 of the Reapers Mastery Challenges", times_completed_index: 1, max_points: 18 },
+    { index_current_points: 266, name: "Cannibal 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Cannibals", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 266, name: "Cannibal 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Cannibals", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 266, name: "Cannibal 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Cannibals", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 267, name: "Marauder 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Marauders", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 267, name: "Marauder 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Marauders", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 267, name: "Marauder 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Marauders", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 268, name: "Husk 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Husks", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 268, name: "Husk 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Husks", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 268, name: "Husk 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Husks", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 269, name: "Brute 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Brutes", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 269, name: "Brute 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Brutes", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 269, name: "Brute 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Brutes", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 270, name: "Ravager 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Ravagers", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 270, name: "Ravager 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Ravagers", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 270, name: "Ravager 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Ravagers", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 271, name: "Banshee 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Banshees", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 271, name: "Banshee 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Banshees", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 271, name: "Banshee 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Banshees", times_completed_index: 1, max_points: 450000 },
+]
+
+export const GETH_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 119, name: "Geth Mastery", image: "GethMstr.png", challenge_points: 250, description: "Complete 18 of the Geth Mastery Challenges", times_completed_index: 1, max_points: 18 },
+    { index_current_points: 273, name: "Geth Trooper 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Geth Troopers", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 273, name: "Geth Trooper 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Geth Troopers", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 273, name: "Geth Trooper 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Geth Troopers", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 274, name: "Pyro 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Pyros", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 274, name: "Pyro 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Pyros", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 274, name: "Pyro 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Pyros", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 275, name: "Rocket Trooper 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Rocket Troopers", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 275, name: "Rocket Trooper 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Rocket Troopers", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 275, name: "Rocket Trooper 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Rocket Troopers", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 276, name: "Hunter 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Hunters", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 276, name: "Hunter 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Hunters", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 276, name: "Hunter 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Hunters", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 277, name: "Prime 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Primes", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 277, name: "Prime 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Primes", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 277, name: "Prime 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Primes", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 278, name: "Bomber 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Bombers", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 278, name: "Bomber 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Bombers", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 278, name: "Bomber 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Bombers", times_completed_index: 1, max_points: 450000 },
+]
+
+export const COLLECTORS_MASTERY_CHALLENGES: Challenge[] = [
+    { index_current_points: 120, name: "Collectors Mastery", image: "CollctrMstr.png", challenge_points: 250, description: "Complete 15 of the Geth Mastery Challenges", times_completed_index: 1, max_points: 15 },
+    { index_current_points: 280, name: "Collector Trooper 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Collector Troopers", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 280, name: "Collector Trooper 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Collector Troopers", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 280, name: "Collector Trooper 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Collector Troopers", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 281, name: "Collector Captain 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Collector Captains", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 281, name: "Collector Captain 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Collector Captains", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 281, name: "Collector Captain 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Collector Captains", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 282, name: "Abomination 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Rocket Abominations", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 282, name: "Abomination 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Rocket Abominations", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 282, name: "Abomination 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Rocket Abominations", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 283, name: "Scion 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Scions", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 283, name: "Scion 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Scions", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 283, name: "Scion 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Scions", times_completed_index: 1, max_points: 450000 },
+    { index_current_points: 284, name: "Praetorian 1", image: "OptTeamPrivate.webp", challenge_points: 10, description: "Earn 150000 points by killing Praetorians", times_completed_index: 1, max_points: 150000 },
+    { index_current_points: 284, name: "Praetorian 2", image: "OptTeamPrivate.webp", challenge_points: 20, description: "Earn 300000 points by killing Praetorians", times_completed_index: 1, max_points: 300000 },
+    { index_current_points: 284, name: "Praetorian 3", image: "OptTeamPrivate.webp", challenge_points: 30, description: "Earn 450000 points by killing Praetorians", times_completed_index: 1, max_points: 450000 },
+]
+
+export const CHALLENGE_TYPES_WEAPONS: Category<Challenge>[] = [
+    { name: "Shotgun Mastery", values: SHOTGUN_MASTERY_CHALLENGES },
+    { name: "Assault Rifle Mastery", values: ASSAULTRIFLE_MASTERY_CHALLENGES },
+    { name: "Sniper Rifle Mastery", values: SNIPERRIFLE_MASTERY_CHALLENGES },
+    { name: "SMG Mastery", values: SMG_MASTERY_CHALLENGES },
+    { name: "Pistol Mastery", values: PISTOL_MASTERY_CHALLENGES },
+    { name: "Combat Mastery", values: COMBAT_MASTERY_CHALLENGES },
+    { name: "Cerberus Mastery", values: CERBERUS_MASTERY_CHALLENGES },
+    { name: "Reapers Mastery", values: REAPERS_MASTERY_CHALLENGES },
+    { name: "Geth Mastery", values: GETH_MASTERY_CHALLENGES },
+    { name: "Collectors Mastery", values: COLLECTORS_MASTERY_CHALLENGES },
+]
+
+
+
+//////////////////////////////////////////////////////////// challenges end ////////////////////////////////////////////////////////////////////////////////
+
+// Structure defining a challenge
+export interface Challenge {
+    // Current points progress index in the "Progress" dataset
+    index_current_points: number,
+    // The name of the challenge
+    name: string,
+    // The challenge image
+    image: string,
+    // The ammount of challenge points awarded upon completion
+    challenge_points: number,
+    // The challenge description
+    description: string,
+    // Number of times the challenge has been completed
+    times_completed_index: number,
+    // The max possible points for the challenge
+    max_points: number,
+}
+
 export const ASSAULT_RIFLE_MODS: WeaponMod[] = [
     { level_index: 31, name: "Extended Barrel", image: "AssaultRifleDamage.webp", },
     { level_index: 32, name: "Precision Scope", image: "AssaultRifleAccuracy.webp", },
@@ -583,3 +1166,8 @@ export const FLAGS: Flag[] = [
     { index: 270, name: "Wecome screen" }
 ]
 
+export const CHALLENGES: Category<TieredConsumable>[] = [
+    { name: "Armor", values: ARMOR_CONSUMABLES },
+    { name: "Weapon", values: WEAPON_CONSUMABLES },
+    { name: "Ammo", values: AMMO_CONSUMABLES }
+]

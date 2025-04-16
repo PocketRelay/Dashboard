@@ -4,7 +4,7 @@ import { getSelf, PlayerRole, type PlayerAccount } from "../api/players";
 import { base } from "$app/paths";
 
 // Base url segment based on whether in development mode or not
-const BASE_URL = dev ? "http://localhost/api/" : `${base}/api/`;
+const BASE_URL = dev ? "http://localhost:42000/api/" : `${base}/api/`;
 
 // The API token used to authenticate with the server 
 let token: string | null = null;
@@ -144,6 +144,7 @@ export async function requestInner(config: RequestConfig): Promise<Response> {
     let response: Response;
     try {
         let url = BASE_URL + config.route;
+        console.debug(url);
         response = await fetch(url, init);
     } catch (error) {
         throw new Error("Failed to connect", { cause: error });

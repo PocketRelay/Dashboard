@@ -6,7 +6,6 @@
 <div class="wrapper">
     <div class="heading">
         <h1 class="title">{title}</h1>
-        <span class="ident">POCKET RELAY MANAGER</span>
         {#if text}
             <p class="text">{text}</p>
         {/if}

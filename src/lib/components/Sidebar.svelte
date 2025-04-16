@@ -3,6 +3,8 @@
   import Settings from "svelte-material-icons/Cog.svelte";
   import List from "svelte-material-icons/FormatListNumbered.svelte";
   import Inventory from "svelte-material-icons/Cube.svelte";
+  import Challenges from "svelte-material-icons/StarShooting.svelte";
+  import MPChallenges from "svelte-material-icons/Spotlight.svelte";
   import Classes from "svelte-material-icons/AccountGroup.svelte";
   import AccountMultiple from "svelte-material-icons/AccountMultiple.svelte";
   import Games from "svelte-material-icons/Controller.svelte";
@@ -63,6 +65,24 @@
     >
       <Games class="sidebar-button__icon" />
       <span class="sidebar-button__text">Games</span>
+    </a>
+    <a
+      class="sidebar-button"
+      href="{base}/challenges"
+      class:sidebar-button--selected={$page.route.id ==
+        "/(dashboard)/challenges"}
+    >
+      <Challenges class="sidebar-button__icon" />
+      <span class="sidebar-button__text">Challenges</span>
+    </a>
+    <a
+      class="sidebar-button"
+      href="{base}/mpchallenges"
+      class:sidebar-button--selected={$page.route.id ==
+        "/(dashboard)/mpchallenges"}
+    >
+      <MPChallenges class="sidebar-button__icon" />
+      <span class="sidebar-button__text">MP Challenges</span>
     </a>
 
     {#if $player.role == PlayerRole.Admin || $player.role == PlayerRole.SuperAdmin}

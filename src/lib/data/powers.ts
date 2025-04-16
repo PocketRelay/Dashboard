@@ -23,6 +23,19 @@ export interface Power {
   internalName: string;
 }
 
+export function replaceTemplates(
+  template: string,
+  data: Partial<Record<string, any>>
+) {
+  // Regular expression to match template placeholders like {ATTR_DMG}
+  var regex = /{([^}]+)}/g;
+
+  // Replace placeholders with values from the data object
+  return template.replace(regex, function (match, key) {
+    return data[key] || match; // Replace with value from data or keep the placeholder if not found
+  });
+}
+
 export interface PowerEvolution {
   // Name of the power evolution
   name: string;

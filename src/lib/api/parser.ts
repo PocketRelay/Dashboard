@@ -327,12 +327,8 @@ export interface PlayerCharacterPower {
   powerName: string;
   powerID: number;
   powerProgress: number;
-  rank1: number;
-  rank2: number;
-  rank3: number;
-  rank4: number;
-  rank5: number;
-  rank6: number;
+  powerSelections: PowerSelections;
+
   // Actual name not known but only set to false on the internal game ones like the Rockets
   charPower: boolean;
 
@@ -348,12 +344,7 @@ export function encodePlayerCharacterPower(
       power.powerName,
       power.powerID,
       power.powerProgress.toFixed(4),
-      power.rank1,
-      power.rank2,
-      power.rank3,
-      power.rank4,
-      power.rank5,
-      power.rank6,
+      ...encodePowerSelections(power.powerSelections),
       power.charPower,
     ],
     " "
@@ -380,6 +371,50 @@ export function createDefaultPlayerCharacterPowers(
   return out;
 }
 
+type PowerSelectionPair = [boolean, boolean];
+type PowerSelections = [
+  PowerSelectionPair,
+  PowerSelectionPair,
+  PowerSelectionPair
+];
+
+export function encodePowerSelections(selections: PowerSelections): number[] {
+  const output = [];
+  for (let i = 0; i < 3; i += 1) {
+    const [a, b] = selections[i];
+    const value = i + 1;
+
+    output.push(a ? value : 0);
+    output.push(b ? value : 0);
+  }
+
+  return output;
+}
+
+export function getPowerSelections(
+  index: number,
+  a: number,
+  b: number
+): PowerSelectionPair {
+  const activeValue = index + 1;
+
+  if (a === activeValue) {
+    return [true, false];
+  } else if (b === activeValue) {
+    return [false, true];
+  } else {
+    return [false, false];
+  }
+}
+
+export function createDefaultPowerSelections(): PowerSelections {
+  return [
+    [false, false],
+    [false, false],
+    [false, false],
+  ];
+}
+
 export function createDefaultPlayerCharacterPower(
   power: Power
 ): PlayerCharacterPower {
@@ -387,12 +422,7 @@ export function createDefaultPlayerCharacterPower(
     powerName: power.internalName,
     powerID: power.id,
     powerProgress: 0.0,
-    rank1: 0,
-    rank2: 0,
-    rank3: 0,
-    rank4: 0,
-    rank5: 0,
-    rank6: 0,
+    powerSelections: createDefaultPowerSelections(),
     charPower: true,
     power,
   };
@@ -405,12 +435,7 @@ export function createDefaultPlayerCharacterPowerInternal(
     powerName: power.name,
     powerID: power.id,
     powerProgress: 1.0,
-    rank1: 0,
-    rank2: 0,
-    rank3: 0,
-    rank4: 0,
-    rank5: 0,
-    rank6: 0,
+    powerSelections: createDefaultPowerSelections(),
     charPower: false,
     power: undefined,
   };
@@ -475,12 +500,28 @@ export function parsePlayerCharacterPower(
   }
 
   const powerProgress = parseFloatWithDefault(parts[2]);
-  const rank1 = parseIntWithDefault(parts[3]);
-  const rank2 = parseIntWithDefault(parts[4]);
-  const rank3 = parseIntWithDefault(parts[5]);
-  const rank4 = parseIntWithDefault(parts[6]);
-  const rank5 = parseIntWithDefault(parts[7]);
-  const rank6 = parseIntWithDefault(parts[8]);
+  const powerSelection1 = getPowerSelections(
+    0,
+    parseIntWithDefault(parts[3]),
+    parseIntWithDefault(parts[4])
+  );
+  const powerSelection2 = getPowerSelections(
+    1,
+    parseIntWithDefault(parts[5]),
+    parseIntWithDefault(parts[6])
+  );
+  const powerSelection3 = getPowerSelections(
+    2,
+    parseIntWithDefault(parts[7]),
+    parseIntWithDefault(parts[8])
+  );
+
+  const powerSelections: PowerSelections = [
+    powerSelection1,
+    powerSelection2,
+    powerSelection3,
+  ];
+
   const gamePower = parts[9] === "True";
 
   const power = getPowerByID(powerID);
@@ -489,12 +530,7 @@ export function parsePlayerCharacterPower(
     powerName,
     powerID,
     powerProgress,
-    rank1,
-    rank2,
-    rank3,
-    rank4,
-    rank5,
-    rank6,
+    powerSelections,
     charPower: gamePower,
     power,
   };
@@ -683,7 +719,7 @@ export function getPlayerCharacters(
 
       if (index > nextIndex) nextIndex = index;
 
-      const parsedChar = parsePlayerCharacter(index, data);
+      const parsedChar = parsePlayerCharacter(index, data!);
       if (parsedChar !== null) {
         characters.push(parsedChar);
       } else {
@@ -823,7 +859,7 @@ export function getPlayerClasses(
 
       if (index > nextIndex) nextIndex = index;
 
-      const parsedClass = parsePlayerClass(index, data);
+      const parsedClass = parsePlayerClass(index, data!);
       if (parsedClass !== null) {
         classes.push(parsedClass);
       } else {

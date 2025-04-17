@@ -21,7 +21,10 @@
       disabled={!editable}
     >
       <div class="evolution-icon" data-index={index}>
-        <img src={`/assets/powers/${power.iconSet}.png`} alt={evolution.name} />
+        <img
+          src={`/assets/powers/${power.iconSet}.webp`}
+          alt={evolution.name}
+        />
       </div>
       <p class="evolution-name">{evolution.name}</p>
     </button>

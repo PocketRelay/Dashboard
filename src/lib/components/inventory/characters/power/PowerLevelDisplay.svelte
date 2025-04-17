@@ -10,7 +10,7 @@
   <div>
     <div class="power-icon rank-1">
       <img
-        src={`/assets/powers/${power.iconSet}.png`}
+        src={`/assets/powers/${power.iconSet}.webp`}
         alt={power.evolutions[0].name}
       />
     </div>

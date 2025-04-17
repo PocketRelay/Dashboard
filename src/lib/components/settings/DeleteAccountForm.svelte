@@ -1,44 +1,32 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { clearToken } from "$lib/api/api";
-  import { deleteSelf } from "$lib/api/players";
+  import { deleteSelfRequest } from "$lib/api/players";
   import Dialog from "$lib/components/Dialog.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import Delete from "~icons/ph/trash-fill";
   import { base } from "$app/paths";
   import { createMutation } from "@tanstack/svelte-query";
 
-  // Delete state for account deletion
-  type DeleteState = {
-    // The account password
-    password: string;
-    // Whether the confirm screen is shown
-    showConfirm: boolean;
-  };
-
-  const deleteState: DeleteState = {
-    password: "",
-    showConfirm: false,
-  };
+  let password: string;
+  let showConfirm: boolean;
 
   const deleteMutation = createMutation({
-    mutationFn: async () => {
-      deleteState.showConfirm = false;
+    mutationFn: deleteSelfRequest,
+    onMutate: () => {
+      // Hide the confirm dialog when mutating
+      showConfirm = false;
+    },
 
-      await deleteSelf(deleteState.password);
-
+    onSuccess: () => {
       // Account was deleted update all associated state and redirect to login
       clearToken();
-      await goto(`${base}/login`);
+      goto(`${base}/login`);
     },
   });
-
-  function promptDelete() {
-    deleteState.showConfirm = true;
-  }
 </script>
 
-<form class="form card" on:submit|preventDefault={promptDelete}>
+<form class="form card" on:submit|preventDefault={() => (showConfirm = true)}>
   <h2 class="form__title">
     <Delete class="form__icon" />
     Delete Account
@@ -58,7 +46,7 @@
 </form>
 
 <!-- Account deletion confirmation -->
-<Dialog visible={deleteState.showConfirm}>
+<Dialog visible={showConfirm}>
   <h3>Confirm Account Deletion</h3>
   <p class="text">
     <span class="danger">WARNING:</span> Account Deletion is
@@ -71,7 +59,7 @@
     <input
       class="input__value"
       type="password"
-      bind:value={deleteState.password}
+      bind:value={password}
       required
       autocomplete="current-password"
     />
@@ -79,14 +67,11 @@
   <div class="button-group">
     <button
       class="button button--danger"
-      on:click={() => $deleteMutation.mutate()}
+      on:click={() => $deleteMutation.mutate({ password })}
     >
       Confirm
     </button>
-    <button
-      class="button button--alt"
-      on:click={() => (deleteState.showConfirm = false)}
-    >
+    <button class="button button--alt" on:click={() => (showConfirm = false)}>
       Cancel
     </button>
   </div>

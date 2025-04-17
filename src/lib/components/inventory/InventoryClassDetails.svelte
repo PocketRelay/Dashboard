@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PlayerClass } from "$lib/api/parser";
+  import type { PlayerClass } from "$lib/data/parser";
   import LevelInput from "../inventory/LevelInput.svelte";
 
   export let playerClass: PlayerClass;

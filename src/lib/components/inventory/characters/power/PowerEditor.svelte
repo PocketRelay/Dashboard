@@ -3,7 +3,7 @@
     createDefaultPowerSelections,
     type PlayerCharacterPower,
     type PlayerData,
-  } from "$lib/api/parser";
+  } from "$lib/data/parser";
   import type { Power } from "$lib/data/powers";
   import InventoryCharacterPowerLevel from "./PowerLevelDisplay.svelte";
   import PowerEditorEvolution from "./PowerEditorEvolution.svelte";

@@ -1,51 +1,20 @@
 <script lang="ts">
-  import {
-    parsePlayerChallenges,
-    PLAYER_CHALLENGES_KEY,
-    type PlayerChallenges,
-  } from "$lib/api/parser";
-  import { getPlayerData, type PlayerData } from "$lib/api/players";
-  import { onMount } from "svelte";
+  import { type PlayerChallenges } from "$lib/data/parser/challenges";
   import Loader from "./Loader.svelte";
   import GenerallChallenges from "./mpchallenges/GenerallChallenges.svelte";
   import AliensChallenges from "./mpchallenges/AliensChallenges.svelte";
   import WeaponsChallenges from "./mpchallenges/WeaponsChallenges.svelte";
-
-  export let playerId: number;
-
+    
   let initialLoading: boolean = false;
   let loading: boolean = false;
 
-  let playerChallenges: PlayerChallenges | null = null;
-  let responsAsNumbers: number[] = [];
+  export let playerChallenges: PlayerChallenges;
 
-  async function load() {
-    initialLoading = true;
-    console.debug("Loading MP challenges");
-
-    let responseAsString: PlayerData;
-    try {
-      responseAsString = await getPlayerData(playerId, PLAYER_CHALLENGES_KEY);
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-      initialLoading = false;
-      return;
-    }
-    console.debug("Got from server: " + responseAsString.value);
-    playerChallenges = parsePlayerChallenges(responseAsString.value);
-    if (playerChallenges == null) return;
-
-    responsAsNumbers = playerChallenges.rawnumbers;
-
-    initialLoading = false;
-  }
+  $: responsAsNumbers = playerChallenges?.rawnumbers ?? [];
 
   const TABS: string[] = ["General", "Aliens", "Weapons"];
 
   let tab: string = TABS[0];
-
-  onMount(load);
 </script>
 
 <!-- TODO embedd HTML -->

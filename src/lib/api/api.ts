@@ -8,7 +8,7 @@ const BASE_URL = dev ? "http://localhost:42000/api/" : `${base}/api/`;
 
 // The API token used to authenticate with the server
 let token: string | null = null;
-export const player: Writable<PlayerAccount> = writable(null!);
+export const player: Writable<PlayerAccount | null> = writable(null);
 
 // Local storage key for the token
 const TOKEN_STORAGE_KEY: string = "pr_token";
@@ -20,13 +20,19 @@ const TOKEN_STORAGE_KEY: string = "pr_token";
  *
  * @returns Whether the player is an admin
  */
-export function isAdmin(player: PlayerAccount): boolean {
+export function isAdmin(player: PlayerAccount | null): boolean {
   return (
-    player.role == PlayerRole.Admin || player.role == PlayerRole.SuperAdmin
+    player !== null &&
+    (player.role == PlayerRole.Admin || player.role == PlayerRole.SuperAdmin)
   );
 }
 
-export function isPlayerEditable(self: PlayerAccount, other: PlayerAccount) {
+export function isPlayerEditable(
+  self: PlayerAccount | null,
+  other: PlayerAccount
+) {
+  if (self === null) return false;
+
   // Allow editing all default role accounts
   if (other.role == PlayerRole.Default) {
     return true;
@@ -44,7 +50,7 @@ export function isPlayerEditable(self: PlayerAccount, other: PlayerAccount) {
  * @param value
  */
 export function setToken(value: string) {
-  player.set(null!);
+  player.set(null);
   token = value;
   localStorage.setItem(TOKEN_STORAGE_KEY, value);
 }
@@ -54,7 +60,7 @@ export function setToken(value: string) {
  * localStorage
  */
 export function clearToken() {
-  player.set(null!);
+  player.set(null);
   token = null;
   localStorage.removeItem(TOKEN_STORAGE_KEY);
 }

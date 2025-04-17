@@ -48,13 +48,13 @@
     <BasicInformationForm {player} />
     <ChangePasswordForm {player} />
 
-    {#if $selfPlayer.role == PlayerRole.SuperAdmin && $selfPlayer.id !== playerId}
+    {#if $selfPlayer !== null && $selfPlayer.role == PlayerRole.SuperAdmin && $selfPlayer.id !== playerId}
       <ChangeRoleForm {player} />
     {/if}
 
     <PlayerDataForm {player} />
 
-    {#if $selfPlayer.id !== playerId}
+    {#if $selfPlayer !== null && $selfPlayer.id !== playerId}
       <DeleteAccountForm {player} />
     {/if}
   </div>

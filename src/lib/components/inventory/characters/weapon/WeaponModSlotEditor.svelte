@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type PlayerCharacterWeaponMod } from "$lib/api/parser";
+  import { type PlayerCharacterWeaponMod } from "$lib/data/parser";
   import { Select, type Selected } from "bits-ui";
   import { getWeaponType, type Weapon } from "$lib/data/weapons";
   import { getModsForWeaponType, type WeaponMod } from "$lib/data/weapon_mods";

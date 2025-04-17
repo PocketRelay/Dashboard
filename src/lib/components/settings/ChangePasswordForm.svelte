@@ -1,36 +1,19 @@
 <script lang="ts">
-  import { setSelfPassword } from "$lib/api/players";
+  import { setSelfPasswordRequest } from "$lib/api/players";
   import Dialog from "$lib/components/Dialog.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import Key from "~icons/ph/key-fill";
   import { createMutation } from "@tanstack/svelte-query";
 
-  // Password state adding password fields to the form
-  type PasswordState = {
-    // The current password
-    current: string;
-    // The new password
-    new: string;
-    // The password confirmation value
-    confirm: string;
-    // Show the confirmation screen
-    showConfirm: boolean;
-    // Error
-    error: string | undefined;
-  };
+  let passwordCurrent: string = "";
+  let passwordNew: string = "";
+  let passwordConfirm: string = "";
 
-  const password: PasswordState = {
-    current: "",
-    new: "",
-    confirm: "",
-    showConfirm: false,
-    error: undefined,
-  };
+  let showConfirm: boolean = false;
+  let error: string | undefined = undefined;
 
   const updatePasswordMutation = createMutation({
-    mutationFn: async () => {
-      await setSelfPassword(password.current, password.new);
-    },
+    mutationFn: setSelfPasswordRequest,
   });
 
   /**
@@ -39,23 +22,23 @@
    */
   function promptConfirmChange() {
     // Fail if the passwords don't match
-    if (password.new !== password.confirm) {
-      password.error = "Passwords don't match";
+    if (passwordNew !== passwordConfirm) {
+      error = "Passwords don't match";
       return;
     }
 
     // Don't allow empty password fields
     if (
-      password.new.length <= 0 ||
-      password.confirm.length <= 0 ||
-      password.current.length <= 0
+      passwordNew.length <= 0 ||
+      passwordConfirm.length <= 0 ||
+      passwordCurrent.length <= 0
     ) {
-      password.error = "Passwords cannot be empty";
+      error = "Passwords cannot be empty";
       return;
     }
 
     // Display the confirm dialog
-    password.showConfirm = true;
+    showConfirm = true;
   }
 </script>
 
@@ -67,8 +50,8 @@
   <p class="text">
     Here you can change your account password using your current password
   </p>
-  {#if password.error}
-    <p class="error">{password.error}</p>
+  {#if error}
+    <p class="error">{error}</p>
   {/if}
 
   {#if $updatePasswordMutation.isError}
@@ -84,7 +67,7 @@
     <input
       class="input__value"
       type="password"
-      bind:value={password.current}
+      bind:value={passwordCurrent}
       required
       autocomplete="current-password"
     />
@@ -94,7 +77,7 @@
     <input
       class="input__value"
       type="password"
-      bind:value={password.new}
+      bind:value={passwordNew}
       required
       autocomplete="off"
     />
@@ -104,7 +87,7 @@
     <input
       class="input__value"
       type="password"
-      bind:value={password.confirm}
+      bind:value={passwordConfirm}
       required
       autocomplete="off"
     />
@@ -113,21 +96,23 @@
 </form>
 
 <!-- Password change confirmation -->
-<Dialog visible={password.showConfirm}>
+<Dialog visible={showConfirm}>
   <h3>Confirm Change Password</h3>
   <p class="text">Are you sure you want to change your account password?</p>
 
   <div class="button-group">
     <button
       class="button button--alt"
-      on:click={() => $updatePasswordMutation.mutate()}
+      on:click={() => {
+        $updatePasswordMutation.mutate({
+          current_password: passwordCurrent,
+          new_password: passwordNew,
+        });
+      }}
     >
       Confirm
     </button>
-    <button
-      class="button button--alt"
-      on:click={() => (password.showConfirm = false)}
-    >
+    <button class="button button--alt" on:click={() => (showConfirm = false)}>
       Cancel
     </button>
   </div>

@@ -31,8 +31,6 @@
       );
     },
   });
-
-  console.log("Change");
 </script>
 
 <form
@@ -56,5 +54,5 @@
     {/each}
   </select>
 
-  <button type="submit" class="button">Apply Role</button>
+  <button type="submit" class="button align-start">Apply Role</button>
 </form>

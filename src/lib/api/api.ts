@@ -90,7 +90,7 @@ export async function loadPlayer(): Promise<boolean> {
 
 /**
  * Loads the authorization token from localStorage and clears
- * the active player in preperation for a call to `loadPlayer`
+ * the active player in preparation for a call to `loadPlayer`
  */
 export function loadToken() {
   let localToken: string | null = localStorage.getItem(TOKEN_STORAGE_KEY);

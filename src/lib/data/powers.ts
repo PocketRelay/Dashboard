@@ -2883,7 +2883,7 @@ export const POWERS = createPowers({
         description:
           "Increase detonation damage by {powerDamage}%.\nIncrease damage over time by {dotDamage}%.",
         attributes: {
-          poweDamage: 0.2,
+          powerDamage: 0.2,
           dotDamage: 0.15,
         },
       },
@@ -5112,7 +5112,7 @@ export const POWERS = createPowers({
       {
         name: "Fire Shield",
         description:
-          "Add a flame effect to your omni-shield. Your shield melees will burn enemies and are highly efective against armor.\n\nAdds a fire effect to impacted targets that does {omniShieldFire}% additional damage over {ATTR_TIME} seconds.\n\nApplies fire DoT.",
+          "Add a flame effect to your omni-shield. Your shield melees will burn enemies and are highly effective against armor.\n\nAdds a fire effect to impacted targets that does {omniShieldFire}% additional damage over {ATTR_TIME} seconds.\n\nApplies fire DoT.",
         attributes: {
           omniShieldFire: 0.5,
           ATTR_TIME: 5,
@@ -7047,7 +7047,7 @@ export const POWERS = createPowers({
         name: "Force & Damage",
         description: "Increase damage and force by {powerDamage}%.",
         attributes: {
-          poweDamage: 0.25,
+          powerDamage: 0.25,
           powerForce: 0.25,
         },
       },
@@ -7183,7 +7183,7 @@ export const POWERS = createPowers({
         description:
           "Upgrade missile munitions to increase damage and force by {powerDamage}%.\nIncrease impact radius by {radiusPct}%.",
         attributes: {
-          poweDamage: 1.5,
+          powerDamage: 1.5,
           powerForce: 1.5,
           radiusPct: 3,
         },
@@ -7289,7 +7289,7 @@ export const POWERS = createPowers({
       {
         name: "Homing Grenade",
         description:
-          "Launch this seeking frenade to track down a target, causing a massive explosion on impact.",
+          "Launch this seeking grenade to track down a target, causing a massive explosion on impact.",
         attributes: {
           damage: 800,
           radius: 2,
@@ -7373,7 +7373,7 @@ export const POWERS = createPowers({
       {
         name: "Homing Grenade",
         description:
-          "Launch this seeking frenade to track down a target, causing a massive explosion on impact.",
+          "Launch this seeking grenade to track down a target, causing a massive explosion on impact.",
         attributes: {
           damage: 800,
           radius: 2,
@@ -8342,7 +8342,7 @@ export const POWERS = createPowers({
         name: "Force & Damage",
         description: "Increase damage and force by {powerDamage}%.",
         attributes: {
-          poweDamage: 0.2,
+          powerDamage: 0.2,
           powerForce: 0.2,
         },
       },
@@ -8467,7 +8467,7 @@ export const POWERS = createPowers({
       {
         name: "Enhanced Blades",
         description:
-          "Booost the concentration of venom in the blades to increase direct damage by {powerDamage}% and poison damage by {poisonDamage}%.",
+          "Boost the concentration of venom in the blades to increase direct damage by {powerDamage}% and poison damage by {poisonDamage}%.",
         attributes: {
           powerDamage: 0.4,
           poisonDamage: 0.6,
@@ -8556,7 +8556,7 @@ export const POWERS = createPowers({
         description:
           "Increase damage to barriers, shields, and armored targets by {powerDamageArmor}%.",
         attributes: {
-          poweDamageArmor: 1,
+          powerDamageArmor: 1,
           powerDamageBarrier: 1,
           powerDamageShield: 1,
         },
@@ -8770,7 +8770,7 @@ export const POWERS = createPowers({
       {
         name: "Phase Disruptor",
         description:
-          "Focus the energy of your barrier to fire a high-powered beam at a target from afar.\n\nFireing the beam consumes {ATTR_PCT}% of max barrier.",
+          "Focus the energy of your barrier to fire a high-powered beam at a target from afar.\n\nFiring the beam consumes {ATTR_PCT}% of max barrier.",
         attributes: {
           damage: 400,
           radius: 4,
@@ -13487,7 +13487,7 @@ export const POWERS = createPowers({
         description:
           "Increase the duration of freeze effects by {powerDuration}%.\nDecrease the movement speed of chilled targets by an additional {enemyMovementSpeed}%.",
         attributes: {
-          poweDuration: 0.5,
+          powerDuration: 0.5,
           enemyMovementSpeed: -0.2,
         },
       },
@@ -13581,7 +13581,7 @@ export const POWERS = createPowers({
         description:
           "Increase the duration of freeze effects by {powerDuration}%.\nDecrease the movement speed of chilled targets by an additional {enemyMovementSpeed}%.",
         attributes: {
-          poweDuration: 0.5,
+          powerDuration: 0.5,
           enemyMovementSpeed: -0.2,
         },
       },
@@ -15172,14 +15172,14 @@ export const POWERS = createPowers({
       },
       {
         name: "Force",
-        description: "Increse force by {powerForce}%.",
+        description: "Increase force by {powerForce}%.",
         attributes: {
           powerForce: 0.3,
         },
       },
       {
         name: "Force",
-        description: "Increse force by {powerForce}%.",
+        description: "Increase force by {powerForce}%.",
         attributes: {
           powerForce: 0.4,
         },
@@ -15248,14 +15248,14 @@ export const POWERS = createPowers({
       },
       {
         name: "Force",
-        description: "Increse force by {powerForce}%.",
+        description: "Increase force by {powerForce}%.",
         attributes: {
           powerForce: 0.3,
         },
       },
       {
         name: "Force",
-        description: "Increse force by {powerForce}%.",
+        description: "Increase force by {powerForce}%.",
         attributes: {
           powerForce: 0.4,
         },

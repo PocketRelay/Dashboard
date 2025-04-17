@@ -35,10 +35,7 @@
     backURL="{base}/players"
   >
     <nav class="button-group" slot="actions">
-      <a
-        href={`${base}/players/${playerId}/inventory`}
-        class="button button--dark"
-      >
+      <a href={`${base}/players/${playerId}/inventory`} class="button">
         Edit Inventory
       </a>
     </nav>

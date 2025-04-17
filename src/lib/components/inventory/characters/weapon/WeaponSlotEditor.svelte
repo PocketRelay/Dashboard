@@ -153,12 +153,12 @@
   .weapon {
     display: flex;
     flex-flow: column;
+    flex: auto;
 
     gap: 1rem;
   }
 
   .weapon-slot-button__remove {
-    justify-self: flex-end;
     margin-left: auto;
     background-color: transparent;
     border: 1px solid #444;

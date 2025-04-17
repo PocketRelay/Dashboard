@@ -10,9 +10,9 @@
 </script>
 
 <Tabs.Root>
-  <Tabs.List class="weapon-tabs">
+  <Tabs.List class="tabs">
     {#each WEAPON_CATEGORIES as category}
-      <Tabs.Trigger value={category.name} class="weapon-tab">
+      <Tabs.Trigger value={category.name} class="tab">
         {category.name}
       </Tabs.Trigger>
     {/each}
@@ -51,33 +51,5 @@
     .weapons-grid {
       grid-template-columns: 1fr;
     }
-  }
-
-  :global(.weapon-tabs) {
-    position: relative;
-
-    display: flex;
-    padding: 1rem 0;
-    border-bottom: 1px solid #333;
-    margin-bottom: 1rem;
-  }
-
-  :global(.weapon-tab) {
-    display: flex;
-    flex-flow: column;
-    border: none;
-    background-color: transparent;
-    text-align: center;
-    color: white;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    border: 1px solid transparent;
-  }
-
-  :global(.weapon-tab[data-state="active"]) {
-    background-color: #222;
-    border: 1px solid #333;
-    border-radius: 0.25rem;
   }
 </style>

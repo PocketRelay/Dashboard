@@ -61,7 +61,7 @@
     </button>
   {/if}
 
-  <button class="button button--dark" on:click={() => $query.refetch()}>
+  <button class="button" on:click={() => $query.refetch()}>
     <Refresh
       width={24}
       height={24}
@@ -117,6 +117,9 @@
     flex: auto;
     overflow: auto;
     padding: 1rem;
+    margin: 1rem 0;
+    flex: auto;
+    height: 100%;
   }
 
   .log-text {

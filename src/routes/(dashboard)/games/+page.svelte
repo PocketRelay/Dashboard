@@ -43,7 +43,7 @@
         <GameComponent {game} />
       {/each}
     {:else}
-      <p>No games found</p>
+      <p class="no-games">No games found</p>
     {/if}
   {/if}
 </div>
@@ -54,5 +54,9 @@
     flex-flow: row wrap;
     align-items: flex-start;
     gap: 1rem;
+  }
+
+  .no-games {
+    margin: 1rem 0;
   }
 </style>

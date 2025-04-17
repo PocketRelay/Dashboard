@@ -32,6 +32,7 @@
     align-items: center;
     border-bottom: 1px solid #111;
     flex: auto;
+    margin-bottom: 1rem;
   }
 
   .actions {
@@ -49,18 +50,15 @@
   .heading {
     margin-bottom: 1rem;
     padding-top: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .title {
     font-size: 1.25rem;
+    margin-bottom: 0.25rem;
   }
 
   .text {
-    font-size: 1rem;
-  }
-
-  .title,
-  .text {
-    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
   }
 </style>

@@ -8,10 +8,11 @@
   import InventoryCharacterPowerLevel from "./PowerLevelDisplay.svelte";
   import PowerEditorEvolution from "./PowerEditorEvolution.svelte";
 
+  export let playerData: PlayerData;
   export let powerData: PlayerCharacterPower;
   export let editable: boolean;
 
-  const power: Power = powerData.power!;
+  $: power = powerData.power! as Power;
 
   enum Path {
     A,
@@ -23,6 +24,8 @@
     if (progress < 3.0) {
       powerData.powerSelections = createDefaultPowerSelections();
     }
+
+    playerData = playerData;
   }
 
   function getPathAtIndex(index: number): Path | undefined {
@@ -47,6 +50,7 @@
     setPathAtIndex(index, path);
 
     powerData.powerProgress = progress;
+    playerData = playerData;
   }
 </script>
 
@@ -150,7 +154,8 @@
   .evolutions-wrapper {
     display: flex;
     flex-flow: column;
-    gap: 1rem;
+    gap: 2rem;
+    align-items: flex-start;
   }
 
   .evolution-group {

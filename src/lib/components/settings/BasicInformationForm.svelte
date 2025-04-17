@@ -62,5 +62,5 @@
     <span class="input__label">Email</span>
     <input class="input__value" type="email" bind:value={email} required />
   </label>
-  <button type="submit" class="button">Save Changes</button>
+  <button type="submit" class="button align-start">Save Changes</button>
 </form>

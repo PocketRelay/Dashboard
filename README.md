@@ -10,15 +10,19 @@ This is the dashboard that is embedded into **Pocket Relay** servers
 - User management
 - Account creation, editing, and deletion
 - Leaderboards
+- Player data editing
 - Player data importing, exporting, clearing, and editing
 - Server log management
 
 ## 📸 Screenshots
 
+![Login](./github-assets/login.png)
+![Create](./github-assets/create.png)
 ![Home](./github-assets/home.png)
 ![Leaderboard](./github-assets/leaderboard.png)
 ![Inventory](./github-assets/inventory.png)
-![Classes](./github-assets/classes.png)
+![Inventory](./github-assets/inventory-2.png)
+![Inventory](./github-assets/inventory-3.png)
 ![Games](./github-assets/games.png)
 ![Players](./github-assets/players.png)
 ![Players Editor](./github-assets/players-editor.png)

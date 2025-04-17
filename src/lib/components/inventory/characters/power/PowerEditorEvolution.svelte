@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    replaceTemplates,
-    type Power,
-    type PowerEvolution,
-  } from "$lib/data/powers";
+  import { replaceTemplates, type Power } from "$lib/data/powers";
   import { Tooltip } from "bits-ui";
 
   export let index: number;
@@ -13,7 +9,7 @@
   export let power: Power;
   export let onClickEvolution: VoidFunction;
 
-  const evolution: PowerEvolution = power.evolutions[index];
+  $: evolution = power.evolutions[index];
 </script>
 
 <Tooltip.Root openDelay={100}>

@@ -7,7 +7,7 @@
 
   export let player: PlayerAccount;
 
-  let confirmPasswordInput: HTMLInputElement;
+  let confirmPasswordInput: HTMLInputElement | undefined;
 
   let password: string = "";
   let confirmPassword: string = "";
@@ -21,17 +21,21 @@
     },
   });
 
-  function submit() {
-    if (confirmPasswordInput === undefined) return;
+  $: {
     if (password !== confirmPassword) {
-      confirmPasswordInput.setCustomValidity("Passwords must match");
-      return;
+      confirmPasswordInput?.setCustomValidity("Password must match");
+    } else {
+      confirmPasswordInput?.setCustomValidity("");
     }
-    showConfirm = true;
   }
 </script>
 
-<form class="form card" on:submit|preventDefault={submit}>
+<form
+  class="form card"
+  on:submit|preventDefault={() => {
+    showConfirm = true;
+  }}
+>
   <h2 class="form__title">
     <Key class="form__icon" /> Password
   </h2>
@@ -69,7 +73,7 @@
 
   <button
     type="submit"
-    class="button"
+    class="button align-start"
     disabled={$changePasswordMutation.isPending}
   >
     Change Password
@@ -82,13 +86,10 @@
   <p class="text">Are you sure you want to change this accounts password?</p>
 
   <div class="button-group">
-    <button
-      class="button button--dark"
-      on:click={() => $changePasswordMutation.mutate()}
-    >
+    <button class="button" on:click={() => $changePasswordMutation.mutate()}>
       Confirm
     </button>
-    <button class="button button--dark" on:click={() => (showConfirm = false)}>
+    <button class="button" on:click={() => (showConfirm = false)}>
       Cancel
     </button>
   </div>

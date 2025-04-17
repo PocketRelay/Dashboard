@@ -10,9 +10,9 @@
 </script>
 
 <Tabs.Root let:value>
-  <Tabs.List class="class-tabs">
+  <Tabs.List class="tabs">
     {#each playerData.classes as playerClass}
-      <Tabs.Trigger value={playerClass.name} class="class-tab">
+      <Tabs.Trigger value={playerClass.name} class="tab">
         {playerClass.name}
       </Tabs.Trigger>
     {/each}
@@ -26,33 +26,3 @@
     </Tabs.Content>
   {/each}
 </Tabs.Root>
-
-<style lang="scss">
-  :global(.class-tabs) {
-    position: relative;
-
-    display: flex;
-    padding: 1rem 0;
-    border-bottom: 1px solid #333;
-    margin: 1rem 0;
-  }
-
-  :global(.class-tab) {
-    display: flex;
-    flex-flow: column;
-    border: none;
-    background-color: transparent;
-    text-align: center;
-    color: white;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    border: 1px solid transparent;
-  }
-
-  :global(.class-tab[data-state="active"]) {
-    background-color: #222;
-    border: 1px solid #333;
-    border-radius: 0.25rem;
-  }
-</style>

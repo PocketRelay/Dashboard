@@ -76,7 +76,7 @@
 
   <button
     type="submit"
-    class="button"
+    class="button align-start"
     disabled={$updateBasicMutation.isPending}
   >
     Save Changes

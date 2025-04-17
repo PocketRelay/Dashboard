@@ -3,6 +3,7 @@
   import { Select, type Selected } from "bits-ui";
   import { getWeaponType, type Weapon } from "$lib/data/weapons";
   import { getModsForWeaponType, type WeaponMod } from "$lib/data/weapon_mods";
+  import Delete from "~icons/ph/trash-fill";
 
   export let weapon: Weapon;
 
@@ -77,6 +78,16 @@
             <span class="weapon-mod-select__change">Click to change</span>
           {/if}
         </div>
+
+        <button
+          class="weapon-slot-button__remove"
+          on:click={(event) => {
+            event.preventDefault();
+            onChangeSelected({ value: null });
+          }}
+        >
+          <Delete />
+        </button>
       {:else}
         <span class="weapon-mod-select__name">Unknown Mod</span>
       {/if}
@@ -115,6 +126,18 @@
 </Select.Root>
 
 <style lang="scss">
+  .weapon-slot-button__remove {
+    margin-left: auto;
+    background-color: transparent;
+    border: 1px solid #444;
+    width: 2rem;
+    height: 2rem;
+    color: #fff;
+    border-radius: 0.25rem;
+    line-height: 0;
+    cursor: pointer;
+  }
+
   .weapon-mod-select {
     display: flex;
 
@@ -144,12 +167,12 @@
     flex-flow: row;
     align-items: center;
     gap: 1rem;
+    flex: auto;
 
     background-color: transparent;
     border: 1px solid #444;
     color: white;
     padding: 1rem;
-    padding-right: 2rem;
     cursor: pointer;
     border-radius: 0.25rem;
 

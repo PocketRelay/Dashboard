@@ -10,7 +10,7 @@
   export let tier: number;
   export let editable: boolean;
 
-  const tierName = formatRomanNumeral(tier + 1);
+  $: tierName = formatRomanNumeral(tier + 1);
 
   // Level of the weapon
   $: tierLevel = playerData.base.inventory[index] ?? 0;

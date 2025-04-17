@@ -29,6 +29,7 @@ This is the dashboard that is embedded into **Pocket Relay** servers
 ![Players Editor](./github-assets/players-editor.png)
 ![Server Logs](./github-assets/server-logs.png)
 ![Settings](./github-assets/settings.png)
+![MP Challenges](./github-assets/challenges.png)
 
 ## ⚒ Developing
 

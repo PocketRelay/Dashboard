@@ -13,6 +13,7 @@ This is the dashboard that is embedded into **Pocket Relay** servers
 - Player data editing
 - Player data importing, exporting, clearing, and editing
 - Server log management
+- Sending in-game login codes (Requires users on plugin client)
 
 ## 📸 Screenshots
 
@@ -38,6 +39,12 @@ npm run dev
 
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
+```
+
+Make sure to create a `.env.development` file with the `VITE_SERVER_URL` set to the local server for developing against:
+
+```env
+VITE_SERVER_URL=http://localhost/api/
 ```
 
 ## 🚀 Building

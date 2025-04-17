@@ -2,17 +2,16 @@
   import { goto } from "$app/navigation";
   import { base } from "$app/paths";
   import { setToken } from "$lib/api/api";
-  import { loginRequest } from "$lib/api/auth";
+  import { exchangeLoginCode } from "$lib/api/auth";
   import Loader from "$lib/components/Loader.svelte";
-  import { disableAccountCreation } from "$lib/dashboard.state";
   import { createMutation } from "@tanstack/svelte-query";
+  import { PinInput } from "bits-ui";
 
   // Form fields
-  let email: string = "";
-  let password: string = "";
+  let login_code: string[] = [];
 
   const loginMutation = createMutation({
-    mutationFn: loginRequest,
+    mutationFn: exchangeLoginCode,
     onSuccess: (data) => {
       // Assign the token
       setToken(data.token);
@@ -20,6 +19,8 @@
       goto(`${base}/`);
     },
   });
+
+  $: generatedCode = login_code.map((value) => value.toUpperCase()).join("");
 </script>
 
 {#if $loginMutation.isPending}
@@ -30,49 +31,33 @@
   class="form"
   on:submit|preventDefault={() => {
     $loginMutation.mutate({
-      email,
-      password,
+      login_code: generatedCode,
     });
   }}
 >
-  <h1>Login</h1>
+  <h1>Login Code</h1>
   <span class="ident">POCKET RELAY MANAGER</span>
-  <p class="text">Login to an existing account on the server</p>
+  <p class="text">Enter the code you received in-game to login</p>
   {#if $loginMutation.isError}
     <p class="error">{$loginMutation.error}</p>
   {/if}
 
-  <label class="input">
-    <span class="input__label">Email</span>
-    <input
-      class="input__value"
-      type="email"
-      bind:value={email}
-      required
-      autocomplete="email"
-    />
-  </label>
-
-  <label class="input">
-    <span class="input__label">Password</span>
-    <input
-      class="input__value"
-      type="password"
-      bind:value={password}
-      required
-      autocomplete="current-password"
-    />
-  </label>
-
-  <button type="submit" class="button">Login</button>
-
-  <div class="links">
-    {#if !$disableAccountCreation}
-      <a href="{base}/create" class="annot">Create an account</a>
-    {/if}
-
-    <a href="{base}/request-code" class="annot">Request Code</a>
+  <div class="login-code">
+    <PinInput.Root bind:value={login_code} type="text" placeholder="0">
+      <PinInput.Input />
+      <PinInput.Input />
+      <PinInput.Input />
+      <PinInput.Input />
+      <PinInput.Input />
+      <PinInput.HiddenInput />
+    </PinInput.Root>
   </div>
+
+  <button type="submit" class="button" disabled={generatedCode.length < 5}
+    >Login</button
+  >
+
+  <a href="{base}/login" class="annot">Back to Login</a>
 
   <div class="info">
     <a
@@ -104,11 +89,6 @@
     border-top: 1px solid #333;
   }
 
-  .links {
-    display: flex;
-    justify-content: space-between;
-  }
-
   .form {
     flex: none;
     width: 100%;
@@ -118,5 +98,13 @@
   .button {
     margin-top: 0.5rem;
     font-weight: bold;
+  }
+
+  .login-code {
+    display: flex;
+    justify-content: center;
+    border: 1px solid #444;
+    padding: 1rem;
+    border-radius: 0.25rem;
   }
 </style>

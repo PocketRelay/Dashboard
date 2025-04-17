@@ -10,6 +10,8 @@ export interface PlayerAccount {
   display_name: string;
   // The account role
   role: PlayerRole;
+  // When the player last logged in
+  last_login_at: string | null;
 }
 
 // Different roles available to player accounts

@@ -11,6 +11,7 @@
     useQueryClient,
   } from "@tanstack/svelte-query";
   import PageHeading from "$lib/components/PageHeading.svelte";
+  import dayjs from "dayjs";
 
   let confirmClear: boolean = false;
 
@@ -35,12 +36,14 @@
    */
   function download(data: string) {
     return () => {
+      const currentDate = dayjs().format("DD-MM-YYYY-HH-mm");
+
       const element = document.createElement("a");
       element.setAttribute(
         "href",
         "data:text/plain;charset=utf-8," + encodeURIComponent(data)
       );
-      element.setAttribute("download", "server.log");
+      element.setAttribute("download", `server-${currentDate}.log`);
 
       element.style.display = "none";
       document.body.appendChild(element);

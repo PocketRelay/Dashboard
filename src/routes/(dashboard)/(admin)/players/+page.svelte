@@ -5,6 +5,7 @@
   import Loader from "$lib/components/Loader.svelte";
   import PageHeading from "$lib/components/PageHeading.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
+  import UtcTimestamp from "$lib/components/UtcTimestamp.svelte";
   import { createQuery } from "@tanstack/svelte-query";
   import { writable, type Writable, derived } from "svelte/store";
   import ArrowSquareUpRight from "~icons/ph/arrow-square-up-right-fill";
@@ -44,6 +45,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Role</th>
+        <th>Last Login</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -68,6 +70,11 @@
             </td>
             <td>{entry.email}</td>
             <td>{entry.role}</td>
+            <td>
+              {#if entry.last_login_at !== null}
+                <UtcTimestamp timestamp={entry.last_login_at} />
+              {/if}
+            </td>
             <td>
               {#if isPlayerEditable($player, entry)}
                 <a class="open-link" href={`${base}/players/${entry.id}`}>

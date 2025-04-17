@@ -2,6 +2,7 @@
   import { setPlayerPassword, type PlayerAccount } from "$lib/api/players";
   import Dialog from "$lib/components/Dialog.svelte";
   import Loader from "$lib/components/Loader.svelte";
+  import UtcTimestamp from "$lib/components/UtcTimestamp.svelte";
   import { createMutation } from "@tanstack/svelte-query";
   import Key from "~icons/ph/key-fill";
 
@@ -78,6 +79,12 @@
   >
     Change Password
   </button>
+
+  {#if player.last_login_at !== null}
+    <p class="last-login">
+      Last login at: <UtcTimestamp timestamp={player.last_login_at} />
+    </p>
+  {/if}
 </form>
 
 <!-- Password change confirmation -->
@@ -94,3 +101,9 @@
     </button>
   </div>
 </Dialog>
+
+<style lang="scss">
+  .last-login {
+    color: #999;
+  }
+</style>

@@ -36,6 +36,7 @@
     	"flowbite-svelte": "^0.40.2",
 		"@tanstack/svelte-query": "^5.32.0",
 		"bits-ui": "^0.21.5",
+		"dayjs": "^1.11.11",
 		"lodash": "^4.17.21",
 		"semver-lite": "^0.0.6",
     	"svelte-ux": "^0.62.8"

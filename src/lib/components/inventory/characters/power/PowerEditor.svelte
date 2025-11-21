@@ -11,6 +11,7 @@
     export let playerData: PlayerData;
     export let powerData: PlayerCharacterPower;
     export let editable: boolean;
+    export let availablePoints: number;
 
     $: power = powerData.power! as Power;
 
@@ -19,7 +20,30 @@
         B,
     }
 
+    function isAllowedProgress(
+        availablePoints: number,
+        currentProgress: number,
+        progress: number,
+    ) {
+        const usedPoints = (currentProgress * (currentProgress + 1)) / 2;
+        const nextPoints = (progress * (progress + 1)) / 2;
+
+        const freePoints = availablePoints + usedPoints;
+        const pointsAfter = freePoints - nextPoints;
+        return pointsAfter >= 0;
+    }
+
     function onChoosePowerProgress(progress: number) {
+        if (
+            !isAllowedProgress(
+                availablePoints,
+                powerData.powerProgress,
+                progress,
+            )
+        ) {
+            return;
+        }
+
         if (progress === 1.0 && powerData.powerProgress === 1.0) {
             // Selecting the first box twice will clear it
             powerData.powerProgress = 0.0;
@@ -69,7 +93,12 @@
             active={powerData.powerProgress > 0}
             onClickEvolution={() => onChoosePowerProgress(1.0)}
             {power}
-            {editable}
+            editable={editable &&
+                isAllowedProgress(
+                    availablePoints,
+                    powerData.powerProgress,
+                    1.0,
+                )}
         />
 
         <PowerEditorEvolution
@@ -77,7 +106,12 @@
             active={powerData.powerProgress > 1}
             onClickEvolution={() => onChoosePowerProgress(2.0)}
             {power}
-            {editable}
+            editable={editable &&
+                isAllowedProgress(
+                    availablePoints,
+                    powerData.powerProgress,
+                    2.0,
+                )}
         />
 
         <PowerEditorEvolution
@@ -85,7 +119,12 @@
             active={powerData.powerProgress > 2}
             onClickEvolution={() => onChoosePowerProgress(3.0)}
             {power}
-            {editable}
+            editable={editable &&
+                isAllowedProgress(
+                    availablePoints,
+                    powerData.powerProgress,
+                    3.0,
+                )}
         />
 
         <div class="evolution-group">
@@ -95,7 +134,12 @@
                     getPathAtIndex(0) == Path.A}
                 onClickEvolution={() => onChoosePowerPath(4.0, 0, Path.A)}
                 {power}
-                {editable}
+                editable={editable &&
+                    isAllowedProgress(
+                        availablePoints,
+                        powerData.powerProgress,
+                        4.0,
+                    )}
             />
 
             <PowerEditorEvolution
@@ -104,7 +148,12 @@
                     getPathAtIndex(0) == Path.B}
                 onClickEvolution={() => onChoosePowerPath(4.0, 0, Path.B)}
                 {power}
-                {editable}
+                editable={editable &&
+                    isAllowedProgress(
+                        availablePoints,
+                        powerData.powerProgress,
+                        4.0,
+                    )}
             />
         </div>
 
@@ -115,7 +164,12 @@
                     getPathAtIndex(1) == Path.A}
                 onClickEvolution={() => onChoosePowerPath(5.0, 1, Path.A)}
                 {power}
-                {editable}
+                editable={editable &&
+                    isAllowedProgress(
+                        availablePoints,
+                        powerData.powerProgress,
+                        5.0,
+                    )}
             />
 
             <PowerEditorEvolution
@@ -124,7 +178,12 @@
                     getPathAtIndex(1) == Path.B}
                 onClickEvolution={() => onChoosePowerPath(5.0, 1, Path.B)}
                 {power}
-                {editable}
+                editable={editable &&
+                    isAllowedProgress(
+                        availablePoints,
+                        powerData.powerProgress,
+                        5.0,
+                    )}
             />
         </div>
         <div class="evolution-group">
@@ -134,7 +193,12 @@
                     getPathAtIndex(2) == Path.A}
                 onClickEvolution={() => onChoosePowerPath(6.0, 2, Path.A)}
                 {power}
-                {editable}
+                editable={editable &&
+                    isAllowedProgress(
+                        availablePoints,
+                        powerData.powerProgress,
+                        6.0,
+                    )}
             />
 
             <PowerEditorEvolution
@@ -143,7 +207,12 @@
                     getPathAtIndex(2) == Path.B}
                 onClickEvolution={() => onChoosePowerPath(6.0, 2, Path.B)}
                 {power}
-                {editable}
+                editable={editable &&
+                    isAllowedProgress(
+                        availablePoints,
+                        powerData.powerProgress,
+                        6.0,
+                    )}
             />
         </div>
     </div>

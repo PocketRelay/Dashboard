@@ -63,6 +63,7 @@
         bind:playerData
         bind:playerCharacter={character}
         {editable}
+        classLevel={playerClass.level}
       />
     </Tabs.Content>
   {/each}

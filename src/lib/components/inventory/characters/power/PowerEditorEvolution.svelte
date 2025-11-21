@@ -60,6 +60,10 @@
     }
   }
 
+  .evolution:disabled {
+    cursor: not-allowed;
+  }
+
   .evolution-name {
     font-size: 0.75rem;
     color: white;
